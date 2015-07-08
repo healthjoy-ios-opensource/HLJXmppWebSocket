@@ -50,7 +50,9 @@
 
 static void xmpp_onDidReadRoot(XMPPParser *parser, xmlNodePtr root)
 {
-	if (parser->delegateQueue && [parser->delegate respondsToSelector:@selector(xmppParser:didReadRoot:)])
+    id strongParserDelegate = parser->delegate;
+    
+	if (parser->delegateQueue && [strongParserDelegate respondsToSelector:@selector(xmppParser:didReadRoot:)])
 	{
 		// We first copy the root node.
 		// We do this to allow the delegate to retain and make changes to the reported root
@@ -96,7 +98,8 @@ static void xmpp_onDidReadElement(XMPPParser *parser, xmlNodePtr child)
 	// Note: We want to detach the child from the root even if the delegate method isn't setup.
 	// This prevents the doc from growing infinitely large.
 	
-	if (parser->delegateQueue && [parser->delegate respondsToSelector:@selector(xmppParser:didReadElement:)])
+    id strongParserDelegate = parser->delegate;
+	if (parser->delegateQueue && [strongParserDelegate respondsToSelector:@selector(xmppParser:didReadElement:)])
 	{
 		__strong id theDelegate = parser->delegate;
 		
@@ -402,7 +405,8 @@ static void xmpp_postEndElement(xmlParserCtxt *ctxt)
 	{
 		// End of the root element
 		
-		if (parser->delegateQueue && [parser->delegate respondsToSelector:@selector(xmppParserDidEnd:)])
+        id strongParserDelegate = parser->delegate;
+		if (parser->delegateQueue && [strongParserDelegate respondsToSelector:@selector(xmppParserDidEnd:)])
 		{
 			__strong id theDelegate = parser->delegate;
 			
@@ -423,7 +427,8 @@ static void xmpp_xmlAbortDueToMemoryShortage(xmlParserCtxt *ctxt)
 	
 	xmlStopParser(ctxt);
 	
-	if (parser->delegateQueue && [parser->delegate respondsToSelector:@selector(xmppParser:didFail:)])
+    id strongParserDelegate = parser->delegate;
+	if (parser->delegateQueue && [strongParserDelegate respondsToSelector:@selector(xmppParser:didFail:)])
 	{
 		NSString *errMsg = @"Unable to allocate memory in xmpp parser";
 		NSDictionary *info = @{NSLocalizedDescriptionKey : errMsg};
@@ -801,17 +806,22 @@ static void xmpp_xmlEndElement(void *ctx, const xmlChar *localname,
 		dispatch_async(parserQueue, block);
 }
 
+// TODO : fix the warnings properly
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wimplicit-retain-self"
 - (void)parseData:(NSData *)data
 {
+    id strongDelegate = self->delegate;
+    
 	dispatch_block_t block = ^{ @autoreleasepool {
 	
 		int result = xmlParseChunk(parserCtxt, (const char *)[data bytes], (int)[data length], 0);
 		
 		if (result == 0)
 		{
-			if (delegateQueue && [delegate respondsToSelector:@selector(xmppParserDidParseData:)])
+			if (delegateQueue && [strongDelegate respondsToSelector:@selector(xmppParserDidParseData:)])
 			{
-				__strong id theDelegate = delegate;
+				__strong id theDelegate = strongDelegate;
 				
 				dispatch_async(delegateQueue, ^{ @autoreleasepool {
 					
@@ -821,7 +831,7 @@ static void xmpp_xmlEndElement(void *ctx, const xmlChar *localname,
 		}
 		else
 		{
-			if (delegateQueue && [delegate respondsToSelector:@selector(xmppParser:didFail:)])
+			if (delegateQueue && [strongDelegate respondsToSelector:@selector(xmppParser:didFail:)])
 			{
 				NSError *error;
 				
@@ -858,5 +868,6 @@ static void xmpp_xmlEndElement(void *ctx, const xmlChar *localname,
 		dispatch_async(parserQueue, block);
     }
 }
+#pragma clang diagnostic pop
 
 @end
