@@ -12,15 +12,11 @@
 
 #ifdef __OBJC__
 
-    #if TARGET_OS_IPHONE | TARGET_IPHONE_SIMULATOR
-    #import <KissXML/DDXML.h>
-    #endif
+    #import <XmppFrameworkParsers/XmppFrameworkParsers.h>
 
     #ifdef __cplusplus
     #endif
 #endif
-
-#include <libidn/stringprep.h>
 
 #endif
 
