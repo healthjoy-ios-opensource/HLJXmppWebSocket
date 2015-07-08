@@ -1,0 +1,555 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		7E00D37C1B4D68720031D045 /* libHLJXmppWebSocket.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E00D3701B4D68720031D045 /* libHLJXmppWebSocket.a */; };
+		7E7720EF1B4D79130082FA43 /* NSData+XMPP.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E7720EA1B4D79130082FA43 /* NSData+XMPP.m */; };
+		7E7720F01B4D79130082FA43 /* NSNumber+XMPP.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E7720EC1B4D79130082FA43 /* NSNumber+XMPP.m */; };
+		7E7720F11B4D79130082FA43 /* NSXMLElement+XMPP.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E7720EE1B4D79130082FA43 /* NSXMLElement+XMPP.m */; };
+		7E7B9AB31B4D734300FB15F1 /* XMPPConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E7B9AA21B4D734300FB15F1 /* XMPPConstants.m */; };
+		7E7B9AB41B4D734300FB15F1 /* XMPPParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E7B9AA71B4D734300FB15F1 /* XMPPParser.m */; };
+		7E7B9AB51B4D734300FB15F1 /* XMPPElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E7B9AAA1B4D734300FB15F1 /* XMPPElement.m */; };
+		7E7B9AB61B4D734300FB15F1 /* XMPPIQ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E7B9AAC1B4D734300FB15F1 /* XMPPIQ.m */; };
+		7E7B9AB71B4D734300FB15F1 /* XMPPJID.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E7B9AAE1B4D734300FB15F1 /* XMPPJID.m */; };
+		7E7B9AB81B4D734300FB15F1 /* XMPPMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E7B9AB01B4D734300FB15F1 /* XMPPMessage.m */; };
+		7E7B9AB91B4D734300FB15F1 /* XMPPPresence.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E7B9AB21B4D734300FB15F1 /* XMPPPresence.m */; };
+		7E7B9ABD1B4D739E00FB15F1 /* XMPPStringPrep.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E7B9ABC1B4D739E00FB15F1 /* XMPPStringPrep.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		7E00D37D1B4D68720031D045 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7E00D3681B4D68720031D045 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7E00D36F1B4D68720031D045;
+			remoteInfo = HLJXmppWebSocket;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		7E00D36E1B4D68720031D045 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		7E00D3701B4D68720031D045 /* libHLJXmppWebSocket.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libHLJXmppWebSocket.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		7E00D37B1B4D68720031D045 /* HLJXmppWebSocketTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HLJXmppWebSocketTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7E00D3811B4D68720031D045 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7E7720E71B4D78470082FA43 /* HLJXmppWebSocket.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLJXmppWebSocket.pch; sourceTree = "<group>"; };
+		7E7720E91B4D79130082FA43 /* NSData+XMPP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+XMPP.h"; sourceTree = "<group>"; };
+		7E7720EA1B4D79130082FA43 /* NSData+XMPP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+XMPP.m"; sourceTree = "<group>"; };
+		7E7720EB1B4D79130082FA43 /* NSNumber+XMPP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNumber+XMPP.h"; sourceTree = "<group>"; };
+		7E7720EC1B4D79130082FA43 /* NSNumber+XMPP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNumber+XMPP.m"; sourceTree = "<group>"; };
+		7E7720ED1B4D79130082FA43 /* NSXMLElement+XMPP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSXMLElement+XMPP.h"; sourceTree = "<group>"; };
+		7E7720EE1B4D79130082FA43 /* NSXMLElement+XMPP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSXMLElement+XMPP.m"; sourceTree = "<group>"; };
+		7E7B9A9E1B4D727200FB15F1 /* HLJXmppWebSocket.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLJXmppWebSocket.h; sourceTree = "<group>"; };
+		7E7B9AA11B4D734300FB15F1 /* XMPPConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMPPConstants.h; sourceTree = "<group>"; };
+		7E7B9AA21B4D734300FB15F1 /* XMPPConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMPPConstants.m; sourceTree = "<group>"; };
+		7E7B9AA31B4D734300FB15F1 /* XMPPInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMPPInternal.h; sourceTree = "<group>"; };
+		7E7B9AA41B4D734300FB15F1 /* XMPPLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMPPLogging.h; sourceTree = "<group>"; };
+		7E7B9AA61B4D734300FB15F1 /* XMPPParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMPPParser.h; sourceTree = "<group>"; };
+		7E7B9AA71B4D734300FB15F1 /* XMPPParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMPPParser.m; sourceTree = "<group>"; };
+		7E7B9AA91B4D734300FB15F1 /* XMPPElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMPPElement.h; sourceTree = "<group>"; };
+		7E7B9AAA1B4D734300FB15F1 /* XMPPElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMPPElement.m; sourceTree = "<group>"; };
+		7E7B9AAB1B4D734300FB15F1 /* XMPPIQ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMPPIQ.h; sourceTree = "<group>"; };
+		7E7B9AAC1B4D734300FB15F1 /* XMPPIQ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMPPIQ.m; sourceTree = "<group>"; };
+		7E7B9AAD1B4D734300FB15F1 /* XMPPJID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMPPJID.h; sourceTree = "<group>"; };
+		7E7B9AAE1B4D734300FB15F1 /* XMPPJID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMPPJID.m; sourceTree = "<group>"; };
+		7E7B9AAF1B4D734300FB15F1 /* XMPPMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMPPMessage.h; sourceTree = "<group>"; };
+		7E7B9AB01B4D734300FB15F1 /* XMPPMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMPPMessage.m; sourceTree = "<group>"; };
+		7E7B9AB11B4D734300FB15F1 /* XMPPPresence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMPPPresence.h; sourceTree = "<group>"; };
+		7E7B9AB21B4D734300FB15F1 /* XMPPPresence.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMPPPresence.m; sourceTree = "<group>"; };
+		7E7B9ABB1B4D739E00FB15F1 /* XMPPStringPrep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMPPStringPrep.h; sourceTree = "<group>"; };
+		7E7B9ABC1B4D739E00FB15F1 /* XMPPStringPrep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMPPStringPrep.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		7E00D36D1B4D68720031D045 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7E00D3781B4D68720031D045 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7E00D37C1B4D68720031D045 /* libHLJXmppWebSocket.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		7E00D3671B4D68720031D045 = {
+			isa = PBXGroup;
+			children = (
+				7E7B9A9D1B4D726300FB15F1 /* Sources */,
+				7E00D37F1B4D68720031D045 /* HLJXmppWebSocketTests */,
+				7E00D3711B4D68720031D045 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		7E00D3711B4D68720031D045 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7E00D3701B4D68720031D045 /* libHLJXmppWebSocket.a */,
+				7E00D37B1B4D68720031D045 /* HLJXmppWebSocketTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7E00D37F1B4D68720031D045 /* HLJXmppWebSocketTests */ = {
+			isa = PBXGroup;
+			children = (
+				7E00D3801B4D68720031D045 /* Supporting Files */,
+			);
+			path = HLJXmppWebSocketTests;
+			sourceTree = "<group>";
+		};
+		7E00D3801B4D68720031D045 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				7E00D3811B4D68720031D045 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		7E7720E81B4D79130082FA43 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				7E7720E91B4D79130082FA43 /* NSData+XMPP.h */,
+				7E7720EA1B4D79130082FA43 /* NSData+XMPP.m */,
+				7E7720EB1B4D79130082FA43 /* NSNumber+XMPP.h */,
+				7E7720EC1B4D79130082FA43 /* NSNumber+XMPP.m */,
+				7E7720ED1B4D79130082FA43 /* NSXMLElement+XMPP.h */,
+				7E7720EE1B4D79130082FA43 /* NSXMLElement+XMPP.m */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
+		7E7B9A9D1B4D726300FB15F1 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				7E7B9A9E1B4D727200FB15F1 /* HLJXmppWebSocket.h */,
+				7E7720E71B4D78470082FA43 /* HLJXmppWebSocket.pch */,
+				7E7B9A9F1B4D734300FB15F1 /* XmppFramework */,
+			);
+			name = Sources;
+			sourceTree = "<group>";
+		};
+		7E7B9A9F1B4D734300FB15F1 /* XmppFramework */ = {
+			isa = PBXGroup;
+			children = (
+				7E7720E81B4D79130082FA43 /* Categories */,
+				7E7B9ABA1B4D739E00FB15F1 /* Utilities */,
+				7E7B9AA01B4D734300FB15F1 /* CommonHeaders */,
+				7E7B9AA51B4D734300FB15F1 /* Parser */,
+				7E7B9AA81B4D734300FB15F1 /* StanzaClasses */,
+			);
+			path = XmppFramework;
+			sourceTree = "<group>";
+		};
+		7E7B9AA01B4D734300FB15F1 /* CommonHeaders */ = {
+			isa = PBXGroup;
+			children = (
+				7E7B9AA11B4D734300FB15F1 /* XMPPConstants.h */,
+				7E7B9AA21B4D734300FB15F1 /* XMPPConstants.m */,
+				7E7B9AA31B4D734300FB15F1 /* XMPPInternal.h */,
+				7E7B9AA41B4D734300FB15F1 /* XMPPLogging.h */,
+			);
+			path = CommonHeaders;
+			sourceTree = "<group>";
+		};
+		7E7B9AA51B4D734300FB15F1 /* Parser */ = {
+			isa = PBXGroup;
+			children = (
+				7E7B9AA61B4D734300FB15F1 /* XMPPParser.h */,
+				7E7B9AA71B4D734300FB15F1 /* XMPPParser.m */,
+			);
+			path = Parser;
+			sourceTree = "<group>";
+		};
+		7E7B9AA81B4D734300FB15F1 /* StanzaClasses */ = {
+			isa = PBXGroup;
+			children = (
+				7E7B9AA91B4D734300FB15F1 /* XMPPElement.h */,
+				7E7B9AAA1B4D734300FB15F1 /* XMPPElement.m */,
+				7E7B9AAB1B4D734300FB15F1 /* XMPPIQ.h */,
+				7E7B9AAC1B4D734300FB15F1 /* XMPPIQ.m */,
+				7E7B9AAD1B4D734300FB15F1 /* XMPPJID.h */,
+				7E7B9AAE1B4D734300FB15F1 /* XMPPJID.m */,
+				7E7B9AAF1B4D734300FB15F1 /* XMPPMessage.h */,
+				7E7B9AB01B4D734300FB15F1 /* XMPPMessage.m */,
+				7E7B9AB11B4D734300FB15F1 /* XMPPPresence.h */,
+				7E7B9AB21B4D734300FB15F1 /* XMPPPresence.m */,
+			);
+			path = StanzaClasses;
+			sourceTree = "<group>";
+		};
+		7E7B9ABA1B4D739E00FB15F1 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				7E7B9ABB1B4D739E00FB15F1 /* XMPPStringPrep.h */,
+				7E7B9ABC1B4D739E00FB15F1 /* XMPPStringPrep.m */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		7E00D36F1B4D68720031D045 /* HLJXmppWebSocket */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7E00D3841B4D68720031D045 /* Build configuration list for PBXNativeTarget "HLJXmppWebSocket" */;
+			buildPhases = (
+				7E00D36C1B4D68720031D045 /* Sources */,
+				7E00D36D1B4D68720031D045 /* Frameworks */,
+				7E00D36E1B4D68720031D045 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = HLJXmppWebSocket;
+			productName = HLJXmppWebSocket;
+			productReference = 7E00D3701B4D68720031D045 /* libHLJXmppWebSocket.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		7E00D37A1B4D68720031D045 /* HLJXmppWebSocketTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7E00D3871B4D68720031D045 /* Build configuration list for PBXNativeTarget "HLJXmppWebSocketTests" */;
+			buildPhases = (
+				7E00D3771B4D68720031D045 /* Sources */,
+				7E00D3781B4D68720031D045 /* Frameworks */,
+				7E00D3791B4D68720031D045 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7E00D37E1B4D68720031D045 /* PBXTargetDependency */,
+			);
+			name = HLJXmppWebSocketTests;
+			productName = HLJXmppWebSocketTests;
+			productReference = 7E00D37B1B4D68720031D045 /* HLJXmppWebSocketTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		7E00D3681B4D68720031D045 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0640;
+				ORGANIZATIONNAME = healthjoy;
+				TargetAttributes = {
+					7E00D36F1B4D68720031D045 = {
+						CreatedOnToolsVersion = 6.4;
+					};
+					7E00D37A1B4D68720031D045 = {
+						CreatedOnToolsVersion = 6.4;
+					};
+				};
+			};
+			buildConfigurationList = 7E00D36B1B4D68720031D045 /* Build configuration list for PBXProject "HLJXmppWebSocket" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 7E00D3671B4D68720031D045;
+			productRefGroup = 7E00D3711B4D68720031D045 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				7E00D36F1B4D68720031D045 /* HLJXmppWebSocket */,
+				7E00D37A1B4D68720031D045 /* HLJXmppWebSocketTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		7E00D3791B4D68720031D045 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		7E00D36C1B4D68720031D045 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7E7720F01B4D79130082FA43 /* NSNumber+XMPP.m in Sources */,
+				7E7B9AB81B4D734300FB15F1 /* XMPPMessage.m in Sources */,
+				7E7720EF1B4D79130082FA43 /* NSData+XMPP.m in Sources */,
+				7E7B9AB91B4D734300FB15F1 /* XMPPPresence.m in Sources */,
+				7E7720F11B4D79130082FA43 /* NSXMLElement+XMPP.m in Sources */,
+				7E7B9AB31B4D734300FB15F1 /* XMPPConstants.m in Sources */,
+				7E7B9AB51B4D734300FB15F1 /* XMPPElement.m in Sources */,
+				7E7B9AB71B4D734300FB15F1 /* XMPPJID.m in Sources */,
+				7E7B9AB61B4D734300FB15F1 /* XMPPIQ.m in Sources */,
+				7E7B9ABD1B4D739E00FB15F1 /* XMPPStringPrep.m in Sources */,
+				7E7B9AB41B4D734300FB15F1 /* XMPPParser.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7E00D3771B4D68720031D045 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		7E00D37E1B4D68720031D045 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7E00D36F1B4D68720031D045 /* HLJXmppWebSocket */;
+			targetProxy = 7E00D37D1B4D68720031D045 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		7E00D3821B4D68720031D045 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_SECURITY_FLOATLOOPCOUNTER = YES;
+				CLANG_ANALYZER_SECURITY_INSECUREAPI_RAND = YES;
+				CLANG_ANALYZER_SECURITY_INSECUREAPI_STRCPY = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_ASSIGN_ENUM = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_CXX0X_EXTENSIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_IMPLICIT_SIGN_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_ATOMIC_PROPERTIES = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_RECEIVER_WEAK = YES;
+				CLANG_WARN_OBJC_REPEATED_USE_OF_WEAK = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = HLJXmppWebSocket.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_FOUR_CHARACTER_CONSTANTS = YES;
+				GCC_WARN_NON_VIRTUAL_DESTRUCTOR = YES;
+				GCC_WARN_PEDANTIC = YES;
+				GCC_WARN_SIGN_COMPARE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					..,
+					../KissXML,
+					"$(SDKROOT)/usr/include/libxml2",
+					"$(SRCROOT)/..",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				WARNING_CFLAGS = (
+					"-Wno-dollar-in-identifier-extension",
+					"-Wno-pointer-arith",
+				);
+			};
+			name = Debug;
+		};
+		7E00D3831B4D68720031D045 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_SECURITY_FLOATLOOPCOUNTER = YES;
+				CLANG_ANALYZER_SECURITY_INSECUREAPI_RAND = YES;
+				CLANG_ANALYZER_SECURITY_INSECUREAPI_STRCPY = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_ASSIGN_ENUM = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_CXX0X_EXTENSIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_IMPLICIT_SIGN_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_ATOMIC_PROPERTIES = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_RECEIVER_WEAK = YES;
+				CLANG_WARN_OBJC_REPEATED_USE_OF_WEAK = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = HLJXmppWebSocket.pch;
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_FOUR_CHARACTER_CONSTANTS = YES;
+				GCC_WARN_NON_VIRTUAL_DESTRUCTOR = YES;
+				GCC_WARN_PEDANTIC = YES;
+				GCC_WARN_SIGN_COMPARE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					..,
+					../KissXML,
+					"$(SDKROOT)/usr/include/libxml2",
+					"$(SRCROOT)/..",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+				WARNING_CFLAGS = (
+					"-Wno-dollar-in-identifier-extension",
+					"-Wno-pointer-arith",
+				);
+			};
+			name = Release;
+		};
+		7E00D3851B4D68720031D045 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		7E00D3861B4D68720031D045 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		7E00D3881B4D68720031D045 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = HLJXmppWebSocketTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		7E00D3891B4D68720031D045 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = HLJXmppWebSocketTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		7E00D36B1B4D68720031D045 /* Build configuration list for PBXProject "HLJXmppWebSocket" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7E00D3821B4D68720031D045 /* Debug */,
+				7E00D3831B4D68720031D045 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7E00D3841B4D68720031D045 /* Build configuration list for PBXNativeTarget "HLJXmppWebSocket" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7E00D3851B4D68720031D045 /* Debug */,
+				7E00D3861B4D68720031D045 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7E00D3871B4D68720031D045 /* Build configuration list for PBXNativeTarget "HLJXmppWebSocketTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7E00D3881B4D68720031D045 /* Debug */,
+				7E00D3891B4D68720031D045 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 7E00D3681B4D68720031D045 /* Project object */;
+}

@@ -1,0 +1,27 @@
+//
+//  HLJXmppWebSocket.pch
+//  HLJXmppWebSocket
+//
+//  Created by Oleksandr Dodatko on 7/8/15.
+//  Copyright (c) 2015 healthjoy. All rights reserved.
+//
+
+#ifndef HLJXmppWebSocket_HLJXmppWebSocket_pch
+#define HLJXmppWebSocket_HLJXmppWebSocket_pch
+
+
+#ifdef __OBJC__
+
+    #if TARGET_OS_IPHONE | TARGET_IPHONE_SIMULATOR
+    #import <KissXML/DDXML.h>
+    #endif
+
+    #ifdef __cplusplus
+    #endif
+#endif
+
+#include <libidn/stringprep.h>
+
+#endif
+
+
