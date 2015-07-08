@@ -1,5 +1,6 @@
 # HLJXmppWebSocket
 Implements a limited sub-set of XMPP protocol (RFC3921). The transport is not limited to TCP and is designed with web sockets in mind.
+Designed to work with a web socket enabled fork of [node-xmpp-bosh](https://github.com/gugu/node-xmpp-bosh)
 
 
 ## Supported stanza types :
