@@ -4,7 +4,7 @@ Implements a limited sub-set of XMPP protocol (RFC3921). The transport is not li
 
 ## Supported stanza types :
 
-1) Open 
+#### 1) Open 
 ```xml
 <open 
     xmlns='urn:ietf:params:xml:ns:xmpp-framing' 
@@ -12,9 +12,9 @@ Implements a limited sub-set of XMPP protocol (RFC3921). The transport is not li
     version='1.0'/>
 ```
 
-2) Plain Auth
+#### 2) Plain Auth
 
-3) Presence (in order to enter the room) 
+#### 3) Presence (in order to enter the room) 
 ```xml
 <presence 
     from='user+11952@xmpp-dev.healthjoy.com/6418684331436355063426182' 
@@ -27,7 +27,7 @@ Implements a limited sub-set of XMPP protocol (RFC3921). The transport is not li
 ```
 
 
-4) Message 
+#### 4) Message 
  ```xml
  <message 
     to='070815_114612_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com' 
@@ -40,7 +40,7 @@ Implements a limited sub-set of XMPP protocol (RFC3921). The transport is not li
   </message>
  ```
  
-5) Room history 
+#### 5) Room history 
 ```xml
 <iq type='set' id='3312369'>
     <query xmlns='urn:xmpp:mam:0' queryid='948960'>
