@@ -16,8 +16,15 @@
 /**
  
  @param transport SRWebSocket instance
- @param xmppHost Equal to 'xmpp-dev.healthjoy.com' for GoHealth dev
+
+ @param xmppHost Same for GH and HJ products
+ xmpp-dev.healthjoy.com
+ xmpp-stage.healthjoy.com
+ xmpp.healthjoy.com
+ 
+ 
  @param accessToken See OAuth docs for details
+ 
  @param jidString For example, '070815_113113_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com/Qatest37 Qatest37 (id 11952)'
  
  */
