@@ -9,11 +9,20 @@
 #import <Foundation/Foundation.h>
 
 @protocol HJXmppClient;
+@protocol XMPPMessageProto;
 
 
 @protocol HJXmppClientDelegate <NSObject>
 
 - (void)xmppClent:(id<HJXmppClient>)sender
-didReceiveMessage:(id)message;
+didReceiveMessage:(id<XMPPMessageProto>)message;
+
+- (void)xmppClent:(id<HJXmppClient>)sender
+didSubscribeToRoom:(NSString*)roomJid;
+
+// ???
+- (void)xmppClent:(id<HJXmppClient>)sender
+didFailSubscribingToRoom:(NSString*)roomJid
+            error:(NSError*)error;
 
 @end
