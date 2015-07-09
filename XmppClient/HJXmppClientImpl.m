@@ -8,8 +8,10 @@
 
 #import "HJXmppClientImpl.h"
 
+
 #import "HJTransportForXmpp.h"
 #import "HJTransportForXmppDelegate.h"
+#import "HJXmppClientDelegate.h"
 
 #import "HJAuthenticationStages.h"
 
@@ -75,15 +77,8 @@
 
 - (void)doPerformPlainAuthentication {
 
-    
-    static NSString* messageFormat = @"<open xmlns='urn:ietf:params:xml:ns:xmpp-framing' to='%@' version='1.0'/>";
-    NSString* message = [NSString stringWithFormat: messageFormat, self->_xmppHost];
-    
-    
-    [self->_transport send: message];
+    [self sendStreamRequest];
 }
-
-
 
 - (void)sendMessage:(id)messageFromUser {
     
@@ -118,17 +113,153 @@ didReceiveMessage:(id)rawMessage
         NSAssert(NO, @"Unknown transport response object");
     }
     
-    
+    // Assuming "parseData:" is reenterable
     [self->_xmppParser parseData: rawMessageData];
 }
 
 
 #pragma mark - XMPPParserDelegate
-- (void)xmppParser:(XMPPParser *)sender
+- (void)xmppParser:(id<XMPPParserProto>)sender
     didReadElement:(NSXMLElement *)element {
     
+    // TODO : use TransitionKit or other state machine
+    // https://github.com/blakewatters/TransitionKit
+    switch (self->_authStage)
+    {
+        case XMPP_PLAIN_AUTH__NOT_STARTED:
+        {
+            [self handleAuthStreamOpenResponse: element];
+            break;
+        }
+        case XMPP_PLAIN_AUTH__READY_FOR_AUTH_REQUEST:
+        {
+            [self handleAuthResponse: element];
+            break;
+        }
+            
+            
+        case XMPP_PLAIN_AUTH__COMPLETED:
+        {
+            [self handlePresenseOrMessageElement: element];
+            break;
+        }
+            
+        case XMPP_PLAIN_AUTH__FAILED:
+        default:
+        {
+            // IDLE
+            break;
+        }
+
+    }
+    
+}
+
+
+- (void)sendStreamRequest
+{
+    static NSString* messageFormat = @"<open xmlns='urn:ietf:params:xml:ns:xmpp-framing' to='%@' version='1.0'/>";
+    NSString* message = [NSString stringWithFormat: messageFormat, self->_xmppHost];
     
     
+    [self->_transport send: message];
+}
+
+
+
+#pragma mark - auth stream
+- (void)handleAuthStreamOpenResponse:(NSXMLElement *)element {
+    
+    BOOL isStreamResponse = [[element name] isEqualToString: @"stream:features"];
+
+    if (isStreamResponse)
+    {
+        if (![self isPlainAuthInStreamFeatures: element])
+        {
+            self->_authStage = XMPP_PLAIN_AUTH__FAILED;
+            
+            // TODO : extract error class
+            NSError* error = [NSError errorWithDomain: @"xmpp.websocket"
+                                                 code: 1
+                                             userInfo: nil];
+            
+            id<HJXmppClientDelegate> strongDelegate = self.listenerDelegate;
+            [strongDelegate xmppClentDidFailToAuthenticate: self
+                                                     error: error];
+        }
+        else
+        {
+            self->_authStage = XMPP_PLAIN_AUTH__READY_FOR_AUTH_REQUEST;
+            [self sendAuthRequest];
+        }
+    }
+    else
+    {
+        // IDLE
+    }
+}
+
+- (BOOL)isPlainAuthInStreamFeatures:(NSXMLElement *)element {
+    
+//    <stream:features
+//    xmlns="jabber:client"
+//xmlns:stream="http://etherx.jabber.org/streams"
+//    version="1.0">
+//    
+//    <mechanisms xmlns="urn:ietf:params:xml:ns:xmpp-sasl">
+//    <mechanism>PLAIN</mechanism>
+//    </mechanisms>
+//    
+//    <c
+//    xmlns="http://jabber.org/protocol/caps"
+//    hash="sha-1"
+//    node="http://www.process-one.net/en/ejabberd/"
+//    ver="6LZsyp9FYXV9NHsBmxJvPrDLTQs="/>
+//    
+//    <register xmlns="http://jabber.org/features/iq-register"/>
+//    </stream:features>
+
+    NSError* xpathError = nil;
+    NSArray* authMechanismNodes =
+    [element nodesForXPath: @"stream:features/mechanisms/mechanism[text()='PLAIN']"
+                     error: &xpathError];
+    
+    if (0 == [authMechanismNodes count]) {
+        return NO;
+    }
+    
+    return YES;
+}
+
+- (void)sendAuthRequest {
+
+    static NSString* const messageFormat =
+    @"<auth xmlns='urn:ietf:params:xml:ns:xmpp-sasl' mechanism='PLAIN'>%@</auth>";
+    NSString* message = [NSString stringWithFormat: messageFormat, self->_accessToken];
+    
+    [self->_transport send: message];
+
+}
+
+
+#pragma mark - auth
+- (void)handleAuthResponse:(NSXMLElement *)element {
+
+    BOOL isSuccess = [[element name] isEqualToString: @"success"];
+    if (isSuccess)
+    {
+        self->_authStage = XMPP_PLAIN_AUTH__AUTH_REQUEST_COMPLETED;
+        [self sendStreamRequest];
+    }
+    else
+    {
+        self->_authStage = XMPP_PLAIN_AUTH__FAILED;
+    }
+}
+
+
+#pragma mark - Messages
+- (void)handlePresenseOrMessageElement:(NSXMLElement *)element {
 }
 
 @end
