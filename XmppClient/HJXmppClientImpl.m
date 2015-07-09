@@ -30,6 +30,9 @@
     NSString*              _jidStringFromUserInfo;
     
     HJAuthenticationStages _authStage;
+    
+    BOOL _isStreamResponseReceived;
+    BOOL _isStreamFeaturesResponseReceived;
 }
 
 - (instancetype)initWithTransport:(id<HJTransportForXmpp>)transport
@@ -136,7 +139,11 @@ didReceiveMessage:(id)rawMessage
             [self handleAuthResponse: element];
             break;
         }
-            
+        case XMPP_PLAIN_AUTH__AUTH_REQUEST_COMPLETED:
+        {
+            [self checkForSecondStreamResponse: element];
+            break;
+        }
             
         case XMPP_PLAIN_AUTH__COMPLETED:
         {
@@ -231,6 +238,8 @@ didReceiveMessage:(id)rawMessage
     return YES;
 }
 
+
+#pragma mark - send request
 - (void)sendAuthRequest {
 
     static NSString* const messageFormat =
@@ -240,6 +249,20 @@ didReceiveMessage:(id)rawMessage
     [self->_transport send: message];
 
 }
+
+- (void)sendBindRequest {
+    
+//    <iq type='set' id='_bind_auth_2' xmlns='jabber:client'><bind xmlns='urn:ietf:params:xml:ns:xmpp-bind'/></iq>
+    
+//    <iq id="_bind_auth_2" type="result" xmlns="jabber:client" xmlns:stream="http://etherx.jabber.org/streams" version="1.0"><bind xmlns="urn:ietf:params:xml:ns:xmpp-bind"><jid>user+11952@xmpp-dev.healthjoy.com/21566872121436444488218507</jid></bind></iq>
+    
+}
+
+
+// === session_auth_2
+//<iq type='set' id='_session_auth_2' xmlns='jabber:client'><session xmlns='urn:ietf:params:xml:ns:xmpp-session'/></iq>
+
+//<iq type="result" xmlns="jabber:client" id="_session_auth_2" xmlns:stream="http://etherx.jabber.org/streams" version="1.0"/>
 
 
 #pragma mark - auth
@@ -257,6 +280,32 @@ didReceiveMessage:(id)rawMessage
     }
 }
 
+
+- (void)checkForSecondStreamResponse:(NSXMLElement *)element {
+    
+    if ([[element name] isEqualToString: @"stream:stream"])
+    {
+        //    <stream:stream xmlns="jabber:client" xmlns:stream="http://etherx.jabber.org/streams" id="3277139085" from="xmpp-dev.healthjoy.com" version="1.0" xml:lang="en"/>
+
+        
+        self->_isStreamResponseReceived = YES;
+    }
+    if ([[element name] isEqualToString: @"stream:features"])
+    {
+        //    <stream:features xmlns="jabber:client" xmlns:stream="http://etherx.jabber.org/streams" version="1.0"><bind xmlns="urn:ietf:params:xml:ns:xmpp-bind"/><session xmlns="urn:ietf:params:xml:ns:xmpp-session"/><sm xmlns="urn:xmpp:sm:2"/><sm xmlns="urn:xmpp:sm:3"/><c xmlns="http://jabber.org/protocol/caps" hash="sha-1" node="http://www.process-one.net/en/ejabberd/" ver="6LZsyp9FYXV9NHsBmxJvPrDLTQs="/><register xmlns="http://jabber.org/features/iq-register"/></stream:features>
+
+        
+        self->_isStreamFeaturesResponseReceived = YES;
+    }
+    
+    
+
+    if (self->_isStreamResponseReceived && self->_isStreamFeaturesResponseReceived)
+    {
+        self->_authStage = XMPP_PLAIN_AUTH__READY_FOR_BIND_REQUEST;
+        [self sendBindRequest];
+    }
+}
 
 #pragma mark - Messages
 - (void)handlePresenseOrMessageElement:(NSXMLElement *)element {
