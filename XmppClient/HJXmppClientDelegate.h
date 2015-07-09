@@ -20,6 +20,9 @@ didReceiveMessage:(id<XMPPMessageProto>)message;
 - (void)xmppClent:(id<HJXmppClient>)sender
 didSubscribeToRoom:(NSString*)roomJid;
 
+- (void)xmppClentDidFailToAuthenticate:(id<HJXmppClient>)sender
+                                 error:(NSError*)error;
+
 // ???
 - (void)xmppClent:(id<HJXmppClient>)sender
 didFailSubscribingToRoom:(NSString*)roomJid
