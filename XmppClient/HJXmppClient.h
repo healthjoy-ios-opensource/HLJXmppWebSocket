@@ -24,6 +24,7 @@
 - (void)sendMessage:(id)messageFromUser;
 - (void)sendAttachment:(NSData*)binaryFromUser;
 
+- (void)disconnect;
 
 /**
  Typically a weak property

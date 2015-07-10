@@ -25,19 +25,35 @@
 {
     id<HJTransportForXmpp> _transport            ;
     id<XMPPParserProto>    _xmppParser           ;
+    
+    
     NSString*              _xmppHost             ;
     NSString*              _accessToken          ;
+    
+    
     NSString*              _jidStringFromUserInfo;
     id<XMPPJIDProto>       _jidFromUserInfo      ;
+    
+    
+    NSString*        _jidStringFromBind;
+    id<XMPPJIDProto> _jidFromBind      ;
+    
+    
     
     HJAuthenticationStages _authStage;
     
     BOOL _isStreamResponseReceived        ;
     BOOL _isStreamFeaturesResponseReceived;
+}
+
+- (void)dealloc {
     
+    [self disconnect];
+}
+
+- (void)disconnect {
     
-    NSString*        _jidStringFromBind;
-    id<XMPPJIDProto> _jidFromBind      ;
+    [self->_transport close];
 }
 
 - (instancetype)initWithTransport:(id<HJTransportForXmpp>)transport
