@@ -6,8 +6,13 @@
 //  Copyright (c) 2015 healthjoy. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
 #import <XCTest/XCTest.h>
+
+#import <SocketRocket/SRWebSocket.h>
+#import <XmppFrameworkParsers/XmppFrameworkParsers.h>
+#import <HLJXmppWebSocket/HLJXmppWebSocket.h>
+
 
 @interface HLJWebSocketAuthIntegrationTest : XCTestCase
 
