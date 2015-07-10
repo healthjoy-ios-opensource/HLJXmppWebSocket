@@ -59,9 +59,19 @@
     [super tearDown];
 }
 
-- (void)testExample {
-    // This is an example of a functional test case.
-    XCTAssert(YES, @"Pass");
+- (void)testSuccessfulConnection
+{
+//    XCTestExpectation* semaphore = [[XCTestExpectation alloc] init];
+    
+    NSArray* rooms =
+    @[
+      @"070815_113113_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com/Qatest37 Qatest37 (id 11952)",
+      
+      @"070815_114612_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com/Qatest37 Qatest37 (id 11952)"
+    ];
+    [self->_sut sendPresenseForRooms: rooms];
+    
+    // TODO : add assertions and callbacks
 }
 
 @end
