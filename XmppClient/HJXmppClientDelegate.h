@@ -14,11 +14,16 @@
 
 @protocol HJXmppClientDelegate <NSObject>
 
+
+
 - (void)xmppClent:(id<HJXmppClient>)sender
 didReceiveMessage:(id<XMPPMessageProto>)message;
 
 - (void)xmppClent:(id<HJXmppClient>)sender
 didSubscribeToRoom:(NSString*)roomJid;
+
+
+- (void)xmppClentDidAuthenticate:(id<HJXmppClient>)sender;
 
 - (void)xmppClentDidFailToAuthenticate:(id<HJXmppClient>)sender
                                  error:(NSError*)error;
