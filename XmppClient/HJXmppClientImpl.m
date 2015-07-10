@@ -28,11 +28,16 @@
     NSString*              _xmppHost             ;
     NSString*              _accessToken          ;
     NSString*              _jidStringFromUserInfo;
+    id<XMPPJIDProto>       _jidFromUserInfo      ;
     
     HJAuthenticationStages _authStage;
     
-    BOOL _isStreamResponseReceived;
+    BOOL _isStreamResponseReceived        ;
     BOOL _isStreamFeaturesResponseReceived;
+    
+    
+    NSString*        _jidStringFromBind;
+    id<XMPPJIDProto> _jidFromBind      ;
 }
 
 - (instancetype)initWithTransport:(id<HJTransportForXmpp>)transport
@@ -66,7 +71,9 @@
     
     self->_xmppHost              = host       ;
     self->_accessToken           = accessToken;
+    
     self->_jidStringFromUserInfo = jidString  ;
+    self->_jidFromUserInfo = [XMPPJID jidWithString: jidString];
     
     return self;
 }
@@ -144,13 +151,23 @@ didReceiveMessage:(id)rawMessage
             [self checkForSecondStreamResponse: element];
             break;
         }
+        case XMPP_PLAIN_AUTH__READY_FOR_BIND_REQUEST:
+        {
+            [self handleBindResponse: element];
+            break;
+        }
+        case XMPP_PLAIN_AUTH__READY_FOR_SESSION_REQUEST:
+        {
+            [self handleSessionResponse: element];
+            break;
+        }
+        
             
         case XMPP_PLAIN_AUTH__COMPLETED:
         {
             [self handlePresenseOrMessageElement: element];
             break;
         }
-            
         case XMPP_PLAIN_AUTH__FAILED:
         default:
         {
@@ -252,17 +269,18 @@ didReceiveMessage:(id)rawMessage
 
 - (void)sendBindRequest {
     
-//    <iq type='set' id='_bind_auth_2' xmlns='jabber:client'><bind xmlns='urn:ietf:params:xml:ns:xmpp-bind'/></iq>
-    
-//    <iq id="_bind_auth_2" type="result" xmlns="jabber:client" xmlns:stream="http://etherx.jabber.org/streams" version="1.0"><bind xmlns="urn:ietf:params:xml:ns:xmpp-bind"><jid>user+11952@xmpp-dev.healthjoy.com/21566872121436444488218507</jid></bind></iq>
-    
+    static NSString* const bindRequest =
+    @"<iq type='set' id='_bind_auth_2' xmlns='jabber:client'><bind xmlns='urn:ietf:params:xml:ns:xmpp-bind'/></iq>";
+    [self->_transport send: bindRequest];
 }
 
-
-// === session_auth_2
-//<iq type='set' id='_session_auth_2' xmlns='jabber:client'><session xmlns='urn:ietf:params:xml:ns:xmpp-session'/></iq>
-
-//<iq type="result" xmlns="jabber:client" id="_session_auth_2" xmlns:stream="http://etherx.jabber.org/streams" version="1.0"/>
+- (void)sendSessionRequest {
+    
+    static NSString* const sessionRequest =
+    @"<iq type='set' id='_session_auth_2' xmlns='jabber:client'><session xmlns='urn:ietf:params:xml:ns:xmpp-session'/></iq>";
+    
+    [self->_transport send: sessionRequest];
+}
 
 
 #pragma mark - auth
@@ -280,7 +298,6 @@ didReceiveMessage:(id)rawMessage
     }
 }
 
-
 - (void)checkForSecondStreamResponse:(NSXMLElement *)element {
     
     if ([[element name] isEqualToString: @"stream:stream"])
@@ -290,7 +307,7 @@ didReceiveMessage:(id)rawMessage
         
         self->_isStreamResponseReceived = YES;
     }
-    if ([[element name] isEqualToString: @"stream:features"])
+    else if ([[element name] isEqualToString: @"stream:features"])
     {
         //    <stream:features xmlns="jabber:client" xmlns:stream="http://etherx.jabber.org/streams" version="1.0"><bind xmlns="urn:ietf:params:xml:ns:xmpp-bind"/><session xmlns="urn:ietf:params:xml:ns:xmpp-session"/><sm xmlns="urn:xmpp:sm:2"/><sm xmlns="urn:xmpp:sm:3"/><c xmlns="http://jabber.org/protocol/caps" hash="sha-1" node="http://www.process-one.net/en/ejabberd/" ver="6LZsyp9FYXV9NHsBmxJvPrDLTQs="/><register xmlns="http://jabber.org/features/iq-register"/></stream:features>
 
@@ -304,6 +321,89 @@ didReceiveMessage:(id)rawMessage
     {
         self->_authStage = XMPP_PLAIN_AUTH__READY_FOR_BIND_REQUEST;
         [self sendBindRequest];
+    }
+}
+
+- (void)handleBindResponse:(NSXMLElement *)element {
+    
+    NSString* elementName = [element name];
+    if (![elementName isEqualToString: @"iq"]) {
+        
+        // skip unexpected stanza
+        // TODO : fail or notify sentry
+        return;
+    }
+    
+    
+    // TODO : use protocols instead of XMPPFramework parts
+    XMPPIQ* responseIq = [XMPPIQ iqFromElement: element];
+    if ([responseIq isErrorIQ]) {
+        
+        // TODO : close connections
+        self->_authStage = XMPP_PLAIN_AUTH__FAILED;
+        return;
+    }
+    
+    NSParameterAssert([responseIq isResultIQ]);
+//        <iq
+//            id="_bind_auth_2"
+//            type="result"
+//            xmlns="jabber:client"
+//            xmlns:stream="http://etherx.jabber.org/streams"
+//            version="1.0">
+//                <bind xmlns="urn:ietf:params:xml:ns:xmpp-bind">
+//                    <jid>user+11952@xmpp-dev.healthjoy.com/21566872121436444488218507</jid>
+//                </bind>
+//        </iq>
+    
+    NSXMLElement* bindElement = [responseIq childElement];
+    NSXMLElement* jidElement = [[bindElement children] firstObject];
+    
+    NSString* rawJid = [jidElement stringValue];
+    XMPPJID* jid = [XMPPJID jidWithString: rawJid];
+    
+    self->_jidStringFromBind = rawJid;
+    self->_jidFromBind = jid;
+
+    // Update state
+    {
+        self->_authStage = XMPP_PLAIN_AUTH__READY_FOR_SESSION_REQUEST;
+        [self sendSessionRequest];
+    }
+}
+
+- (void)handleSessionResponse:(NSXMLElement *)element {
+    
+    if (![[element name] isEqualToString: @"iq"]) {
+        
+        // skip non mathcing stanza
+        // TODO : maybe notify sentry
+        return;
+    }
+    
+    
+    //    <iq
+    //        type="result"
+    //        xmlns="jabber:client"
+    //        id="_session_auth_2"
+    //        xmlns:stream="http://etherx.jabber.org/streams"
+    //        version="1.0"/>
+
+    XMPPIQ* parsedIq = [XMPPIQ iqFromElement: element];
+    if ([parsedIq isErrorIQ]) {
+        
+        self->_authStage = XMPP_PLAIN_AUTH__FAILED;
+        return;
+    }
+    
+    NSParameterAssert([parsedIq isResultIQ]);
+    
+    if ([[parsedIq elementID] isEqualToString: @"_session_auth_2"]) {
+        
+        
+        self->_authStage = XMPP_PLAIN_AUTH__COMPLETED;
+        id<HJXmppClientDelegate> strongDelegate = self.listenerDelegate;
+        [strongDelegate xmppClentDidAuthenticate: self];
     }
 }
 
