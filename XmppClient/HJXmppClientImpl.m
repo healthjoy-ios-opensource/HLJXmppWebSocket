@@ -15,6 +15,7 @@
 
 #import "HJAuthenticationStages.h"
 
+#import <LinqToObjectiveC/LinqToObjectiveC.h>
 #import <XmppFrameworkParsers/XmppFrameworkParsers.h>
 
 @interface HJXmppClientImpl() <XMPPParserDelegate, HJTransportForXmppDelegate>
@@ -29,21 +30,21 @@
     
     NSString*              _xmppHost             ;
     NSString*              _accessToken          ;
+    NSArray*               _jidStringsForRooms   ;
     
     
     NSString*              _jidStringFromUserInfo;
     id<XMPPJIDProto>       _jidFromUserInfo      ;
     
     
-    NSString*        _jidStringFromBind;
-    id<XMPPJIDProto> _jidFromBind      ;
+    NSString*              _jidStringFromBind    ;
+    id<XMPPJIDProto>       _jidFromBind          ;
     
     
     
-    HJAuthenticationStages _authStage;
-    
-    BOOL _isStreamResponseReceived        ;
-    BOOL _isStreamFeaturesResponseReceived;
+    HJAuthenticationStages _authStage                       ;
+    BOOL                   _isStreamResponseReceived        ;
+    BOOL                   _isStreamFeaturesResponseReceived;
 }
 
 - (void)dealloc {
@@ -96,14 +97,62 @@
 
 - (void)sendPresenseForRooms:(NSArray*)jidStringsForRooms {
     
-    [self doPerformPlainAuthentication];
+    NSParameterAssert(nil == self->_jidStringsForRooms);
     
-    NSAssert(NO, @"not implemented");
+    self->_jidStringsForRooms = jidStringsForRooms;
+    [self doPerformPlainAuthentication];
 }
 
 - (void)doPerformPlainAuthentication {
 
+    // the callbacks will send the presense stanza
     [self sendStreamRequest];
+}
+
+- (void)doSendPresenseRequests {
+    
+//    LINQSelector jidFromString = ^id<XMPPJIDProto>(NSString* item)
+//    {
+//        return [XMPPJID jidWithString: item];
+//    };
+//    NSArray* jidObjects = [self->_jidStringsForRooms linq_select: jidFromString];
+    
+//    <presence
+//    from='user+11952@xmpp-dev.healthjoy.com/42306807851436517615666295'
+//    to='070815_113113_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com/Qatest37 Qatest37 (id 11952)'
+//    xmlns='jabber:client'>
+//    <x
+//    xmlns='http://jabber.org/protocol/muc'/>
+//    </presence>
+
+    
+    static NSString* const presenseRequestFormat =
+        @"<presence"
+        @"from='%@'"
+        @"to='%@'"
+        @"xmlns='jabber:client'>"
+        @"<x"
+        @"xmlns='http://jabber.org/protocol/muc'/>"
+        @"</presence>";
+
+    
+    LINQSelector jidToPresenseRequest = ^NSString*(NSString* jidItem)
+    {
+        NSString* presenseRequest =
+            [NSString stringWithFormat:
+                 presenseRequestFormat,
+                 self->_jidStringFromBind,
+                 jidItem];
+        
+        return presenseRequest;
+    };
+    NSArray* presenseRequests = [self->_jidStringsForRooms linq_select: jidToPresenseRequest];
+    
+    
+    for (NSString* singlePresenseRequest in presenseRequests)
+    {
+        [self->_transport send: singlePresenseRequest];
+    }
 }
 
 - (void)sendMessage:(id)messageFromUser {
@@ -204,7 +253,6 @@ didReceiveMessage:(id)rawMessage
     
     [self->_transport send: message];
 }
-
 
 
 #pragma mark - auth stream
