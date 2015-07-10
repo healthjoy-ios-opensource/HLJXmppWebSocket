@@ -15,7 +15,7 @@
 
 #import "HJXmppClientImpl.h"
 
-@interface HLJWebSocketAuthIntegrationTest : XCTestCase
+@interface HLJWebSocketAuthIntegrationTest : XCTestCase<HJXmppClientDelegate>
 @end
 
 
@@ -23,6 +23,8 @@
 {
     HJXmppClientImpl* _sut      ;
     SRWebSocket     * _webSocket;
+    
+    XCTestExpectation* _isAuthFinished;
 }
 
 
@@ -46,6 +48,7 @@
                                                         host: @"xmpp-dev.healthjoy.com"
                                                  accessToken: accessToken
                                                userJidString: jid];
+    self->_sut.listenerDelegate = self;
 }
 
 - (void)tearDown {
@@ -61,7 +64,7 @@
 
 - (void)testSuccessfulConnection
 {
-//    XCTestExpectation* semaphore = [[XCTestExpectation alloc] init];
+    self->_isAuthFinished = [[XCTestExpectation alloc] init];
     
     NSArray* rooms =
     @[
@@ -72,6 +75,40 @@
     [self->_sut sendPresenseForRooms: rooms];
     
     // TODO : add assertions and callbacks
+}
+
+
+#pragma mark - HJXmppClientDelegate
+- (void)xmppClent:(id<HJXmppClient>)sender
+didReceiveMessage:(id<XMPPMessageProto>)message
+{
+    
+}
+
+- (void)xmppClent:(id<HJXmppClient>)sender
+didSubscribeToRoom:(NSString*)roomJid
+{
+    
+}
+
+
+- (void)xmppClentDidAuthenticate:(id<HJXmppClient>)sender
+{
+    [self->_isAuthFinished fulfill];
+}
+
+- (void)xmppClentDidFailToAuthenticate:(id<HJXmppClient>)sender
+                                 error:(NSError*)error
+{
+    [self->_isAuthFinished fulfill];
+}
+
+// ???
+- (void)xmppClent:(id<HJXmppClient>)sender
+didFailSubscribingToRoom:(NSString*)roomJid
+            error:(NSError*)error
+{
+    
 }
 
 @end

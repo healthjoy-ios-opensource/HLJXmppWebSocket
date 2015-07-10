@@ -98,9 +98,10 @@
 - (void)sendPresenseForRooms:(NSArray*)jidStringsForRooms {
     
     NSParameterAssert(nil == self->_jidStringsForRooms);
+
     
     self->_jidStringsForRooms = jidStringsForRooms;
-    [self doPerformPlainAuthentication];
+    [self->_transport open];
 }
 
 - (void)doPerformPlainAuthentication {
@@ -190,6 +191,17 @@ didReceiveMessage:(id)rawMessage
     
     // Assuming "parseData:" is reenterable
     [self->_xmppParser parseData: rawMessageData];
+}
+
+- (void)transportDidOpenConnection:(id<HJTransportForXmpp>)webSocket
+{
+    [self doPerformPlainAuthentication];
+}
+
+- (void)transportDidFailToOpenConnection:(id<HJTransportForXmpp>)webSocket
+                               withError:(NSError*)error
+{
+    self->_authStage = XMPP_PLAIN_AUTH__FAILED;
 }
 
 

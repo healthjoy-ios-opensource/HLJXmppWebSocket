@@ -15,6 +15,7 @@
 		7E226F541B50091100E9B35C /* libidn.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E226F531B50091100E9B35C /* libidn.a */; };
 		7E226F581B50095100E9B35C /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E226F571B50095100E9B35C /* libicucore.dylib */; };
 		7E226F671B500E6C00E9B35C /* libLinqToObjectiveC.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E226F601B500E5D00E9B35C /* libLinqToObjectiveC.a */; };
+		7E226F6B1B501BEF00E9B35C /* HLJWebSocketTransportForXmpp.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E226F6A1B501BEF00E9B35C /* HLJWebSocketTransportForXmpp.m */; };
 		7E26D5CF1B4EA94D0030F2DD /* HJXmppClientImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E26D5CE1B4EA94D0030F2DD /* HJXmppClientImpl.m */; };
 		7E45D25E1B500388001F9ECC /* HLJWebSocketAuthIntegrationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E45D25D1B500388001F9ECC /* HLJWebSocketAuthIntegrationTest.m */; };
 /* End PBXBuildFile section */
@@ -161,6 +162,8 @@
 		7E226F531B50091100E9B35C /* libidn.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libidn.a; path = ../../libidn/libidn.a; sourceTree = "<group>"; };
 		7E226F571B50095100E9B35C /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		7E226F591B500E5D00E9B35C /* LinqToObjectiveC.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = LinqToObjectiveC.xcodeproj; path = ../../LinqToObjectiveC/LinqToObjectiveC/LinqToObjectiveC.xcodeproj; sourceTree = "<group>"; };
+		7E226F691B501BEF00E9B35C /* HLJWebSocketTransportForXmpp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HLJWebSocketTransportForXmpp.h; sourceTree = "<group>"; };
+		7E226F6A1B501BEF00E9B35C /* HLJWebSocketTransportForXmpp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HLJWebSocketTransportForXmpp.m; sourceTree = "<group>"; };
 		7E26D5BE1B4EA1E10030F2DD /* XmppFrameworkParsers.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = XmppFrameworkParsers.xcodeproj; path = ../../XmppFrameworkParsers/XmppFrameworkParsers.xcodeproj; sourceTree = "<group>"; };
 		7E26D5C71B4EA2260030F2DD /* HJTransportForXmpp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJTransportForXmpp.h; sourceTree = "<group>"; };
 		7E26D5CD1B4EA94D0030F2DD /* HJXmppClientImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJXmppClientImpl.h; sourceTree = "<group>"; };
@@ -263,6 +266,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		7E226F681B501BD800E9B35C /* WebSocket */ = {
+			isa = PBXGroup;
+			children = (
+				7E226F691B501BEF00E9B35C /* HLJWebSocketTransportForXmpp.h */,
+				7E226F6A1B501BEF00E9B35C /* HLJWebSocketTransportForXmpp.m */,
+			);
+			path = WebSocket;
+			sourceTree = "<group>";
+		};
 		7E45D2621B500525001F9ECC /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -303,6 +315,7 @@
 			children = (
 				7E7B9A9E1B4D727200FB15F1 /* HLJXmppWebSocket.h */,
 				7E7720E71B4D78470082FA43 /* HLJXmppWebSocket.pch */,
+				7E226F681B501BD800E9B35C /* WebSocket */,
 				7E56BF971B4D8A7400D27597 /* XmppClient */,
 			);
 			name = Sources;
@@ -506,6 +519,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7E26D5CF1B4EA94D0030F2DD /* HJXmppClientImpl.m in Sources */,
+				7E226F6B1B501BEF00E9B35C /* HLJWebSocketTransportForXmpp.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

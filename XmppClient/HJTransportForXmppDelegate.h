@@ -12,7 +12,17 @@
 
 @protocol HJTransportForXmppDelegate <NSObject>
 
+- (void)transportDidOpenConnection:(id<HJTransportForXmpp>)webSocket;
+
+- (void)transportDidFailToOpenConnection:(id<HJTransportForXmpp>)webSocket
+                               withError:(NSError*)error;
+
 - (void)transport:(id<HJTransportForXmpp>)webSocket
 didReceiveMessage:(id)message;
+
+- (void)transport:(id<HJTransportForXmpp>)webSocket
+didFailToReceiveMessageWithError:(NSError*)error;
+
+- (void)transportDidCloseConnection:(id<HJTransportForXmpp>)webSocket;
 
 @end
