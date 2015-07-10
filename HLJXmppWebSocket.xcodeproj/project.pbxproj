@@ -33,6 +33,13 @@
 			remoteGlobalIDString = 7E77210B1B4D84130082FA43;
 			remoteInfo = XmppFrameworkParsersTests;
 		};
+		7E4F126F1B4FCB75001F1769 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7E4F126B1B4FCB75001F1769 /* KissXML-iOS.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7E7720B81B4D75740082FA43;
+			remoteInfo = "KissXML-iOS";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -57,6 +64,7 @@
 		7E26D5CE1B4EA94D0030F2DD /* HJXmppClientImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJXmppClientImpl.m; sourceTree = "<group>"; };
 		7E26D5DD1B4EC2390030F2DD /* HJAuthenticationStages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJAuthenticationStages.h; sourceTree = "<group>"; };
 		7E26D5DE1B4EC5780030F2DD /* HJTransportForXmppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJTransportForXmppDelegate.h; sourceTree = "<group>"; };
+		7E4F126B1B4FCB75001F1769 /* KissXML-iOS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "KissXML-iOS.xcodeproj"; path = "../KissXML/KissXML-iOS.xcodeproj"; sourceTree = "<group>"; };
 		7E56BF981B4D8A8700D27597 /* HJXmppClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJXmppClient.h; sourceTree = "<group>"; };
 		7E56BF991B4D8A9D00D27597 /* HJXmppClientDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJXmppClientDelegate.h; sourceTree = "<group>"; };
 		7E7720E71B4D78470082FA43 /* HLJXmppWebSocket.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLJXmppWebSocket.pch; sourceTree = "<group>"; };
@@ -85,6 +93,7 @@
 		7E00D3671B4D68720031D045 = {
 			isa = PBXGroup;
 			children = (
+				7E4F126B1B4FCB75001F1769 /* KissXML-iOS.xcodeproj */,
 				7E26D5BE1B4EA1E10030F2DD /* XmppFrameworkParsers.xcodeproj */,
 				7E7B9A9D1B4D726300FB15F1 /* Sources */,
 				7E00D37F1B4D68720031D045 /* HLJXmppWebSocketTests */,
@@ -122,6 +131,14 @@
 			children = (
 				7E26D5C41B4EA1E10030F2DD /* libXmppFrameworkParsers.a */,
 				7E26D5C61B4EA1E10030F2DD /* XmppFrameworkParsersTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7E4F126C1B4FCB75001F1769 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7E4F12701B4FCB75001F1769 /* libKissXML-iOS.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -217,6 +234,10 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
+					ProductGroup = 7E4F126C1B4FCB75001F1769 /* Products */;
+					ProjectRef = 7E4F126B1B4FCB75001F1769 /* KissXML-iOS.xcodeproj */;
+				},
+				{
 					ProductGroup = 7E26D5BF1B4EA1E10030F2DD /* Products */;
 					ProjectRef = 7E26D5BE1B4EA1E10030F2DD /* XmppFrameworkParsers.xcodeproj */;
 				},
@@ -242,6 +263,13 @@
 			fileType = wrapper.cfbundle;
 			path = XmppFrameworkParsersTests.xctest;
 			remoteRef = 7E26D5C51B4EA1E10030F2DD /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7E4F12701B4FCB75001F1769 /* libKissXML-iOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libKissXML-iOS.a";
+			remoteRef = 7E4F126F1B4FCB75001F1769 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
