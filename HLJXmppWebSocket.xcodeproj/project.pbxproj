@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		7E00D37C1B4D68720031D045 /* libHLJXmppWebSocket.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E00D3701B4D68720031D045 /* libHLJXmppWebSocket.a */; };
 		7E26D5CF1B4EA94D0030F2DD /* HJXmppClientImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E26D5CE1B4EA94D0030F2DD /* HJXmppClientImpl.m */; };
+		7E45D25E1B500388001F9ECC /* HLJWebSocketAuthIntegrationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E45D25D1B500388001F9ECC /* HLJWebSocketAuthIntegrationTest.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +65,7 @@
 		7E26D5CE1B4EA94D0030F2DD /* HJXmppClientImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJXmppClientImpl.m; sourceTree = "<group>"; };
 		7E26D5DD1B4EC2390030F2DD /* HJAuthenticationStages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJAuthenticationStages.h; sourceTree = "<group>"; };
 		7E26D5DE1B4EC5780030F2DD /* HJTransportForXmppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJTransportForXmppDelegate.h; sourceTree = "<group>"; };
+		7E45D25D1B500388001F9ECC /* HLJWebSocketAuthIntegrationTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HLJWebSocketAuthIntegrationTest.m; sourceTree = "<group>"; };
 		7E4F126B1B4FCB75001F1769 /* KissXML-iOS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "KissXML-iOS.xcodeproj"; path = "../KissXML/KissXML-iOS.xcodeproj"; sourceTree = "<group>"; };
 		7E56BF981B4D8A8700D27597 /* HJXmppClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJXmppClient.h; sourceTree = "<group>"; };
 		7E56BF991B4D8A9D00D27597 /* HJXmppClientDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJXmppClientDelegate.h; sourceTree = "<group>"; };
@@ -114,6 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				7E00D3801B4D68720031D045 /* Supporting Files */,
+				7E45D25D1B500388001F9ECC /* HLJWebSocketAuthIntegrationTest.m */,
 			);
 			path = HLJXmppWebSocketTests;
 			sourceTree = "<group>";
@@ -297,6 +300,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7E45D25E1B500388001F9ECC /* HLJWebSocketAuthIntegrationTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
