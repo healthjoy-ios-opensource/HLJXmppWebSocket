@@ -11,6 +11,9 @@
 		7E226F4E1B50060C00E9B35C /* libKissXML-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E45D2661B500525001F9ECC /* libKissXML-iOS.a */; };
 		7E226F4F1B50060C00E9B35C /* libSocketRocket.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E45D2711B500530001F9ECC /* libSocketRocket.a */; };
 		7E226F501B50060C00E9B35C /* libXmppFrameworkParsers.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E226F3F1B50057400E9B35C /* libXmppFrameworkParsers.a */; };
+		7E226F521B5008FB00E9B35C /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E226F511B5008FB00E9B35C /* libxml2.dylib */; };
+		7E226F541B50091100E9B35C /* libidn.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E226F531B50091100E9B35C /* libidn.a */; };
+		7E226F581B50095100E9B35C /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E226F571B50095100E9B35C /* libicucore.dylib */; };
 		7E26D5CF1B4EA94D0030F2DD /* HJXmppClientImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E26D5CE1B4EA94D0030F2DD /* HJXmppClientImpl.m */; };
 		7E45D25E1B500388001F9ECC /* HLJWebSocketAuthIntegrationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E45D25D1B500388001F9ECC /* HLJWebSocketAuthIntegrationTest.m */; };
 /* End PBXBuildFile section */
@@ -125,6 +128,9 @@
 		7E00D3701B4D68720031D045 /* libHLJXmppWebSocket.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libHLJXmppWebSocket.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E00D37B1B4D68720031D045 /* HLJXmppWebSocketTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HLJXmppWebSocketTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E00D3811B4D68720031D045 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7E226F511B5008FB00E9B35C /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		7E226F531B50091100E9B35C /* libidn.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libidn.a; path = ../../libidn/libidn.a; sourceTree = "<group>"; };
+		7E226F571B50095100E9B35C /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		7E26D5BE1B4EA1E10030F2DD /* XmppFrameworkParsers.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = XmppFrameworkParsers.xcodeproj; path = ../../XmppFrameworkParsers/XmppFrameworkParsers.xcodeproj; sourceTree = "<group>"; };
 		7E26D5C71B4EA2260030F2DD /* HJTransportForXmpp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJTransportForXmpp.h; sourceTree = "<group>"; };
 		7E26D5CD1B4EA94D0030F2DD /* HJXmppClientImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJXmppClientImpl.h; sourceTree = "<group>"; };
@@ -152,8 +158,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7E226F581B50095100E9B35C /* libicucore.dylib in Frameworks */,
+				7E226F521B5008FB00E9B35C /* libxml2.dylib in Frameworks */,
 				7E226F4E1B50060C00E9B35C /* libKissXML-iOS.a in Frameworks */,
 				7E226F4F1B50060C00E9B35C /* libSocketRocket.a in Frameworks */,
+				7E226F541B50091100E9B35C /* libidn.a in Frameworks */,
 				7E226F501B50060C00E9B35C /* libXmppFrameworkParsers.a in Frameworks */,
 				7E00D37C1B4D68720031D045 /* libHLJXmppWebSocket.a in Frameworks */,
 			);
@@ -165,6 +174,8 @@
 		7E00D3671B4D68720031D045 = {
 			isa = PBXGroup;
 			children = (
+				7E226F571B50095100E9B35C /* libicucore.dylib */,
+				7E226F511B5008FB00E9B35C /* libxml2.dylib */,
 				7E7B9A9D1B4D726300FB15F1 /* Sources */,
 				7E00D37F1B4D68720031D045 /* HLJXmppWebSocketTests */,
 				7E00D3711B4D68720031D045 /* Products */,
@@ -183,6 +194,7 @@
 		7E00D37F1B4D68720031D045 /* HLJXmppWebSocketTests */ = {
 			isa = PBXGroup;
 			children = (
+				7E226F531B50091100E9B35C /* libidn.a */,
 				7E45D2671B500530001F9ECC /* SocketRocket.xcodeproj */,
 				7E4F126B1B4FCB75001F1769 /* KissXML-iOS.xcodeproj */,
 				7E26D5BE1B4EA1E10030F2DD /* XmppFrameworkParsers.xcodeproj */,
@@ -645,6 +657,10 @@
 				);
 				INFOPLIST_FILE = HLJXmppWebSocketTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/dodikk/projects/WebSocketXmpp-Workspace/libidn",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WARNING_CFLAGS = (
 					"-Wno-dollar-in-identifier-extension",
@@ -664,6 +680,10 @@
 				);
 				INFOPLIST_FILE = HLJXmppWebSocketTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/dodikk/projects/WebSocketXmpp-Workspace/libidn",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WARNING_CFLAGS = (
 					"-Wno-dollar-in-identifier-extension",
