@@ -14,6 +14,7 @@
 		7E226F521B5008FB00E9B35C /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E226F511B5008FB00E9B35C /* libxml2.dylib */; };
 		7E226F541B50091100E9B35C /* libidn.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E226F531B50091100E9B35C /* libidn.a */; };
 		7E226F581B50095100E9B35C /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E226F571B50095100E9B35C /* libicucore.dylib */; };
+		7E226F671B500E6C00E9B35C /* libLinqToObjectiveC.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E226F601B500E5D00E9B35C /* libLinqToObjectiveC.a */; };
 		7E26D5CF1B4EA94D0030F2DD /* HJXmppClientImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E26D5CE1B4EA94D0030F2DD /* HJXmppClientImpl.m */; };
 		7E45D25E1B500388001F9ECC /* HLJWebSocketAuthIntegrationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E45D25D1B500388001F9ECC /* HLJWebSocketAuthIntegrationTest.m */; };
 /* End PBXBuildFile section */
@@ -60,6 +61,34 @@
 			proxyType = 1;
 			remoteGlobalIDString = 7E7720FF1B4D84130082FA43;
 			remoteInfo = XmppFrameworkParsers;
+		};
+		7E226F5F1B500E5D00E9B35C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7E226F591B500E5D00E9B35C /* LinqToObjectiveC.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7E8F43811A8B92D5000F5D01;
+			remoteInfo = LinqToObjectiveC;
+		};
+		7E226F611B500E5D00E9B35C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7E226F591B500E5D00E9B35C /* LinqToObjectiveC.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7EEE35A81AB4711000668C3E;
+			remoteInfo = "LinqToObjectiveC-iOS-dynamic";
+		};
+		7E226F631B500E5D00E9B35C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7E226F591B500E5D00E9B35C /* LinqToObjectiveC.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7EEE35CB1AB4718500668C3E;
+			remoteInfo = "LinqToObjectiveC-iOS-static";
+		};
+		7E226F651B500E6600E9B35C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7E226F591B500E5D00E9B35C /* LinqToObjectiveC.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 7E8F43801A8B92D5000F5D01;
+			remoteInfo = LinqToObjectiveC;
 		};
 		7E45D2651B500525001F9ECC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -131,6 +160,7 @@
 		7E226F511B5008FB00E9B35C /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		7E226F531B50091100E9B35C /* libidn.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libidn.a; path = ../../libidn/libidn.a; sourceTree = "<group>"; };
 		7E226F571B50095100E9B35C /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
+		7E226F591B500E5D00E9B35C /* LinqToObjectiveC.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = LinqToObjectiveC.xcodeproj; path = ../../LinqToObjectiveC/LinqToObjectiveC/LinqToObjectiveC.xcodeproj; sourceTree = "<group>"; };
 		7E26D5BE1B4EA1E10030F2DD /* XmppFrameworkParsers.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = XmppFrameworkParsers.xcodeproj; path = ../../XmppFrameworkParsers/XmppFrameworkParsers.xcodeproj; sourceTree = "<group>"; };
 		7E26D5C71B4EA2260030F2DD /* HJTransportForXmpp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJTransportForXmpp.h; sourceTree = "<group>"; };
 		7E26D5CD1B4EA94D0030F2DD /* HJXmppClientImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJXmppClientImpl.h; sourceTree = "<group>"; };
@@ -158,6 +188,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7E226F671B500E6C00E9B35C /* libLinqToObjectiveC.a in Frameworks */,
 				7E226F581B50095100E9B35C /* libicucore.dylib in Frameworks */,
 				7E226F521B5008FB00E9B35C /* libxml2.dylib in Frameworks */,
 				7E226F4E1B50060C00E9B35C /* libKissXML-iOS.a in Frameworks */,
@@ -174,8 +205,6 @@
 		7E00D3671B4D68720031D045 = {
 			isa = PBXGroup;
 			children = (
-				7E226F571B50095100E9B35C /* libicucore.dylib */,
-				7E226F511B5008FB00E9B35C /* libxml2.dylib */,
 				7E7B9A9D1B4D726300FB15F1 /* Sources */,
 				7E00D37F1B4D68720031D045 /* HLJXmppWebSocketTests */,
 				7E00D3711B4D68720031D045 /* Products */,
@@ -194,7 +223,10 @@
 		7E00D37F1B4D68720031D045 /* HLJXmppWebSocketTests */ = {
 			isa = PBXGroup;
 			children = (
+				7E226F571B50095100E9B35C /* libicucore.dylib */,
+				7E226F511B5008FB00E9B35C /* libxml2.dylib */,
 				7E226F531B50091100E9B35C /* libidn.a */,
+				7E226F591B500E5D00E9B35C /* LinqToObjectiveC.xcodeproj */,
 				7E45D2671B500530001F9ECC /* SocketRocket.xcodeproj */,
 				7E4F126B1B4FCB75001F1769 /* KissXML-iOS.xcodeproj */,
 				7E26D5BE1B4EA1E10030F2DD /* XmppFrameworkParsers.xcodeproj */,
@@ -217,6 +249,16 @@
 			children = (
 				7E226F3F1B50057400E9B35C /* libXmppFrameworkParsers.a */,
 				7E226F411B50057400E9B35C /* XmppFrameworkParsersTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7E226F5A1B500E5D00E9B35C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7E226F601B500E5D00E9B35C /* libLinqToObjectiveC.a */,
+				7E226F621B500E5D00E9B35C /* LinqToObjectiveC.framework */,
+				7E226F641B500E5D00E9B35C /* LinqToObjectiveC.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -297,6 +339,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				7E226F661B500E6600E9B35C /* PBXTargetDependency */,
 				7E226F491B5005FB00E9B35C /* PBXTargetDependency */,
 				7E226F4B1B5005FB00E9B35C /* PBXTargetDependency */,
 				7E226F4D1B5005FB00E9B35C /* PBXTargetDependency */,
@@ -340,6 +383,10 @@
 					ProjectRef = 7E4F126B1B4FCB75001F1769 /* KissXML-iOS.xcodeproj */;
 				},
 				{
+					ProductGroup = 7E226F5A1B500E5D00E9B35C /* Products */;
+					ProjectRef = 7E226F591B500E5D00E9B35C /* LinqToObjectiveC.xcodeproj */;
+				},
+				{
 					ProductGroup = 7E45D2681B500530001F9ECC /* Products */;
 					ProjectRef = 7E45D2671B500530001F9ECC /* SocketRocket.xcodeproj */;
 				},
@@ -369,6 +416,27 @@
 			fileType = wrapper.cfbundle;
 			path = XmppFrameworkParsersTests.xctest;
 			remoteRef = 7E226F401B50057400E9B35C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7E226F601B500E5D00E9B35C /* libLinqToObjectiveC.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libLinqToObjectiveC.a;
+			remoteRef = 7E226F5F1B500E5D00E9B35C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7E226F621B500E5D00E9B35C /* LinqToObjectiveC.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = LinqToObjectiveC.framework;
+			remoteRef = 7E226F611B500E5D00E9B35C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7E226F641B500E5D00E9B35C /* LinqToObjectiveC.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = LinqToObjectiveC.framework;
+			remoteRef = 7E226F631B500E5D00E9B35C /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		7E45D2661B500525001F9ECC /* libKissXML-iOS.a */ = {
@@ -471,6 +539,11 @@
 			isa = PBXTargetDependency;
 			name = XmppFrameworkParsers;
 			targetProxy = 7E226F4C1B5005FB00E9B35C /* PBXContainerItemProxy */;
+		};
+		7E226F661B500E6600E9B35C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = LinqToObjectiveC;
+			targetProxy = 7E226F651B500E6600E9B35C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
