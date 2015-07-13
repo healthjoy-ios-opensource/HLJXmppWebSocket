@@ -128,12 +128,12 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
 
     
     static NSString* const presenseRequestFormat =
-        @"<presence"
-        @"from='%@'"
-        @"to='%@'"
-        @"xmlns='jabber:client'>"
-        @"<x"
-        @"xmlns='http://jabber.org/protocol/muc'/>"
+        @"<presence \n"
+        @"\t from='%@' \n"
+        @"\t to='%@'   \n"
+        @"\t xmlns='jabber:client'> \n"
+        @"\t\t <x \n"
+        @"\t\t\t\t xmlns='http://jabber.org/protocol/muc'/> \n"
         @"</presence>";
 
     
@@ -558,11 +558,22 @@ didFailToReceiveMessageWithError:error];
         self->_authStage = XMPP_PLAIN_AUTH__COMPLETED;
         id<HJXmppClientDelegate> strongDelegate = self.listenerDelegate;
         [strongDelegate xmppClentDidAuthenticate: self];
+        
+        
+        [self doSendPresenseRequests];
     }
 }
 
 #pragma mark - Messages
 - (void)handlePresenseOrMessageElement:(NSXMLElement *)element {
+    
+    NSLog(@"handlePresenseOrMessageElement: %@", element);
+}
+
+- (void)handlePresense:(NSXMLElement *)element {
+}
+
+- (void)handleMessage:(NSXMLElement *)element {
 }
 
 @end
