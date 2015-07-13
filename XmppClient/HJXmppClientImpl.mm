@@ -15,6 +15,7 @@
 
 #import "HJAuthenticationStages.h"
 
+#define NSLog(...)
 
 typedef std::set< __strong id<XMPPParserProto> > XmppParsersSet;
 typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaRootForParserMap;
@@ -32,7 +33,9 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     
     NSString*              _xmppHost             ;
     NSString*              _accessToken          ;
-    NSArray*               _jidStringsForRooms   ;
+    NSArray *              _jidStringsForRooms   ;
+    
+    NSMutableSet*          _pendingRooms;
     
     
     NSString*              _jidStringFromUserInfo;
@@ -150,6 +153,7 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     NSArray* presenseRequests = [self->_jidStringsForRooms linq_select: jidToPresenseRequest];
     
     
+    self->_pendingRooms = [NSMutableSet setWithArray: self->_jidStringsForRooms];
     for (NSString* singlePresenseRequest in presenseRequests)
     {
         [self->_transport send: singlePresenseRequest];
@@ -568,12 +572,50 @@ didFailToReceiveMessageWithError:error];
 - (void)handlePresenseOrMessageElement:(NSXMLElement *)element {
     
     NSLog(@"handlePresenseOrMessageElement: %@", element);
+    
+    BOOL isPresense = [[element name] isEqualToString: @"presence"];
+    BOOL isMessage  = [[element name] isEqualToString: @"message" ];
+
+    if (isPresense)
+    {
+        XMPPPresence* presenseResponse = [XMPPPresence presenceFromElement: element];
+        [self handlePresense: presenseResponse];
+    }
+    else if (isMessage)
+    {
+        XMPPMessage* messageResponse = [XMPPMessage messageFromElement: element];
+        [self handleMessage: messageResponse];
+    }
+    else
+    {
+        // IDLE
+        // Skipping other response stanza
+    }
 }
 
-- (void)handlePresense:(NSXMLElement *)element {
+- (void)handlePresense:(id<XmppPresenceProto>)element
+{
+    id<HJXmppClientDelegate> strongDelegate = self.listenerDelegate;
+    
+    NSString* roomFromResponse = [element fromStr];
+    BOOL isRoomInPendingList = [self->_pendingRooms containsObject: roomFromResponse];
+    
+    if (isRoomInPendingList)
+    {
+        [strongDelegate xmppClent: self
+               didSubscribeToRoom: roomFromResponse];
+        
+        [self->_pendingRooms removeObject: roomFromResponse];
+    }
+    
+    if (0 == [self->_pendingRooms count])
+    {
+
+        [strongDelegate xmppClentDidSubscribeToAllRooms: self];
+    }
 }
 
-- (void)handleMessage:(NSXMLElement *)element {
+- (void)handleMessage:(id<XMPPMessageProto>)element {
 }
 
 @end
