@@ -37,13 +37,18 @@ static const NSTimeInterval TIMEOUT_FOR_TEST = 10.f;
     XCTestExpectation* _isSinglePresenseResponseReceived;
     BOOL _isReceivedDidSubscribe;
     BOOL _isReceivedAllDidSubscribe;
+    
+    NSUInteger _didSubscribeEventsCount;
+    NSUInteger _didFinishSubscribeEventsCount;
 }
 
 - (void)cleanupTestResultIvars
 {
     self->_authError = nil;
-    self->_isReceivedDidSubscribe = NO;
+    self->_isReceivedDidSubscribe    = NO;
     self->_isReceivedAllDidSubscribe = NO;
+    self->_didSubscribeEventsCount   = 0;
+    self->_didFinishSubscribeEventsCount = 0;
 }
 
 - (void)cleanupExpectations
@@ -152,12 +157,36 @@ static const NSTimeInterval TIMEOUT_FOR_TEST = 10.f;
     
     XCTAssertTrue(self->_isReceivedDidSubscribe);
     XCTAssertTrue(self->_isReceivedAllDidSubscribe);
+    XCTAssertEqual(self->_didSubscribeEventsCount, (NSUInteger)1);
+    XCTAssertEqual(self->_didFinishSubscribeEventsCount, (NSUInteger)1);
 }
 
 - (void)testDidSubscribeEventsFiresForEachRooms
 {
-    XCTFail(@"not tested");
+    self->_isAllPresenseResponseReceived = [self expectationWithDescription: @"All presense response received"   ];
+    
+    NSArray* rooms =
+    @[
+      @"070815_113113_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com/Qatest37 Qatest37 (id 11952)",
+      @"070815_114612_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com/Qatest37 Qatest37 (id 11952)"
+    ];
+    
+    XCWaitCompletionHandler handlerOrNil = ^void(NSError *error)
+    {
+        // TODO : add asserts
+        NSLog(@"done");
+    };
+    
+    [self->_sut sendPresenseForRooms: rooms];
+    [self waitForExpectationsWithTimeout: TIMEOUT_FOR_TEST
+                                 handler: handlerOrNil];
+    
+    XCTAssertTrue(self->_isReceivedDidSubscribe);
+    XCTAssertTrue(self->_isReceivedAllDidSubscribe);
+    XCTAssertEqual(self->_didSubscribeEventsCount, (NSUInteger)2);
+    XCTAssertEqual(self->_didFinishSubscribeEventsCount, (NSUInteger)1);
 }
+
 
 #pragma mark - HJXmppClientDelegate
 - (void)xmppClent:(id<HJXmppClient>)sender
@@ -171,6 +200,7 @@ didSubscribeToRoom:(NSString*)roomJid
 {
     NSLog(@"subscribe ok");
 
+    ++self->_didSubscribeEventsCount;
     self->_isReceivedDidSubscribe = YES;
     [self->_isSinglePresenseResponseReceived fulfill];
 }
@@ -179,6 +209,7 @@ didSubscribeToRoom:(NSString*)roomJid
 {
     NSLog(@"xmppClentDidSubscribeToAllRooms:");
     
+    ++self->_didFinishSubscribeEventsCount;
     self->_isReceivedAllDidSubscribe = YES;
     [self->_isAllPresenseResponseReceived fulfill];
 }
