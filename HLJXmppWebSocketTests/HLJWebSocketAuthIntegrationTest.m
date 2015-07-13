@@ -14,6 +14,7 @@
 #import <HLJXmppWebSocket/HLJXmppWebSocket.h>
 
 #import "HJXmppClientImpl.h"
+#import "HLJWebSocketTransportForXmpp.h"
 
 @interface HLJWebSocketAuthIntegrationTest : XCTestCase<HJXmppClientDelegate>
 @end
@@ -23,8 +24,12 @@
 {
     HJXmppClientImpl* _sut      ;
     SRWebSocket     * _webSocket;
+    HLJWebSocketTransportForXmpp* _webSocketWrapper;
+    
     
     XCTestExpectation* _isAuthFinished;
+    
+    NSError* _authError;
 }
 
 
@@ -40,15 +45,20 @@
     NSURL* webSocketUrl = [NSURL URLWithString: @"wss://gohealth-dev.hjdev/ws-chat/"];
     self->_webSocket = [[SRWebSocket alloc] initWithURL: webSocketUrl];
     
+    self->_webSocketWrapper = [[HLJWebSocketTransportForXmpp alloc] initWithWebSocket: self->_webSocket];
+    
     XMPPParser* parser = [[XMPPParser alloc] initWithDelegate: nil
                                                 delegateQueue: NULL];
     
-    self->_sut = [[HJXmppClientImpl alloc] initWithTransport: (id<HJTransportForXmpp>)self->_webSocket
+    self->_sut = [[HJXmppClientImpl alloc] initWithTransport: self->_webSocketWrapper
                                                   xmppParser: parser
                                                         host: @"xmpp-dev.healthjoy.com"
                                                  accessToken: accessToken
                                                userJidString: jid];
     self->_sut.listenerDelegate = self;
+    
+    
+    self->_authError = nil;
 }
 
 - (void)tearDown {
@@ -59,12 +69,14 @@
     self->_sut = nil;
     self->_webSocket = nil;
     
+    self->_authError = nil;
+    
     [super tearDown];
 }
 
 - (void)testSuccessfulConnection
 {
-    self->_isAuthFinished = [[XCTestExpectation alloc] init];
+    self->_isAuthFinished = [self expectationWithDescription: @"XMPP auth passed"];
     
     NSArray* rooms =
     @[
@@ -72,9 +84,20 @@
       
       @"070815_114612_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com/Qatest37 Qatest37 (id 11952)"
     ];
-    [self->_sut sendPresenseForRooms: rooms];
     
-    // TODO : add assertions and callbacks
+    XCWaitCompletionHandler handlerOrNil = ^void(NSError *error)
+    {
+        // TODO : add asserts
+        NSLog(@"done");
+    };
+    
+    [self->_sut sendPresenseForRooms: rooms];
+    [self waitForExpectationsWithTimeout: 3000.f
+                                 handler: handlerOrNil];
+    
+    
+    
+    XCTAssertNil(self->_authError);
 }
 
 
@@ -82,24 +105,27 @@
 - (void)xmppClent:(id<HJXmppClient>)sender
 didReceiveMessage:(id<XMPPMessageProto>)message
 {
-    
+    NSLog(@"message");
 }
 
 - (void)xmppClent:(id<HJXmppClient>)sender
 didSubscribeToRoom:(NSString*)roomJid
 {
-    
+    NSLog(@"subscribe ok");
 }
 
 
 - (void)xmppClentDidAuthenticate:(id<HJXmppClient>)sender
 {
+    NSLog(@"auth ok");
     [self->_isAuthFinished fulfill];
 }
 
 - (void)xmppClentDidFailToAuthenticate:(id<HJXmppClient>)sender
                                  error:(NSError*)error
 {
+    NSLog(@"auth fail");
+    self->_authError = error;
     [self->_isAuthFinished fulfill];
 }
 
@@ -107,16 +133,18 @@ didSubscribeToRoom:(NSString*)roomJid
 didFailSubscribingToRoom:(NSString*)roomJid
             error:(NSError*)error
 {
-    
+    NSLog(@"subscribe fail");
 }
 
 - (void)xmppClent:(id<HJXmppClient>)sender
 didFailToReceiveMessageWithError:(NSError*)error {
     
+    NSLog(@"message fail");
 }
 
 - (void)xmppClentDidCloseConnection:(id<HJXmppClient>)sender {
     
+    NSLog(@"close");
 }
 
 @end
