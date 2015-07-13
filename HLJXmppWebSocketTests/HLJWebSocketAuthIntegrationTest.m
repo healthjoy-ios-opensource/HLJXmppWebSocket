@@ -103,11 +103,19 @@ didSubscribeToRoom:(NSString*)roomJid
     [self->_isAuthFinished fulfill];
 }
 
-// ???
 - (void)xmppClent:(id<HJXmppClient>)sender
 didFailSubscribingToRoom:(NSString*)roomJid
             error:(NSError*)error
 {
+    
+}
+
+- (void)xmppClent:(id<HJXmppClient>)sender
+didFailToReceiveMessageWithError:(NSError*)error {
+    
+}
+
+- (void)xmppClentDidCloseConnection:(id<HJXmppClient>)sender {
     
 }
 

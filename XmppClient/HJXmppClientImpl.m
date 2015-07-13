@@ -204,6 +204,20 @@ didReceiveMessage:(id)rawMessage
     self->_authStage = XMPP_PLAIN_AUTH__FAILED;
 }
 
+- (void)transport:(id<HJTransportForXmpp>)webSocket
+didFailToReceiveMessageWithError:(NSError*)error {
+    
+    id<HJXmppClientDelegate> strongDelegate = self.listenerDelegate;
+    [strongDelegate xmppClent: self
+didFailToReceiveMessageWithError:error];
+    
+}
+
+- (void)transportDidCloseConnection:(id<HJTransportForXmpp>)webSocket {
+    
+    id<HJXmppClientDelegate> strongDelegate = self.listenerDelegate;
+    [strongDelegate xmppClentDidCloseConnection: self];
+}
 
 #pragma mark - XMPPParserDelegate
 - (void)xmppParser:(id<XMPPParserProto>)sender
