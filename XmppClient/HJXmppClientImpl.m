@@ -26,6 +26,7 @@
 {
     id<HJTransportForXmpp> _transport            ;
     id<XMPPParserProto>    _xmppParser           ;
+    XmppParserBuilderBlock _xmppParserFactory;
     
     
     NSString*              _xmppHost             ;
@@ -58,7 +59,7 @@
 }
 
 - (instancetype)initWithTransport:(id<HJTransportForXmpp>)transport
-                       xmppParser:(id<XMPPParserProto>)xmppParser
+                xmppParserFactory:(XmppParserBuilderBlock)xmppParserFactory
                              host:(NSString*)host
                       accessToken:(NSString*)accessToken
                     userJidString:(NSString*)jidString {
@@ -82,7 +83,9 @@
     
     // TODO : change later
     dispatch_queue_t parserCallbacksQueue = dispatch_get_main_queue();
-    self->_xmppParser = xmppParser;
+    
+    self->_xmppParserFactory = [xmppParserFactory copy];
+    self->_xmppParser = xmppParserFactory();
     [self->_xmppParser setDelegate: self
                      delegateQueue: parserCallbacksQueue];
     

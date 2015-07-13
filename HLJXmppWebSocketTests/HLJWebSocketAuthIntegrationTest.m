@@ -47,11 +47,17 @@
     
     self->_webSocketWrapper = [[HLJWebSocketTransportForXmpp alloc] initWithWebSocket: self->_webSocket];
     
-    XMPPParser* parser = [[XMPPParser alloc] initWithDelegate: nil
-                                                delegateQueue: NULL];
     
+    
+    
+    XmppParserBuilderBlock parserFactory = ^id<XMPPParserProto>()
+    {
+        XMPPParser* parser = [[XMPPParser alloc] initWithDelegate: nil
+                                                    delegateQueue: NULL];
+        return parser;
+    };
     self->_sut = [[HJXmppClientImpl alloc] initWithTransport: self->_webSocketWrapper
-                                                  xmppParser: parser
+                                           xmppParserFactory: parserFactory
                                                         host: @"xmpp-dev.healthjoy.com"
                                                  accessToken: accessToken
                                                userJidString: jid];

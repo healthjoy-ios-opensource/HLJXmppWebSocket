@@ -10,6 +10,7 @@
 #import <HLJXmppWebSocket/XmppClient/HJXmppClient.h>
 
 @protocol XMPPParserProto;
+typedef id<XMPPParserProto>(^XmppParserBuilderBlock)();
 
 @interface HJXmppClientImpl : NSObject<HJXmppClient>
 
@@ -29,7 +30,7 @@
  
  */
 - (instancetype)initWithTransport:(id<HJTransportForXmpp>)transport
-                       xmppParser:(id<XMPPParserProto>)xmppParser
+                xmppParserFactory:(XmppParserBuilderBlock)xmppParserFactory
                              host:(NSString*)xmppHost
                       accessToken:(NSString*)accessToken
                     userJidString:(NSString*)jidString
