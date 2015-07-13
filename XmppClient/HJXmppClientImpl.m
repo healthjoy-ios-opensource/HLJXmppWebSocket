@@ -190,6 +190,12 @@ didReceiveMessage:(id)rawMessage
     }
     
     // Assuming "parseData:" is reenterable
+    
+    // fails with
+//    2015-07-13 14:25:23.760 xctest[2456:647020] xmppParser:didFail - Error Domain=libxmlErrorDomain Code=5 "Extra content at the end of the document
+//    " UserInfo=0x7f8c81e25d70 {NSLocalizedDescription=Extra content at the end of the document
+//}
+    
     [self->_xmppParser parseData: rawMessageData];
 }
 
@@ -202,6 +208,10 @@ didReceiveMessage:(id)rawMessage
                                withError:(NSError*)error
 {
     self->_authStage = XMPP_PLAIN_AUTH__FAILED;
+    
+    id<HJXmppClientDelegate> strongDelegate = self.listenerDelegate;
+    [strongDelegate xmppClentDidFailToAuthenticate: self
+                                             error: error];
 }
 
 - (void)transport:(id<HJTransportForXmpp>)webSocket
@@ -220,6 +230,25 @@ didFailToReceiveMessageWithError:error];
 }
 
 #pragma mark - XMPPParserDelegate
+- (void)xmppParser:(XMPPParser *)sender didReadRoot:(NSXMLElement *)root {
+    
+    NSLog(@"xmppParser:didReadRoot - %@", root);
+}
+
+- (void)xmppParserDidEnd:(XMPPParser *)sender {
+    
+    NSLog(@"xmppParserDidEnd");
+}
+
+- (void)xmppParser:(XMPPParser *)sender didFail:(NSError *)error {
+    
+    NSLog(@"xmppParser:didFail - %@", error);
+}
+- (void)xmppParserDidParseData:(XMPPParser *)sender {
+    
+    NSLog(@"xmppParserDidParseData:");
+}
+
 - (void)xmppParser:(id<XMPPParserProto>)sender
     didReadElement:(NSXMLElement *)element {
     
