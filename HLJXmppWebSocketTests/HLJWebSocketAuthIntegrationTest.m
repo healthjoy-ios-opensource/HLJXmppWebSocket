@@ -16,6 +16,8 @@
 #import "HJXmppClientImpl.h"
 #import "HLJWebSocketTransportForXmpp.h"
 
+static const NSTimeInterval TIMEOUT_FOR_TEST = 10.f;
+
 @interface HLJWebSocketAuthIntegrationTest : XCTestCase<HJXmppClientDelegate>
 @end
 
@@ -28,18 +30,40 @@
     
     
     XCTestExpectation* _isAuthFinished;
-    
     NSError* _authError;
+    
+    
+    XCTestExpectation* _isAllPresenseResponseReceived;
+    XCTestExpectation* _isSinglePresenseResponseReceived;
+    BOOL _isReceivedDidSubscribe;
+    BOOL _isReceivedAllDidSubscribe;
 }
 
+- (void)cleanupTestResultIvars
+{
+    self->_authError = nil;
+    self->_isReceivedDidSubscribe = NO;
+    self->_isReceivedAllDidSubscribe = NO;
+}
 
-- (void)setUp {
+- (void)cleanupExpectations
+{
+    self->_isAuthFinished = nil;
+    self->_isSinglePresenseResponseReceived = nil;
+    self->_isAllPresenseResponseReceived = nil;
+}
+
+- (void)setUp
+{
     [super setUp];
+    [self cleanupExpectations];
 
+    [self cleanupTestResultIvars];
+    
     static NSString* const jid = @"070815_113113_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com/Qatest37 Qatest37 (id 11952)";
 
     
-    // !!! needs manual updating
+    // !!! A token needs manual updating
     static NSString* const accessToken = @"dXNlcisxMTk1MkB4bXBwLWRldi5oZWFsdGhqb3kuY29tAHVzZXIrMTE5NTIAN3FKWjJIOFQ5V0FtWTNCU2M1Qkk3WVBOVXk3RG5E";
     
     NSURL* webSocketUrl = [NSURL URLWithString: @"wss://gohealth-dev.hjdev/ws-chat/"];
@@ -62,12 +86,12 @@
                                                  accessToken: accessToken
                                                userJidString: jid];
     self->_sut.listenerDelegate = self;
-    
-    
-    self->_authError = nil;
 }
 
-- (void)tearDown {
+- (void)tearDown
+{
+    [self cleanupTestResultIvars];
+    [self cleanupExpectations];
     
     [self->_sut disconnect];
     [self->_webSocket close];
@@ -98,7 +122,7 @@
     };
     
     [self->_sut sendPresenseForRooms: rooms];
-    [self waitForExpectationsWithTimeout: 3000.f
+    [self waitForExpectationsWithTimeout: TIMEOUT_FOR_TEST
                                  handler: handlerOrNil];
     
     
@@ -106,6 +130,34 @@
     XCTAssertNil(self->_authError);
 }
 
+- (void)testDidSubscribeEventsFiresForSingleRoom
+{
+    self->_isSinglePresenseResponseReceived = [self expectationWithDescription: @"Single presence response received"];
+    self->_isAllPresenseResponseReceived    = [self expectationWithDescription: @"All presense response received"   ];
+    
+    NSArray* rooms =
+    @[
+      @"070815_113113_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com/Qatest37 Qatest37 (id 11952)"
+    ];
+    
+    XCWaitCompletionHandler handlerOrNil = ^void(NSError *error)
+    {
+        // TODO : add asserts
+        NSLog(@"done");
+    };
+    
+    [self->_sut sendPresenseForRooms: rooms];
+    [self waitForExpectationsWithTimeout: TIMEOUT_FOR_TEST
+                                 handler: handlerOrNil];
+    
+    XCTAssertTrue(self->_isReceivedDidSubscribe);
+    XCTAssertTrue(self->_isReceivedAllDidSubscribe);
+}
+
+- (void)testDidSubscribeEventsFiresForEachRooms
+{
+    XCTFail(@"not tested");
+}
 
 #pragma mark - HJXmppClientDelegate
 - (void)xmppClent:(id<HJXmppClient>)sender
@@ -118,6 +170,17 @@ didReceiveMessage:(id<XMPPMessageProto>)message
 didSubscribeToRoom:(NSString*)roomJid
 {
     NSLog(@"subscribe ok");
+
+    self->_isReceivedDidSubscribe = YES;
+    [self->_isSinglePresenseResponseReceived fulfill];
+}
+
+- (void)xmppClentDidSubscribeToAllRooms:(id<HJXmppClient>)sender
+{
+    NSLog(@"xmppClentDidSubscribeToAllRooms:");
+    
+    self->_isReceivedAllDidSubscribe = YES;
+    [self->_isAllPresenseResponseReceived fulfill];
 }
 
 
@@ -132,6 +195,9 @@ didSubscribeToRoom:(NSString*)roomJid
 {
     NSLog(@"auth fail");
     self->_authError = error;
+    
+    [self->_isAllPresenseResponseReceived fulfill];
+    [self->_isSinglePresenseResponseReceived fulfill];
     [self->_isAuthFinished fulfill];
 }
 
@@ -140,6 +206,8 @@ didFailSubscribingToRoom:(NSString*)roomJid
             error:(NSError*)error
 {
     NSLog(@"subscribe fail");
+    [self->_isSinglePresenseResponseReceived fulfill];
+    [self->_isAllPresenseResponseReceived fulfill];
 }
 
 - (void)xmppClent:(id<HJXmppClient>)sender
