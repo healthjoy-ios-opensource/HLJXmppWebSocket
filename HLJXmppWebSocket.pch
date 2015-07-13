@@ -12,11 +12,23 @@
 
 #ifdef __OBJC__
 
+
     #import <XmppFrameworkParsers/XmppFrameworkParsers.h>
+    #import <SocketRocket/SRWebSocket.h>
+    #import <LinqToObjectiveC/LinqToObjectiveC.h>
 
     #ifdef __cplusplus
     #endif
 #endif
+
+
+#ifdef __cplusplus
+    #include <algorithm>
+    #include <unordered_set>
+    #include <set>
+    #include <map>
+#endif
+
 
 #endif
 

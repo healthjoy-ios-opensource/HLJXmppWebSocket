@@ -9,7 +9,7 @@
 #import "HLJWebSocketTransportForXmpp.h"
 
 #import "HJTransportForXmppDelegate.h"
-#import <SocketRocket/SRWebSocket.h>
+
 
 @interface HLJWebSocketTransportForXmpp()<SRWebSocketDelegate>
 @end
