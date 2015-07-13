@@ -23,6 +23,9 @@ didFailToReceiveMessageWithError:(NSError*)error;
 - (void)xmppClent:(id<HJXmppClient>)sender
 didSubscribeToRoom:(NSString*)roomJid;
 
+- (void)xmppClentDidSubscribeToAllRooms:(id<HJXmppClient>)sender;
+
+
 // ???
 - (void)xmppClent:(id<HJXmppClient>)sender
 didFailSubscribingToRoom:(NSString*)roomJid
