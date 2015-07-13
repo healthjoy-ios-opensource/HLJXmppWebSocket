@@ -15,8 +15,9 @@
 
 #import "HJAuthenticationStages.h"
 
-#import <LinqToObjectiveC/LinqToObjectiveC.h>
-#import <XmppFrameworkParsers/XmppFrameworkParsers.h>
+
+typedef std::set< __strong id<XMPPParserProto> > XmppParsersSet;
+typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaRootForParserMap;
 
 @interface HJXmppClientImpl() <XMPPParserDelegate, HJTransportForXmppDelegate>
 @end
@@ -25,9 +26,9 @@
 @implementation HJXmppClientImpl
 {
     id<HJTransportForXmpp> _transport            ;
-    id<XMPPParserProto>    _xmppParser           ;
-    XmppParserBuilderBlock _xmppParserFactory;
-    
+    XmppParserBuilderBlock _xmppParserFactory    ;
+    XmppParsersSet         _parsers              ;
+    StanzaRootForParserMap _rootNodeForParser    ;
     
     NSString*              _xmppHost             ;
     NSString*              _accessToken          ;
@@ -58,6 +59,14 @@
     [self->_transport close];
 }
 
+- (dispatch_queue_t)parserCallbacksQueue {
+    
+    // TODO : change for production if needed
+    
+    dispatch_queue_t parserCallbacksQueue = dispatch_get_main_queue();
+    return parserCallbacksQueue;
+}
+
 - (instancetype)initWithTransport:(id<HJTransportForXmpp>)transport
                 xmppParserFactory:(XmppParserBuilderBlock)xmppParserFactory
                              host:(NSString*)host
@@ -65,6 +74,7 @@
                     userJidString:(NSString*)jidString {
 
     NSParameterAssert(nil != transport);
+    NSParameterAssert(nil != xmppParserFactory);
     NSParameterAssert(nil != host);
     NSParameterAssert(nil != accessToken);
     NSParameterAssert(nil != jidString);
@@ -80,14 +90,7 @@
     self->_transport             = transport  ;
     [self->_transport setDelegate: self];
     
-    
-    // TODO : change later
-    dispatch_queue_t parserCallbacksQueue = dispatch_get_main_queue();
-    
     self->_xmppParserFactory = [xmppParserFactory copy];
-    self->_xmppParser = xmppParserFactory();
-    [self->_xmppParser setDelegate: self
-                     delegateQueue: parserCallbacksQueue];
     
     self->_xmppHost              = host       ;
     self->_accessToken           = accessToken;
@@ -114,12 +117,6 @@
 }
 
 - (void)doSendPresenseRequests {
-    
-//    LINQSelector jidFromString = ^id<XMPPJIDProto>(NSString* item)
-//    {
-//        return [XMPPJID jidWithString: item];
-//    };
-//    NSArray* jidObjects = [self->_jidStringsForRooms linq_select: jidFromString];
     
 //    <presence
 //    from='user+11952@xmpp-dev.healthjoy.com/42306807851436517615666295'
@@ -199,7 +196,15 @@ didReceiveMessage:(id)rawMessage
 //    " UserInfo=0x7f8c81e25d70 {NSLocalizedDescription=Extra content at the end of the document
 //}
     
-    [self->_xmppParser parseData: rawMessageData];
+    
+    dispatch_queue_t parserCallbacksQueue = [self parserCallbacksQueue];
+
+    id<XMPPParserProto> parser = self->_xmppParserFactory();
+    [parser setDelegate: self
+          delegateQueue: parserCallbacksQueue];
+    self->_parsers.insert(parser);
+
+    [parser parseData: rawMessageData];
 }
 
 - (void)transportDidOpenConnection:(id<HJTransportForXmpp>)webSocket
@@ -236,16 +241,29 @@ didFailToReceiveMessageWithError:error];
 - (void)xmppParser:(XMPPParser *)sender didReadRoot:(NSXMLElement *)root {
     
     NSLog(@"xmppParser:didReadRoot - %@", root);
+    self->_rootNodeForParser[sender] = root;
 }
 
 - (void)xmppParserDidEnd:(XMPPParser *)sender {
     
     NSLog(@"xmppParserDidEnd");
+
+    NSXMLElement* stanzaRoot = self->_rootNodeForParser[sender];
+    NSLog(@"xmppParserDidEnd : %@", [stanzaRoot XMLString]);
+
+    self->_rootNodeForParser.erase(sender);
+    self->_parsers.erase(sender);
+    
+    [self processStanza: stanzaRoot];
 }
 
 - (void)xmppParser:(XMPPParser *)sender didFail:(NSError *)error {
     
     NSLog(@"xmppParser:didFail - %@", error);
+    
+    
+    // TODO : thread safety
+    self->_parsers.erase(sender);
 }
 - (void)xmppParserDidParseData:(XMPPParser *)sender {
     
@@ -255,6 +273,13 @@ didFailToReceiveMessageWithError:error];
 - (void)xmppParser:(id<XMPPParserProto>)sender
     didReadElement:(NSXMLElement *)element {
     
+    NSLog(@"didReadElement : %@", element);
+    NSXMLElement* stanzaRoot = self->_rootNodeForParser[sender];
+    [stanzaRoot addChild: element];
+}
+
+
+- (void)processStanza:(NSXMLElement*)element {
     // TODO : use TransitionKit or other state machine
     // https://github.com/blakewatters/TransitionKit
     switch (self->_authStage)
@@ -284,7 +309,7 @@ didFailToReceiveMessageWithError:error];
             [self handleSessionResponse: element];
             break;
         }
-        
+            
             
         case XMPP_PLAIN_AUTH__COMPLETED:
         {
@@ -297,9 +322,7 @@ didFailToReceiveMessageWithError:error];
             // IDLE
             break;
         }
-
     }
-    
 }
 
 
@@ -365,16 +388,25 @@ didFailToReceiveMessageWithError:error];
 //    <register xmlns="http://jabber.org/features/iq-register"/>
 //    </stream:features>
 
-    NSError* xpathError = nil;
-    NSArray* authMechanismNodes =
-    [element nodesForXPath: @"stream:features/mechanisms/mechanism[text()='PLAIN']"
-                     error: &xpathError];
     
-    if (0 == [authMechanismNodes count]) {
-        return NO;
-    }
+    // XPath is not supported by KissXML
+    //
+    // XPath is not supported by XMPP
+    // The default (no prefix) Namespace URI for XPath queries is always '' and it cannot be redefined to 'jabber:client'
+    NSXMLElement* multiMechanismsNode = [[element elementsForName: @"mechanisms"] firstObject];
+    NSArray* singleMechanismNodeList = [multiMechanismsNode elementsForName: @"mechanism"];
     
-    return YES;
+    LINQCondition isPlainAuthNodePredicate = ^BOOL(NSXMLElement* singleMechanism)
+    {
+        NSString* nodeContent = [singleMechanism stringValue];
+        BOOL result = [nodeContent isEqualToString: @"PLAIN"];
+        
+        return result;
+    };
+    NSArray* plainAuthNodes = [singleMechanismNodeList linq_where: isPlainAuthNodePredicate];
+    BOOL isPlainAuthNodeExists = (0 != [plainAuthNodes count]);
+    
+    return isPlainAuthNodeExists;
 }
 
 
