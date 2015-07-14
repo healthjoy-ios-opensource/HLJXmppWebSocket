@@ -18,8 +18,17 @@
  Performs PLAIN authentication as well
  
  @param jidStringsForRooms JID items in NSString representation
+ '070815_113113_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com/Qatest37 Qatest37 (id 11952)'
+ 
+ This method should be invoked only once. Please create a new connection if you need subscribing to one more room.
  */
 - (void)sendPresenseForRooms:(NSArray*)jidStringsForRooms;
+
+/**
+ @param roomJid One of values passed to the [HJXmppClient sendPresenseForRooms:] method. Should not contain any user id.
+ '070815_113113_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com'
+ */
+- (void)loadHistoryForRoom:(NSString*)roomJid;
 
 - (void)sendMessage:(id)messageFromUser;
 - (void)sendAttachment:(NSData*)binaryFromUser;

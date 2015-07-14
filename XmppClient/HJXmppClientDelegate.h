@@ -25,6 +25,18 @@ didSubscribeToRoom:(NSString*)roomJid;
 
 - (void)xmppClentDidSubscribeToAllRooms:(id<HJXmppClient>)sender;
 
+/**
+ Actual messages will arrive in regular callbacks 
+ 
+ * [HJXmppClientDelegate xmppClent:didReceiveMessage:]
+ * [HJXmppClientDelegate xmppClent:didFailToReceiveMessageWithError:]
+*/
+- (void)xmppClent:(id<HJXmppClient>)sender
+didLoadHistoryForRoom:(NSString*)roomJid
+            error:(NSError*)maybeError;
+
+
+
 
 // ???
 - (void)xmppClent:(id<HJXmppClient>)sender
