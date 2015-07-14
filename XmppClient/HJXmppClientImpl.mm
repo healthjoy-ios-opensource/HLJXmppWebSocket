@@ -14,6 +14,8 @@
 #import "HJXmppClientDelegate.h"
 
 #import "HJAuthenticationStages.h"
+#import "HJChatHistoryRequestBuilder.h"
+#import "HJRandomizerImpl.h"
 
 #define NSLog(...)
 
@@ -50,6 +52,11 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     HJAuthenticationStages _authStage                       ;
     BOOL                   _isStreamResponseReceived        ;
     BOOL                   _isStreamFeaturesResponseReceived;
+    
+    
+    // TODO : use dependency injection
+    HJChatHistoryRequestBuilder* _historyRequestBuilder;
+    HJRandomizerImpl           * _randomizerForHistoryBuilder;
 }
 
 - (void)dealloc {
@@ -100,6 +107,11 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     
     self->_jidStringFromUserInfo = jidString  ;
     self->_jidFromUserInfo = [XMPPJID jidWithString: jidString];
+    
+    {
+        self->_randomizerForHistoryBuilder = [HJRandomizerImpl new];
+        self->_historyRequestBuilder = [[HJChatHistoryRequestBuilder alloc] initWithRandomizer: self->_randomizerForHistoryBuilder];
+    }
     
     return self;
 }
@@ -174,6 +186,33 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     NSAssert(NO, @"not implemented");
 }
 
+- (void)loadHistoryForRoom:(NSString*)roomJid {
+    
+    LINQSelector truncatedRoomId = ^NSString*(NSString* fullRoomString)
+    {
+        //    [presense] - 070815_113113_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com/Qatest37 Qatest37 (id 11952)
+        //    [iq      ] - 070815_114612_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com
+
+        
+        NSArray* chunks = [fullRoomString componentsSeparatedByString: @"/"];
+        NSString* blockResult = [chunks firstObject];
+        
+        return blockResult;
+    };
+    NSArray* multipleRoomIdForHistory = [self->_jidStringsForRooms linq_select: truncatedRoomId];
+    BOOL isRoomOnTheList = (0 != [multipleRoomIdForHistory count]);
+    
+    if (!isRoomOnTheList)
+    {
+        NSParameterAssert([multipleRoomIdForHistory containsObject: roomJid]);
+        return;
+    }
+
+    
+    NSString* request = [self->_historyRequestBuilder buildRequestForRoom: roomJid];
+    [self->_transport send: request];
+}
+
 #pragma mark - HJTransportForXmppDelegate
 - (void)transport:(id<HJTransportForXmpp>)webSocket
 didReceiveMessage:(id)rawMessage
@@ -193,14 +232,8 @@ didReceiveMessage:(id)rawMessage
         NSAssert(NO, @"Unknown transport response object");
     }
     
-    // Assuming "parseData:" is reenterable
-    
-    // fails with
-//    2015-07-13 14:25:23.760 xctest[2456:647020] xmppParser:didFail - Error Domain=libxmlErrorDomain Code=5 "Extra content at the end of the document
-//    " UserInfo=0x7f8c81e25d70 {NSLocalizedDescription=Extra content at the end of the document
-//}
-    
-    
+    // "parseData:" is NOT reenterable
+    // https://github.com/robbiehanson/XMPPFramework/issues/560
     dispatch_queue_t parserCallbacksQueue = [self parserCallbacksQueue];
 
     id<XMPPParserProto> parser = self->_xmppParserFactory();
@@ -575,7 +608,8 @@ didFailToReceiveMessageWithError:error];
     
     BOOL isPresense = [[element name] isEqualToString: @"presence"];
     BOOL isMessage  = [[element name] isEqualToString: @"message" ];
-
+    BOOL isHistoryResponse = [[element name] isEqualToString: @"iq"];
+    
     if (isPresense)
     {
         XMPPPresence* presenseResponse = [XMPPPresence presenceFromElement: element];
@@ -585,6 +619,11 @@ didFailToReceiveMessageWithError:error];
     {
         XMPPMessage* messageResponse = [XMPPMessage messageFromElement: element];
         [self handleMessage: messageResponse];
+    }
+    else if (isHistoryResponse)
+    {
+        XMPPIQ* historyResponse = [XMPPIQ iqFromElement: element];
+        [self handleHistoryResponse: historyResponse];
     }
     else
     {
@@ -616,6 +655,23 @@ didFailToReceiveMessageWithError:error];
 }
 
 - (void)handleMessage:(id<XMPPMessageProto>)element {
+}
+
+- (void)handleHistoryResponse:(id<XmppIqProto>)element {
+    
+    if ([element isErrorIQ])
+    {
+        
+    }
+    
+//    <iq from="user+11952@xmpp-dev.healthjoy.com" to="user+11952@xmpp-dev.healthjoy.com/19761940911436880787401198" id="2857193" type="error" xmlns="jabber:client" xmlns:stream="http://etherx.jabber.org/streams" version="1.0"><query xmlns="urn:xmpp:mam:0" queryid="4843044"><x xmlns="jabber:x:data"><field var="FORM_TYPE"><value>urn:xmpp:mam:0</value></field><field var="with"><value>070815_114612_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com</value></field><field var="start"><value>1970-01-01T00:00:00Z</value></field></x><set xmlns="http://jabber.org/protocol/rsm"><max>1000</max></set></query><error code="400" type="modify"><bad-request xmlns="urn:ietf:params:xml:ns:xmpp-stanzas"/></error></iq>
+}
+
+- (void)handleHistoryFail:(id<XmppIqProto>)element
+{
+    NSXMLElement* errorElement = [element childErrorElement];
+    [errorElement attributeForName: @"code"];
+    
 }
 
 @end
