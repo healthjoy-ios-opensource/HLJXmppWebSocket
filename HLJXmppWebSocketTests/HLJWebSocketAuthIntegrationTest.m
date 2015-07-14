@@ -241,6 +241,7 @@ static const NSTimeInterval TIMEOUT_FOR_TEST = 10.f;
 #pragma mark - HJXmppClientDelegate
 - (void)xmppClent:(id<HJXmppClient>)sender
 didReceiveMessage:(id<XMPPMessageProto>)message
+         incoming:(BOOL)isMessageIncoming
 {
     NSLog(@"message");
     [self->_historyData addObject: message];

@@ -15,7 +15,8 @@
 @protocol HJXmppClientDelegate <NSObject>
 
 - (void)xmppClent:(id<HJXmppClient>)sender
-didReceiveMessage:(id<XMPPMessageProto>)message;
+didReceiveMessage:(id<XMPPMessageProto>)message
+         incoming:(BOOL)isMessageIncoming;
 
 - (void)xmppClent:(id<HJXmppClient>)sender
 didFailToReceiveMessageWithError:(NSError*)error;

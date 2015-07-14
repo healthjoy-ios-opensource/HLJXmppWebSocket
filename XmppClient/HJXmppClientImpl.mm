@@ -737,9 +737,12 @@ didFailToReceiveMessageWithError:error];
     //
     //    <message from="070815_114612_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com/Qatest37 Qatest37 (id 11952)" to="user+11952@xmpp-dev.healthjoy.com/11356033521436884287873659" type="groupchat" xm lns="jabber:client" xmlns:stream="http://etherx.jabber.org/streams" version="1.0"><body>sent message</body><html xmlns="http://jabber.org/protocol/xhtml-im"><body><p>sent message</p></body></html></message>
     
+    BOOL isIncoming = [self isMessageIncoming: element];
+    
     id<HJXmppClientDelegate> strongDelegate = self.listenerDelegate;
     [strongDelegate xmppClent: self
-            didReceiveMessage: element];
+            didReceiveMessage: element
+                     incoming: isIncoming];
 }
 
 - (void)handleMessageFromHistory:(id<XMPPMessageProto>)element
@@ -747,8 +750,11 @@ didFailToReceiveMessageWithError:error];
     id<HJXmppClientDelegate> strongDelegate = self.listenerDelegate;
     
     id<XMPPMessageProto> unwrappedMessage = [HJHistoryMessageParser unwrapHistoryMessage: element];
+    BOOL isIncoming = [self isMessageIncoming: unwrappedMessage];
+    
     [strongDelegate xmppClent: self
-            didReceiveMessage: unwrappedMessage];
+            didReceiveMessage: unwrappedMessage
+                     incoming: isIncoming];
 }
 
 - (void)handleHistoryResponse:(id<XmppIqProto>)element {
@@ -775,6 +781,12 @@ didFailToReceiveMessageWithError:error];
         didLoadHistoryForRoom: roomIdFromResponse
                         error: error];
     [self disconnect];
+}
+
+#pragma mark - Utils
+- (BOOL)isMessageIncoming:(id<XMPPMessageProto>)element
+{
+    return [[element toStr] isEqualToString: self->_jidStringFromBind];
 }
 
 @end
