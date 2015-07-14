@@ -24,7 +24,7 @@
 #import "HJBindResponseParser.h"
 #import "HJSessionResponseParser.h"
 #import "HJHistoryFailParser.h"
-
+#import "HJMessageDetector.h"
 
 #define NSLog(...)
 
@@ -658,37 +658,22 @@ didFailToReceiveMessageWithError:error];
 
 - (void)handleMessage:(id<XMPPMessageProto>)element {
 
-    BOOL isFinMessage = NO;
-    {
-        NSXMLElement* castedRawMessage = (NSXMLElement*)element;
-        NSArray* finElementArray = [castedRawMessage elementsForName: @"fin"];
-        
-        isFinMessage = (0 == [finElementArray count]);
-    }
+    BOOL isFinMessage     = [HJMessageDetector isFinMessage    : element];
+    BOOL isHistoryMessage = [HJMessageDetector isHistoryMessage: element];
+    
     if (isFinMessage)
     {
         [self handleFinMessage: element];
     }
+    else if (isHistoryMessage)
+    {
+        [self handleMessageFromHistory: element];
+    }
+    else
+    {
+        [self handleLiveMessage: element];
+    }
 
-    // Last message
-//    <message
-//        from="user+11952@xmpp-dev.healthjoy.com"
-//        to="user+11952@xmpp-dev.healthjoy.com/11356033521436884287873659"
-//        id="uk1yvObkAcQB"
-//        xmlns="jabber:client"
-//        xmlns:stream="http://etherx.jabber.org/streams"
-//        version="1.0">
-//            <fin
-//                xmlns="urn:xmpp:mam:0"
-//                queryid="878048"
-//                complete="true">
-//                <set xmlns="http://jabber.org/protocol/rsm">
-//                    <first>1</first>
-//                    <last>10</last>
-//                </set>
-//            </fin>
-//        <no-copy xmlns="urn:xmpp:hints"/>
-//    </message>
 
     
     // Regular message
@@ -729,14 +714,24 @@ didFailToReceiveMessageWithError:error];
 
     
 
-    // Send message request
+    // "Send message" request
 //    <message to='070815_114612_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com' type='groupchat' xmlns='jabber:client'><body>sent message</body><html xmlns='http://jabber.org/protocol/xhtml-im'><body><p>sent message</p></body></html></message>
 
-        // Send message response
+        // "Send message" response
 //    <message from="070815_114612_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com/Qatest37 Qatest37 (id 11952)" to="user+11952@xmpp-dev.healthjoy.com/11356033521436884287873659" type="groupchat" xmlns="jabber:client" xmlns:stream="http://etherx.jabber.org/streams" version="1.0"><body>sent message</body><html xmlns="http://jabber.org/protocol/xhtml-im"><body><p>sent message</p></body></html></message>
 }
 
 - (void)handleFinMessage:(id<XMPPMessageProto>)element
+{
+    
+}
+
+- (void)handleLiveMessage:(id<XMPPMessageProto>)element
+{
+    
+}
+
+- (void)handleMessageFromHistory:(id<XMPPMessageProto>)element
 {
     
 }
