@@ -7,8 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <HLJXmppWebSocket/Error/HJXmppErrorBase.h>
 
-@interface HJXmppErrorForHistory : NSError
+@interface HJXmppErrorForHistory : HJXmppErrorBase
 
 +(instancetype)new NS_UNAVAILABLE;
 -(instancetype)init NS_UNAVAILABLE;
