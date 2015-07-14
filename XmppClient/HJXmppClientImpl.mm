@@ -178,19 +178,35 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     }
 }
 
-- (void)sendMessage:(id)messageFromUser {
-    
+- (void)sendMessage:(NSString*)messageFromUser
+                 to:(NSString*)roomJid
+{
     NSParameterAssert(XMPP_PLAIN_AUTH__COMPLETED == self->_authStage);
     
-    NSAssert(NO, @"not implemented");
+    NSString* messageFormat =
+        @"<message                                                   \n"
+        @"    to='%@'                                                \n"
+        @"    type='groupchat'                                       \n"
+        @"    xmlns='jabber:client'>                                 \n"
+        @"        <body>%@</body>                                    \n"
+        @"        <html xmlns='http://jabber.org/protocol/xhtml-im'> \n"
+        @"            <body>                                         \n"
+        @"                <p>%@</p>                                  \n"
+        @"            </body>                                        \n"
+        @"        </html>                                            \n"
+        @"</message>";
     
-    // "Send message" request
-    //
-    //    <message to='070815_114612_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com' type='groupchat' xmlns='jabber:client'><body>sent message</body><html xmlns='http://jabber.org/protocol/xhtml-im'><body><p>sent message</p></body></html></message>
+    // TODO : escape user's input properly
+    NSString* escapedMessageFromUser = messageFromUser;
+    
+    NSString* message = [NSString stringWithFormat: messageFormat, roomJid, escapedMessageFromUser, escapedMessageFromUser];
+    
+    [self->_transport send: message];
 }
 
-- (void)sendAttachment:(NSData*)binaryFromUser {
-    
+- (void)sendAttachment:(NSData*)binaryFromUser
+                    to:(NSString*)roomJid
+{
     NSParameterAssert(XMPP_PLAIN_AUTH__COMPLETED == self->_authStage);
     
     NSAssert(NO, @"not implemented");
@@ -718,12 +734,6 @@ didFailToReceiveMessageWithError:error];
 //            </result>
 //            <no-copy xmlns="urn:xmpp:hints"/>
 //    </message>
-
-    
-
-
-
-
 }
 
 - (void)handleFinMessage:(id<XMPPMessageProto>)element
