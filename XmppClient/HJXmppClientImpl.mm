@@ -18,6 +18,12 @@
 #import "HJRandomizerImpl.h"
 
 #import "HJXmppErrorForHistory.h"
+#import "HJXmppBindParserError.h"
+#import "HJXmppSessionResponseError.h"
+
+#import "HJBindResponseParser.h"
+#import "HJSessionResponseParser.h"
+#import "HJHistoryFailParser.h"
 
 
 #define NSLog(...)
@@ -44,12 +50,8 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     
     
     NSString*              _jidStringFromUserInfo;
-    id<XMPPJIDProto>       _jidFromUserInfo      ;
-    
-    
     NSString*              _jidStringFromBind    ;
-    id<XMPPJIDProto>       _jidFromBind          ;
-    
+
     
     
     HJAuthenticationStages _authStage                       ;
@@ -109,7 +111,6 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     self->_accessToken           = accessToken;
     
     self->_jidStringFromUserInfo = jidString  ;
-    self->_jidFromUserInfo = [XMPPJID jidWithString: jidString];
     
     {
         self->_randomizerForHistoryBuilder = [HJRandomizerImpl new];
@@ -520,44 +521,41 @@ didFailToReceiveMessageWithError:error];
 
 - (void)handleBindResponse:(NSXMLElement *)element {
     
-    NSString* elementName = [element name];
-    if (![elementName isEqualToString: @"iq"]) {
-        
+    id<HJXmppClientDelegate> strongDelegate = self.listenerDelegate;
+    //        <iq
+    //            id="_bind_auth_2"
+    //            type="result"
+    //            xmlns="jabber:client"
+    //            xmlns:stream="http://etherx.jabber.org/streams"
+    //            version="1.0">
+    //                <bind xmlns="urn:ietf:params:xml:ns:xmpp-bind">
+    //                    <jid>user+11952@xmpp-dev.healthjoy.com/21566872121436444488218507</jid>
+    //                </bind>
+    //        </iq>
+    
+
+    
+    
+    if ([HJBindResponseParser isResponseToSkip: element])
+    {
         // skip unexpected stanza
         // TODO : fail or notify sentry
         return;
     }
     
-    
-    // TODO : use protocols instead of XMPPFramework parts
-    XMPPIQ* responseIq = [XMPPIQ iqFromElement: element];
-    if ([responseIq isErrorIQ]) {
+    if (![HJBindResponseParser isSuccessfulBindResponse: element]) {
         
-        // TODO : close connections
+        HJXmppBindParserError* error = [HJXmppBindParserError new];
+        [strongDelegate xmppClentDidFailToAuthenticate: self
+                                                 error: error];
+        
+
+        [self disconnect];
         self->_authStage = XMPP_PLAIN_AUTH__FAILED;
         return;
     }
     
-    NSParameterAssert([responseIq isResultIQ]);
-//        <iq
-//            id="_bind_auth_2"
-//            type="result"
-//            xmlns="jabber:client"
-//            xmlns:stream="http://etherx.jabber.org/streams"
-//            version="1.0">
-//                <bind xmlns="urn:ietf:params:xml:ns:xmpp-bind">
-//                    <jid>user+11952@xmpp-dev.healthjoy.com/21566872121436444488218507</jid>
-//                </bind>
-//        </iq>
-    
-    NSXMLElement* bindElement = [responseIq childElement];
-    NSXMLElement* jidElement = [[bindElement children] firstObject];
-    
-    NSString* rawJid = [jidElement stringValue];
-    XMPPJID* jid = [XMPPJID jidWithString: rawJid];
-    
-    self->_jidStringFromBind = rawJid;
-    self->_jidFromBind = jid;
+    self->_jidStringFromBind = [HJBindResponseParser jidFromBindResponse: element];
 
     // Update state
     {
@@ -568,14 +566,7 @@ didFailToReceiveMessageWithError:error];
 
 - (void)handleSessionResponse:(NSXMLElement *)element {
     
-    if (![[element name] isEqualToString: @"iq"]) {
-        
-        // skip non mathcing stanza
-        // TODO : maybe notify sentry
-        return;
-    }
-    
-    
+    id<HJXmppClientDelegate> strongDelegate = self.listenerDelegate;
     //    <iq
     //        type="result"
     //        xmlns="jabber:client"
@@ -583,24 +574,32 @@ didFailToReceiveMessageWithError:error];
     //        xmlns:stream="http://etherx.jabber.org/streams"
     //        version="1.0"/>
 
-    XMPPIQ* parsedIq = [XMPPIQ iqFromElement: element];
-    if ([parsedIq isErrorIQ]) {
+    
+    if ([HJSessionResponseParser isResponseToSkip: element]) {
         
-        self->_authStage = XMPP_PLAIN_AUTH__FAILED;
+        // skip non mathcing stanza
+        // TODO : maybe notify sentry
         return;
     }
-    
-    NSParameterAssert([parsedIq isResultIQ]);
-    
-    if ([[parsedIq elementID] isEqualToString: @"_session_auth_2"]) {
-        
-        
+    else if ([HJSessionResponseParser isSuccessfulSessionResponse: element])
+    {
         self->_authStage = XMPP_PLAIN_AUTH__COMPLETED;
-        id<HJXmppClientDelegate> strongDelegate = self.listenerDelegate;
         [strongDelegate xmppClentDidAuthenticate: self];
         
         
         [self doSendPresenseRequests];
+    }
+    else
+    {
+        HJXmppSessionResponseError* error = [HJXmppSessionResponseError new];
+
+        self->_authStage = XMPP_PLAIN_AUTH__FAILED;
+        [strongDelegate xmppClentDidFailToAuthenticate: self
+                                                 error: error];
+        
+        [self disconnect];
+        
+        return;
     }
 }
 
@@ -658,7 +657,18 @@ didFailToReceiveMessageWithError:error];
 }
 
 - (void)handleMessage:(id<XMPPMessageProto>)element {
-    
+
+    BOOL isFinMessage = NO;
+    {
+        NSXMLElement* castedRawMessage = (NSXMLElement*)element;
+        NSArray* finElementArray = [castedRawMessage elementsForName: @"fin"];
+        
+        isFinMessage = (0 == [finElementArray count]);
+    }
+    if (isFinMessage)
+    {
+        [self handleFinMessage: element];
+    }
 
     // Last message
 //    <message
@@ -726,6 +736,11 @@ didFailToReceiveMessageWithError:error];
 //    <message from="070815_114612_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com/Qatest37 Qatest37 (id 11952)" to="user+11952@xmpp-dev.healthjoy.com/11356033521436884287873659" type="groupchat" xmlns="jabber:client" xmlns:stream="http://etherx.jabber.org/streams" version="1.0"><body>sent message</body><html xmlns="http://jabber.org/protocol/xhtml-im"><body><p>sent message</p></body></html></message>
 }
 
+- (void)handleFinMessage:(id<XMPPMessageProto>)element
+{
+    
+}
+
 - (void)handleHistoryResponse:(id<XmppIqProto>)element {
     
     if ([element isErrorIQ])
@@ -742,33 +757,9 @@ didFailToReceiveMessageWithError:error];
 
 - (void)handleHistoryFail:(id<XmppIqProto>)element
 {
-    NSXMLElement* errorElement = [element childErrorElement];
-    NSString* rawErrorCode = [[errorElement attributeForName: @"code"] stringValue];
-    
-    HJXmppErrorForHistory* error = [[HJXmppErrorForHistory alloc] initWithErrorCode: rawErrorCode];
     id<HJXmppClientDelegate> strongDelegate = self.listenerDelegate;
-    
-    
-    NSString* roomIdFromResponse = nil;
-    {
-        NSXMLElement* queryElement = [element childElement];
-        NSXMLElement* xElement = [[queryElement elementsForName: @"x"] firstObject];
-        NSArray* fields = [xElement elementsForName: @"field"];
-        
-        LINQCondition withFieldPredicate = ^BOOL(NSXMLElement* singleField)
-        {
-            NSString* attribtueContent = [[singleField attributeForName: @"var"] stringValue];
-            BOOL result = [attribtueContent isEqualToString: @"with"];
-            
-            return result;
-
-        };
-        
-        NSXMLElement* withField = [fields linq_firstOrNil: withFieldPredicate];
-        NSXMLElement* withValueElement = [[withField elementsForName: @"value"] firstObject];
-
-        roomIdFromResponse = [withValueElement stringValue];
-    }
+    NSError* error = [HJHistoryFailParser errorForFailedHistoryResponse: element];
+    NSString* roomIdFromResponse = [HJHistoryFailParser roomIdForFailedHistoryResponse: element];
     
     [strongDelegate xmppClent: self
         didLoadHistoryForRoom: roomIdFromResponse
