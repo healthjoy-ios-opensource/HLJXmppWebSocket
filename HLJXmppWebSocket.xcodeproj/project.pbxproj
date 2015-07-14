@@ -20,6 +20,8 @@
 		7E4596FA1B54087A001AD170 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E4596F91B54087A001AD170 /* libc++.dylib */; };
 		7E4596FC1B54217F001AD170 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E4596FB1B54217F001AD170 /* libiconv.dylib */; };
 		7E45D25E1B500388001F9ECC /* HLJWebSocketAuthIntegrationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E45D25D1B500388001F9ECC /* HLJWebSocketAuthIntegrationTest.m */; };
+		7EEDFFBA1B55335A0093DE7E /* HJChatHistoryRequestBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EEDFFB91B55335A0093DE7E /* HJChatHistoryRequestBuilder.m */; };
+		7EEDFFBE1B5537910093DE7E /* HJRandomizerImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EEDFFBD1B5537910093DE7E /* HJRandomizerImpl.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -181,6 +183,11 @@
 		7E56BF991B4D8A9D00D27597 /* HJXmppClientDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJXmppClientDelegate.h; sourceTree = "<group>"; };
 		7E7720E71B4D78470082FA43 /* HLJXmppWebSocket.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLJXmppWebSocket.pch; sourceTree = "<group>"; };
 		7E7B9A9E1B4D727200FB15F1 /* HLJXmppWebSocket.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLJXmppWebSocket.h; sourceTree = "<group>"; };
+		7EEDFFB81B55335A0093DE7E /* HJChatHistoryRequestBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJChatHistoryRequestBuilder.h; sourceTree = "<group>"; };
+		7EEDFFB91B55335A0093DE7E /* HJChatHistoryRequestBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJChatHistoryRequestBuilder.m; sourceTree = "<group>"; };
+		7EEDFFBB1B5537510093DE7E /* HJRandomizerForXmpp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJRandomizerForXmpp.h; sourceTree = "<group>"; };
+		7EEDFFBC1B5537910093DE7E /* HJRandomizerImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJRandomizerImpl.h; sourceTree = "<group>"; };
+		7EEDFFBD1B5537910093DE7E /* HJRandomizerImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJRandomizerImpl.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -323,10 +330,23 @@
 			children = (
 				7E7B9A9E1B4D727200FB15F1 /* HLJXmppWebSocket.h */,
 				7E7720E71B4D78470082FA43 /* HLJXmppWebSocket.pch */,
+				7EEDFFAF1B5533460093DE7E /* PacketBuilder */,
 				7E226F681B501BD800E9B35C /* WebSocket */,
 				7E56BF971B4D8A7400D27597 /* XmppClient */,
 			);
 			name = Sources;
+			sourceTree = "<group>";
+		};
+		7EEDFFAF1B5533460093DE7E /* PacketBuilder */ = {
+			isa = PBXGroup;
+			children = (
+				7EEDFFB81B55335A0093DE7E /* HJChatHistoryRequestBuilder.h */,
+				7EEDFFB91B55335A0093DE7E /* HJChatHistoryRequestBuilder.m */,
+				7EEDFFBB1B5537510093DE7E /* HJRandomizerForXmpp.h */,
+				7EEDFFBC1B5537910093DE7E /* HJRandomizerImpl.h */,
+				7EEDFFBD1B5537910093DE7E /* HJRandomizerImpl.m */,
+			);
+			path = PacketBuilder;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -526,7 +546,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7EEDFFBE1B5537910093DE7E /* HJRandomizerImpl.m in Sources */,
 				7E26D5CF1B4EA94D0030F2DD /* HJXmppClientImpl.mm in Sources */,
+				7EEDFFBA1B55335A0093DE7E /* HJChatHistoryRequestBuilder.m in Sources */,
 				7E226F6B1B501BEF00E9B35C /* HLJWebSocketTransportForXmpp.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
