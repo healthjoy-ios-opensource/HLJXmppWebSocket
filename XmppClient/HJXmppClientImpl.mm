@@ -17,6 +17,9 @@
 #import "HJChatHistoryRequestBuilder.h"
 #import "HJRandomizerImpl.h"
 
+#import "HJXmppErrorForHistory.h"
+
+
 #define NSLog(...)
 
 typedef std::set< __strong id<XMPPParserProto> > XmppParsersSet;
@@ -655,23 +658,122 @@ didFailToReceiveMessageWithError:error];
 }
 
 - (void)handleMessage:(id<XMPPMessageProto>)element {
+    
+
+    // Last message
+//    <message
+//        from="user+11952@xmpp-dev.healthjoy.com"
+//        to="user+11952@xmpp-dev.healthjoy.com/11356033521436884287873659"
+//        id="uk1yvObkAcQB"
+//        xmlns="jabber:client"
+//        xmlns:stream="http://etherx.jabber.org/streams"
+//        version="1.0">
+//            <fin
+//                xmlns="urn:xmpp:mam:0"
+//                queryid="878048"
+//                complete="true">
+//                <set xmlns="http://jabber.org/protocol/rsm">
+//                    <first>1</first>
+//                    <last>10</last>
+//                </set>
+//            </fin>
+//        <no-copy xmlns="urn:xmpp:hints"/>
+//    </message>
+
+    
+    // Regular message
+//    <message
+//        from="user+11952@xmpp-dev.healthjoy.com"
+//        to="user+11952@xmpp-dev.healthjoy.com/11356033521436884287873659"
+//        id="N/FSM5HBFSrG"
+//        xmlns="jabber:client"
+//        xmlns:stream="http://etherx.jabber.org/streams"
+//        version="1.0">
+//            <result
+//                xmlns="urn:xmpp:mam:0"
+//                id="4" queryid="878048">
+//                    <forwarded xmlns="urn:xmpp:forward:0">
+//                        <message
+//                            xmlns="jabber:client"
+//                            to="user+11952@xmpp-dev.healthjoy.com/11356033521436884287873659"
+//                            from="070815_114612_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com/justin.holland"
+//                            type="groupchat"
+//                            id="29">
+//                                <body>423423</body>
+//                                <x xmlns="jabber:x:event">
+//                                    <composing/>
+//                                </x>
+//                        </message>
+//                        <delay
+//                            xmlns="urn:xmpp:delay"
+//                            from="xmpp-dev.healthjoy.com"
+//                            stamp="2015-07-08T14:17:40.817Z"/>
+//                        <x
+//                            xmlns="jabber:x:delay"
+//                            from="xmpp-dev.healthjoy.com"
+//                            stamp="20150708T14:17:40"/>
+//                    </forwarded>
+//            </result>
+//            <no-copy xmlns="urn:xmpp:hints"/>
+//    </message>
+
+    
+
+    // Send message request
+//    <message to='070815_114612_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com' type='groupchat' xmlns='jabber:client'><body>sent message</body><html xmlns='http://jabber.org/protocol/xhtml-im'><body><p>sent message</p></body></html></message>
+
+        // Send message response
+//    <message from="070815_114612_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com/Qatest37 Qatest37 (id 11952)" to="user+11952@xmpp-dev.healthjoy.com/11356033521436884287873659" type="groupchat" xmlns="jabber:client" xmlns:stream="http://etherx.jabber.org/streams" version="1.0"><body>sent message</body><html xmlns="http://jabber.org/protocol/xhtml-im"><body><p>sent message</p></body></html></message>
 }
 
 - (void)handleHistoryResponse:(id<XmppIqProto>)element {
     
     if ([element isErrorIQ])
     {
-        
+        [self handleHistoryFail: element];
     }
-    
-//    <iq from="user+11952@xmpp-dev.healthjoy.com" to="user+11952@xmpp-dev.healthjoy.com/19761940911436880787401198" id="2857193" type="error" xmlns="jabber:client" xmlns:stream="http://etherx.jabber.org/streams" version="1.0"><query xmlns="urn:xmpp:mam:0" queryid="4843044"><x xmlns="jabber:x:data"><field var="FORM_TYPE"><value>urn:xmpp:mam:0</value></field><field var="with"><value>070815_114612_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com</value></field><field var="start"><value>1970-01-01T00:00:00Z</value></field></x><set xmlns="http://jabber.org/protocol/rsm"><max>1000</max></set></query><error code="400" type="modify"><bad-request xmlns="urn:ietf:params:xml:ns:xmpp-stanzas"/></error></iq>
+    else if ([element isResultIQ])
+    {
+        // IDLE
+        
+//        <iq from="user+11952@xmpp-dev.healthjoy.com" to="user+11952@xmpp-dev.healthjoy.com/11356033521436884287873659" type="result" id="4355073" xmlns="jabber:client" xmlns:stream="http://etherx.jabber.org/streams" version="1.0"/>
+    }
 }
 
 - (void)handleHistoryFail:(id<XmppIqProto>)element
 {
     NSXMLElement* errorElement = [element childErrorElement];
-    [errorElement attributeForName: @"code"];
+    NSString* rawErrorCode = [[errorElement attributeForName: @"code"] stringValue];
     
+    HJXmppErrorForHistory* error = [[HJXmppErrorForHistory alloc] initWithErrorCode: rawErrorCode];
+    id<HJXmppClientDelegate> strongDelegate = self.listenerDelegate;
+    
+    
+    NSString* roomIdFromResponse = nil;
+    {
+        NSXMLElement* queryElement = [element childElement];
+        NSXMLElement* xElement = [[queryElement elementsForName: @"x"] firstObject];
+        NSArray* fields = [xElement elementsForName: @"field"];
+        
+        LINQCondition withFieldPredicate = ^BOOL(NSXMLElement* singleField)
+        {
+            NSString* attribtueContent = [[singleField attributeForName: @"var"] stringValue];
+            BOOL result = [attribtueContent isEqualToString: @"with"];
+            
+            return result;
+
+        };
+        
+        NSXMLElement* withField = [fields linq_firstOrNil: withFieldPredicate];
+        NSXMLElement* withValueElement = [[withField elementsForName: @"value"] firstObject];
+
+        roomIdFromResponse = [withValueElement stringValue];
+    }
+    
+    [strongDelegate xmppClent: self
+        didLoadHistoryForRoom: roomIdFromResponse
+                        error: error];
+    [self disconnect];
 }
 
 @end
