@@ -677,6 +677,7 @@ didFailToReceiveMessageWithError:error];
 
     
     // Regular message
+    //
 //    <message
 //        from="user+11952@xmpp-dev.healthjoy.com"
 //        to="user+11952@xmpp-dev.healthjoy.com/11356033521436884287873659"
@@ -715,9 +716,11 @@ didFailToReceiveMessageWithError:error];
     
 
     // "Send message" request
+    //
 //    <message to='070815_114612_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com' type='groupchat' xmlns='jabber:client'><body>sent message</body><html xmlns='http://jabber.org/protocol/xhtml-im'><body><p>sent message</p></body></html></message>
 
         // "Send message" response
+    //
 //    <message from="070815_114612_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com/Qatest37 Qatest37 (id 11952)" to="user+11952@xmpp-dev.healthjoy.com/11356033521436884287873659" type="groupchat" xmlns="jabber:client" xmlns:stream="http://etherx.jabber.org/streams" version="1.0"><body>sent message</body><html xmlns="http://jabber.org/protocol/xhtml-im"><body><p>sent message</p></body></html></message>
 }
 
