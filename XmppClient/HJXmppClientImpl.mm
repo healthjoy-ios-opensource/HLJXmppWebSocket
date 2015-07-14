@@ -196,10 +196,16 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
         @"        </html>                                            \n"
         @"</message>";
     
-    // TODO : escape user's input properly
-    NSString* escapedMessageFromUser = messageFromUser;
     
-    NSString* message = [NSString stringWithFormat: messageFormat, roomJid, escapedMessageFromUser, escapedMessageFromUser];
+    
+    NSXMLNode* tempNodeForEscaping = [NSXMLNode textWithStringValue: messageFromUser];
+    NSString* escapedMessageFromUser = [tempNodeForEscaping XMLString];
+    
+    NSString* message =
+        [NSString stringWithFormat: messageFormat,
+            roomJid,
+            escapedMessageFromUser,
+            escapedMessageFromUser];
     
     [self->_transport send: message];
 }
