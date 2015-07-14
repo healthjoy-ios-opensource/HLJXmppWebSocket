@@ -40,6 +40,10 @@ static const NSTimeInterval TIMEOUT_FOR_TEST = 10.f;
     
     NSUInteger _didSubscribeEventsCount;
     NSUInteger _didFinishSubscribeEventsCount;
+    
+    XCTestExpectation* _isHistoryLoaded;
+    NSError* _historyError;
+    NSMutableArray* _historyData;
 }
 
 - (void)cleanupTestResultIvars
@@ -49,6 +53,9 @@ static const NSTimeInterval TIMEOUT_FOR_TEST = 10.f;
     self->_isReceivedAllDidSubscribe = NO;
     self->_didSubscribeEventsCount   = 0;
     self->_didFinishSubscribeEventsCount = 0;
+    
+    self->_historyError = nil;
+    self->_historyData = [NSMutableArray new];
 }
 
 - (void)cleanupExpectations
@@ -56,6 +63,7 @@ static const NSTimeInterval TIMEOUT_FOR_TEST = 10.f;
     self->_isAuthFinished = nil;
     self->_isSinglePresenseResponseReceived = nil;
     self->_isAllPresenseResponseReceived = nil;
+    self->_isHistoryLoaded = nil;
 }
 
 - (void)setUp
@@ -188,11 +196,54 @@ static const NSTimeInterval TIMEOUT_FOR_TEST = 10.f;
 }
 
 
+- (void)testSuccessfulHistoryFetchForSingleRoom
+{
+    // GIVEN
+    self->_isAllPresenseResponseReceived = [self expectationWithDescription: @"All presense response received"];
+    
+    NSArray* rooms =
+    @[
+      @"070815_113113_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com/Qatest37 Qatest37 (id 11952)"
+      ];
+    
+    XCWaitCompletionHandler handlerOrNil = ^void(NSError *error)
+    {
+        // TODO : add asserts
+        NSLog(@"done");
+    };
+    
+    [self->_sut sendPresenseForRooms: rooms];
+    [self waitForExpectationsWithTimeout: TIMEOUT_FOR_TEST
+                                 handler: handlerOrNil];
+    
+    XCTAssertTrue(self->_isReceivedDidSubscribe);
+    XCTAssertTrue(self->_isReceivedAllDidSubscribe);
+    XCTAssertEqual(self->_didSubscribeEventsCount, (NSUInteger)1);
+    XCTAssertEqual(self->_didFinishSubscribeEventsCount, (NSUInteger)1);
+    
+    //// WHEN
+    self->_isReceivedDidSubscribe    = nil;
+    self->_isReceivedAllDidSubscribe = nil;
+    
+    
+    self->_isHistoryLoaded = [self expectationWithDescription: @"History loaded"];
+    [self->_sut loadHistoryForRoom: @"070815_113113_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com"];
+    
+    
+    /// THEN
+    [self waitForExpectationsWithTimeout: TIMEOUT_FOR_TEST
+                                 handler: handlerOrNil];
+    
+    XCTAssertNil(self->_historyError);
+    XCTAssertTrue([self->_historyData count] > 0);
+}
+
 #pragma mark - HJXmppClientDelegate
 - (void)xmppClent:(id<HJXmppClient>)sender
 didReceiveMessage:(id<XMPPMessageProto>)message
 {
     NSLog(@"message");
+    [self->_historyData addObject: message];
 }
 
 - (void)xmppClent:(id<HJXmppClient>)sender
@@ -250,6 +301,13 @@ didFailToReceiveMessageWithError:(NSError*)error {
 - (void)xmppClentDidCloseConnection:(id<HJXmppClient>)sender {
     
     NSLog(@"close");
+}
+
+- (void)xmppClent:(id<HJXmppClient>)sender
+didLoadHistoryForRoom:(NSString*)roomJid
+            error:(NSError*)maybeError
+{
+    self->_historyError = maybeError;
 }
 
 @end
