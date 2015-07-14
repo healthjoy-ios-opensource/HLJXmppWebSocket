@@ -25,6 +25,8 @@
 #import "HJSessionResponseParser.h"
 #import "HJHistoryFailParser.h"
 #import "HJMessageDetector.h"
+#import "HJHistoryMessageParser.h"
+
 
 #define NSLog(...)
 
@@ -181,6 +183,10 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     NSParameterAssert(XMPP_PLAIN_AUTH__COMPLETED == self->_authStage);
     
     NSAssert(NO, @"not implemented");
+    
+    // "Send message" request
+    //
+    //    <message to='070815_114612_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com' type='groupchat' xmlns='jabber:client'><body>sent message</body><html xmlns='http://jabber.org/protocol/xhtml-im'><body><p>sent message</p></body></html></message>
 }
 
 - (void)sendAttachment:(NSData*)binaryFromUser {
@@ -715,13 +721,9 @@ didFailToReceiveMessageWithError:error];
 
     
 
-    // "Send message" request
-    //
-//    <message to='070815_114612_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com' type='groupchat' xmlns='jabber:client'><body>sent message</body><html xmlns='http://jabber.org/protocol/xhtml-im'><body><p>sent message</p></body></html></message>
 
-        // "Send message" response
-    //
-//    <message from="070815_114612_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com/Qatest37 Qatest37 (id 11952)" to="user+11952@xmpp-dev.healthjoy.com/11356033521436884287873659" type="groupchat" xmlns="jabber:client" xmlns:stream="http://etherx.jabber.org/streams" version="1.0"><body>sent message</body><html xmlns="http://jabber.org/protocol/xhtml-im"><body><p>sent message</p></body></html></message>
+
+
 }
 
 - (void)handleFinMessage:(id<XMPPMessageProto>)element
@@ -731,12 +733,22 @@ didFailToReceiveMessageWithError:error];
 
 - (void)handleLiveMessage:(id<XMPPMessageProto>)element
 {
+    // "Send message" response
+    //
+    //    <message from="070815_114612_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com/Qatest37 Qatest37 (id 11952)" to="user+11952@xmpp-dev.healthjoy.com/11356033521436884287873659" type="groupchat" xm lns="jabber:client" xmlns:stream="http://etherx.jabber.org/streams" version="1.0"><body>sent message</body><html xmlns="http://jabber.org/protocol/xhtml-im"><body><p>sent message</p></body></html></message>
     
+    id<HJXmppClientDelegate> strongDelegate = self.listenerDelegate;
+    [strongDelegate xmppClent: self
+            didReceiveMessage: element];
 }
 
 - (void)handleMessageFromHistory:(id<XMPPMessageProto>)element
 {
+    id<HJXmppClientDelegate> strongDelegate = self.listenerDelegate;
     
+    id<XMPPMessageProto> unwrappedMessage = [HJHistoryMessageParser unwrapHistoryMessage: element];
+    [strongDelegate xmppClent: self
+            didReceiveMessage: unwrappedMessage];
 }
 
 - (void)handleHistoryResponse:(id<XmppIqProto>)element {
