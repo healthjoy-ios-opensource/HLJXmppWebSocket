@@ -26,6 +26,8 @@
 		7EB9C4211B559FE700F94871 /* HJXmppSessionResponseError.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EB9C4201B559FE700F94871 /* HJXmppSessionResponseError.m */; };
 		7EB9C4241B55A24600F94871 /* HJHistoryFailParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EB9C4231B55A24600F94871 /* HJHistoryFailParser.m */; };
 		7EB9C4271B55A40D00F94871 /* HJMessageDetector.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EB9C4261B55A40D00F94871 /* HJMessageDetector.m */; };
+		7EB9C42A1B55A8F500F94871 /* HJFinMessageParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EB9C4291B55A8F500F94871 /* HJFinMessageParser.m */; };
+		7EB9C42D1B55A9DC00F94871 /* HJHistoryMessageParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EB9C42C1B55A9DC00F94871 /* HJHistoryMessageParser.m */; };
 		7EEDFFBA1B55335A0093DE7E /* HJChatHistoryRequestBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EEDFFB91B55335A0093DE7E /* HJChatHistoryRequestBuilder.m */; };
 		7EEDFFBE1B5537910093DE7E /* HJRandomizerImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EEDFFBD1B5537910093DE7E /* HJRandomizerImpl.m */; };
 		7EFDD7CA1B55514400430942 /* HJXmppErrorBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EFDD7C91B55514400430942 /* HJXmppErrorBase.m */; };
@@ -203,6 +205,10 @@
 		7EB9C4231B55A24600F94871 /* HJHistoryFailParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJHistoryFailParser.m; sourceTree = "<group>"; };
 		7EB9C4251B55A40D00F94871 /* HJMessageDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJMessageDetector.h; sourceTree = "<group>"; };
 		7EB9C4261B55A40D00F94871 /* HJMessageDetector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJMessageDetector.m; sourceTree = "<group>"; };
+		7EB9C4281B55A8F500F94871 /* HJFinMessageParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJFinMessageParser.h; sourceTree = "<group>"; };
+		7EB9C4291B55A8F500F94871 /* HJFinMessageParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJFinMessageParser.m; sourceTree = "<group>"; };
+		7EB9C42B1B55A9DC00F94871 /* HJHistoryMessageParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJHistoryMessageParser.h; sourceTree = "<group>"; };
+		7EB9C42C1B55A9DC00F94871 /* HJHistoryMessageParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJHistoryMessageParser.m; sourceTree = "<group>"; };
 		7EEDFFB81B55335A0093DE7E /* HJChatHistoryRequestBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJChatHistoryRequestBuilder.h; sourceTree = "<group>"; };
 		7EEDFFB91B55335A0093DE7E /* HJChatHistoryRequestBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJChatHistoryRequestBuilder.m; sourceTree = "<group>"; };
 		7EEDFFBB1B5537510093DE7E /* HJRandomizerForXmpp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJRandomizerForXmpp.h; sourceTree = "<group>"; };
@@ -297,6 +303,10 @@
 				7EB9C4231B55A24600F94871 /* HJHistoryFailParser.m */,
 				7EB9C4251B55A40D00F94871 /* HJMessageDetector.h */,
 				7EB9C4261B55A40D00F94871 /* HJMessageDetector.m */,
+				7EB9C4281B55A8F500F94871 /* HJFinMessageParser.h */,
+				7EB9C4291B55A8F500F94871 /* HJFinMessageParser.m */,
+				7EB9C42B1B55A9DC00F94871 /* HJHistoryMessageParser.h */,
+				7EB9C42C1B55A9DC00F94871 /* HJHistoryMessageParser.m */,
 			);
 			path = Parser;
 			sourceTree = "<group>";
@@ -607,11 +617,13 @@
 				7EEDFFBE1B5537910093DE7E /* HJRandomizerImpl.m in Sources */,
 				7EB9C4241B55A24600F94871 /* HJHistoryFailParser.m in Sources */,
 				7E1962451B55995E00D4CD32 /* HJBindResponseParser.m in Sources */,
+				7EB9C42D1B55A9DC00F94871 /* HJHistoryMessageParser.m in Sources */,
 				7E26D5CF1B4EA94D0030F2DD /* HJXmppClientImpl.mm in Sources */,
 				7EFDD7CD1B55516200430942 /* HJXmppErrorForHistory.m in Sources */,
 				7EFDD7CA1B55514400430942 /* HJXmppErrorBase.m in Sources */,
 				7EB9C4131B559C5200F94871 /* HJXmppBindParserError.m in Sources */,
 				7EEDFFBA1B55335A0093DE7E /* HJChatHistoryRequestBuilder.m in Sources */,
+				7EB9C42A1B55A8F500F94871 /* HJFinMessageParser.m in Sources */,
 				7E226F6B1B501BEF00E9B35C /* HLJWebSocketTransportForXmpp.m in Sources */,
 				7EB9C4271B55A40D00F94871 /* HJMessageDetector.m in Sources */,
 			);

@@ -13,6 +13,7 @@
 + (BOOL)isFinMessage:(id<XMPPMessageProto>)element
 {
     // Last message
+    //
     //    <message
     //        from="user+11952@xmpp-dev.healthjoy.com"
     //        to="user+11952@xmpp-dev.healthjoy.com/11356033521436884287873659"
