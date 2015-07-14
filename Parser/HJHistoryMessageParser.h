@@ -12,6 +12,6 @@
 
 @interface HJHistoryMessageParser : NSObject
 
-+ (id<XMPPMessageProto>)contentMessageFromHistoryMessage:(id<XMPPMessageProto>)element;
++ (id<XMPPMessageProto>)unwrapHistoryMessage:(id<XMPPMessageProto>)element;
 
 @end

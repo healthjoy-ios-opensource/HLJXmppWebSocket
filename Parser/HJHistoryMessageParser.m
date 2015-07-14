@@ -10,7 +10,7 @@
 
 @implementation HJHistoryMessageParser
 
-+ (id<XMPPMessageProto>)contentMessageFromHistoryMessage:(id<XMPPMessageProto>)element
++ (id<XMPPMessageProto>)unwrapHistoryMessage:(id<XMPPMessageProto>)element
 {
     NSXMLElement* castedRawMessage = (NSXMLElement*)element;
     NSXMLElement* resultNode = [[castedRawMessage elementsForName: @"result"] firstObject];
