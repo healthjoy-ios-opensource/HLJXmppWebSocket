@@ -26,6 +26,10 @@
 #import "HJHistoryFailParser.h"
 #import "HJMessageDetector.h"
 #import "HJHistoryMessageParser.h"
+#import "HJFinMessageParser.h"
+
+#import "HJChatHistoryRequestProto.h"
+
 
 
 #define NSLog(...)
@@ -49,7 +53,9 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     NSArray *              _jidStringsForRooms   ;
     
     NSMutableSet*          _pendingRooms;
-    
+    NSMutableSet*          _pendingHistoryRequests;
+    NSMutableDictionary*   _queryIdForIqId        ;
+    NSMutableDictionary*   _iqIdForQueryId        ;
     
     NSString*              _jidStringFromUserInfo;
     NSString*              _jidStringFromBind    ;
@@ -117,6 +123,10 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     {
         self->_randomizerForHistoryBuilder = [HJRandomizerImpl new];
         self->_historyRequestBuilder = [[HJChatHistoryRequestBuilder alloc] initWithRandomizer: self->_randomizerForHistoryBuilder];
+        
+        self->_pendingHistoryRequests = [NSMutableSet new];
+        self->_queryIdForIqId         = [NSMutableDictionary new];
+        self->_iqIdForQueryId         = [NSMutableDictionary new];
     }
     
     return self;
@@ -241,8 +251,15 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     }
 
     
-    NSString* request = [self->_historyRequestBuilder buildRequestForRoom: roomJid];
-    [self->_transport send: request];
+    id<HJChatHistoryRequestProto> request = [self->_historyRequestBuilder buildRequestForRoom: roomJid];
+    {
+        NSString* key   = [request idForIq   ];
+        NSString* value = [request idForQuery];
+        
+        self->_queryIdForIqId[key  ] = value;
+        self->_iqIdForQueryId[value] = key  ;
+    }
+    [self->_transport send: [request dataToSend]];
 }
 
 #pragma mark - HJTransportForXmppDelegate
@@ -744,7 +761,12 @@ didFailToReceiveMessageWithError:error];
 
 - (void)handleFinMessage:(id<XMPPMessageProto>)element
 {
+    NSString* queryId = [HJFinMessageParser queryIdFromFinMessage: element];
+    NSString* iqId = self->_iqIdForQueryId[queryId];
     
+    [self->_pendingHistoryRequests removeObject: iqId];
+    [self->_iqIdForQueryId removeObjectForKey: queryId];
+    [self->_queryIdForIqId removeObjectForKey: iqId];
 }
 
 - (void)handleLiveMessage:(id<XMPPMessageProto>)element
@@ -781,9 +803,16 @@ didFailToReceiveMessageWithError:error];
     }
     else if ([element isResultIQ])
     {
-        // IDLE
+        NSString* historyRequestId = [element elementID];
+        [self->_pendingHistoryRequests addObject: historyRequestId];
         
-//        <iq from="user+11952@xmpp-dev.healthjoy.com" to="user+11952@xmpp-dev.healthjoy.com/11356033521436884287873659" type="result" id="4355073" xmlns="jabber:client" xmlns:stream="http://etherx.jabber.org/streams" version="1.0"/>
+        /*
+        <iq from="user+11952@xmpp-dev.healthjoy.com" to="user+11952@xmpp-dev.healthjoy.com/1136116387143695944183758" type="result" id="2662" xmlns="jabber:client" xmlns:stream="http://etherx.jabber.org/streams" version="1.0"/>
+        
+        <message from="user+11952@xmpp-dev.healthjoy.com" to="user+11952@xmpp-dev.healthjoy.com/1136116387143695944183758" id="2Klx2ZzfjXBK" xmlns="jabber:client" xmlns:stream="http://etherx.jabber.org/streams" version="1.0"><result xmlns="urn:xmpp:mam:0" id="1" queryid="6846382"><forwarded xmlns="urn:xmpp:forward:0"><message xmlns="jabber:client" to="user+11952@xmpp-dev.healthjoy.com/1136116387143695944183758" from="070815_114612_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com/System Message" xml:lang="en" type="groupchat" id="eefe50c225">
+        <body>How can I help you today?</body>
+        </message><delay xmlns="urn:xmpp:delay" from="xmpp-dev.healthjoy.com" stamp="2015-07-08T11:46:13.145Z"/><x xmlns="jabber:x:delay" from="xmpp-dev.healthjoy.com" stamp="20150708T11:46:13"/></forwarded></result><no-copy xmlns="urn:xmpp:hints"/></message>
+         */
     }
 }
 
@@ -792,6 +821,9 @@ didFailToReceiveMessageWithError:error];
     id<HJXmppClientDelegate> strongDelegate = self.listenerDelegate;
     NSError* error = [HJHistoryFailParser errorForFailedHistoryResponse: element];
     NSString* roomIdFromResponse = [HJHistoryFailParser roomIdForFailedHistoryResponse: element];
+    
+    NSString* keyToRemove = [element elementID];
+    [self->_queryIdForIqId removeObjectForKey: keyToRemove];
     
     [strongDelegate xmppClent: self
         didLoadHistoryForRoom: roomIdFromResponse
