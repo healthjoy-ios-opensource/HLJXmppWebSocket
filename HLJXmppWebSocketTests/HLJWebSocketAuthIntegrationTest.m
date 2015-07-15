@@ -42,6 +42,7 @@ static const NSTimeInterval TIMEOUT_FOR_TEST = 10.f;
     NSUInteger _didFinishSubscribeEventsCount;
     
     XCTestExpectation* _isHistoryLoaded;
+    NSString* _historyRoomJid;
     NSError* _historyError;
     NSMutableArray* _historyData;
 }
@@ -55,6 +56,7 @@ static const NSTimeInterval TIMEOUT_FOR_TEST = 10.f;
     self->_didFinishSubscribeEventsCount = 0;
     
     self->_historyError = nil;
+    self->_historyRoomJid = nil;
     self->_historyData = [NSMutableArray new];
 }
 
@@ -77,7 +79,7 @@ static const NSTimeInterval TIMEOUT_FOR_TEST = 10.f;
 
     
     // !!! A token needs manual updating
-    static NSString* const accessToken = @"dXNlcisxMTk1MkB4bXBwLWRldi5oZWFsdGhqb3kuY29tAHVzZXIrMTE5NTIAN3FKWjJIOFQ5V0FtWTNCU2M1Qkk3WVBOVXk3RG5E";
+    static NSString* const accessToken = @"dXNlcisxMTk1MkB4bXBwLWRldi5oZWFsdGhqb3kuY29tAHVzZXIrMTE5NTIAZHVseGdybExwS3hicXNFcXdYSGVtZEJmOUF0MDFo";
     
     NSURL* webSocketUrl = [NSURL URLWithString: @"wss://gohealth-dev.hjdev/ws-chat/"];
     self->_webSocket = [[SRWebSocket alloc] initWithURL: webSocketUrl];
@@ -203,7 +205,7 @@ static const NSTimeInterval TIMEOUT_FOR_TEST = 10.f;
     
     NSArray* rooms =
     @[
-      @"070815_113113_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com/Qatest37 Qatest37 (id 11952)"
+      @"071515_135928_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com/Qatest37 Qatest37 (id 11952)"
       ];
     
     XCWaitCompletionHandler handlerOrNil = ^void(NSError *error)
@@ -225,17 +227,18 @@ static const NSTimeInterval TIMEOUT_FOR_TEST = 10.f;
     self->_isReceivedDidSubscribe    = nil;
     self->_isReceivedAllDidSubscribe = nil;
     
-    
+    static NSString* const roomJid = @"071515_135928_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com";
     self->_isHistoryLoaded = [self expectationWithDescription: @"History loaded"];
-    [self->_sut loadHistoryForRoom: @"070815_113113_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com"];
+    [self->_sut loadHistoryForRoom: roomJid];
     
     
     /// THEN
-    [self waitForExpectationsWithTimeout: TIMEOUT_FOR_TEST
+    [self waitForExpectationsWithTimeout: 30000
                                  handler: handlerOrNil];
     
     XCTAssertNil(self->_historyError);
-    XCTAssertTrue([self->_historyData count] > 0);
+    XCTAssertEqual([self->_historyData count],  (NSUInteger)1);
+    XCTAssertEqualObjects(self->_historyRoomJid, roomJid);
 }
 
 #pragma mark - HJXmppClientDelegate
@@ -308,7 +311,9 @@ didFailToReceiveMessageWithError:(NSError*)error {
 didLoadHistoryForRoom:(NSString*)roomJid
             error:(NSError*)maybeError
 {
+    self->_historyRoomJid = roomJid;
     self->_historyError = maybeError;
+    [self->_isHistoryLoaded fulfill];
 }
 
 @end
