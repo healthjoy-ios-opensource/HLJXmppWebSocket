@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @protocol HJRandomizerForXmpp;
+@protocol HJChatHistoryRequestProto;
 
 
 @interface HJChatHistoryRequestBuilder : NSObject
@@ -21,7 +22,7 @@ NS_REQUIRES_SUPER
 NS_DESIGNATED_INITIALIZER
 __attribute__((nonnull));
 
-- (NSString*)buildRequestForRoom:(NSString*)roomJid;
+- (id<HJChatHistoryRequestProto>)buildRequestForRoom:(NSString*)roomJid;
 
 
 @end

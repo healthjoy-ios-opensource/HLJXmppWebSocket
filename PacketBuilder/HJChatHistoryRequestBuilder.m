@@ -9,6 +9,7 @@
 #import "HJChatHistoryRequestBuilder.h"
 
 #import "HJRandomizerForXmpp.h"
+#import "HJChatHistoryRequest.h"
 
 @implementation HJChatHistoryRequestBuilder
 {
@@ -30,7 +31,7 @@
     return self;
 }
 
-- (NSString*)buildRequestForRoom:(NSString*)roomJid
+- (id<HJChatHistoryRequestProto>)buildRequestForRoom:(NSString*)roomJid
 {
     NSString* messageFormat =
     @"    <iq                                                       \n"
@@ -60,7 +61,15 @@
     NSString* randomIdForIq    = [self->_randomizer getRandomIdForStanza];
     NSString* randomIdForQuery = [self->_randomizer getRandomIdForStanza];
     
-    NSString* result = [NSString stringWithFormat: messageFormat, randomIdForIq, randomIdForQuery, roomJid];
+    NSString* request = [NSString stringWithFormat: messageFormat, randomIdForIq, randomIdForQuery, roomJid];
+    
+    HJChatHistoryRequest* result = [HJChatHistoryRequest new];
+    {
+        result.dataToSend = request         ;
+        result.idForIq    = randomIdForIq   ;
+        result.idForQuery = randomIdForQuery;
+    }
+    
     return result;
 }
 
