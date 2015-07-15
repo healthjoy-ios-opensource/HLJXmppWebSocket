@@ -31,6 +31,7 @@
 		7EEDFFBA1B55335A0093DE7E /* HJChatHistoryRequestBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EEDFFB91B55335A0093DE7E /* HJChatHistoryRequestBuilder.m */; };
 		7EEDFFBE1B5537910093DE7E /* HJRandomizerImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EEDFFBD1B5537910093DE7E /* HJRandomizerImpl.m */; };
 		7EEE81C01B567C29003FC7FC /* HJChatHistoryRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EEE81BF1B567C29003FC7FC /* HJChatHistoryRequest.m */; };
+		7EEE81CF1B56BDE8003FC7FC /* HJXmppClientImpl+UnitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EEE81CE1B56BDE8003FC7FC /* HJXmppClientImpl+UnitTest.m */; };
 		7EFDD7CA1B55514400430942 /* HJXmppErrorBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EFDD7C91B55514400430942 /* HJXmppErrorBase.m */; };
 		7EFDD7CD1B55516200430942 /* HJXmppErrorForHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EFDD7CC1B55516200430942 /* HJXmppErrorForHistory.m */; };
 /* End PBXBuildFile section */
@@ -218,6 +219,8 @@
 		7EEE81BE1B567C29003FC7FC /* HJChatHistoryRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJChatHistoryRequest.h; sourceTree = "<group>"; };
 		7EEE81BF1B567C29003FC7FC /* HJChatHistoryRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJChatHistoryRequest.m; sourceTree = "<group>"; };
 		7EEE81CC1B567C58003FC7FC /* HJChatHistoryRequestProto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJChatHistoryRequestProto.h; sourceTree = "<group>"; };
+		7EEE81CD1B56BDE8003FC7FC /* HJXmppClientImpl+UnitTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HJXmppClientImpl+UnitTest.h"; sourceTree = "<group>"; };
+		7EEE81CE1B56BDE8003FC7FC /* HJXmppClientImpl+UnitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HJXmppClientImpl+UnitTest.m"; sourceTree = "<group>"; };
 		7EFDD7C81B55514400430942 /* HJXmppErrorBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJXmppErrorBase.h; sourceTree = "<group>"; };
 		7EFDD7C91B55514400430942 /* HJXmppErrorBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJXmppErrorBase.m; sourceTree = "<group>"; };
 		7EFDD7CB1B55516200430942 /* HJXmppErrorForHistory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJXmppErrorForHistory.h; sourceTree = "<group>"; };
@@ -372,6 +375,8 @@
 				7E26D5C71B4EA2260030F2DD /* HJTransportForXmpp.h */,
 				7E26D5CD1B4EA94D0030F2DD /* HJXmppClientImpl.h */,
 				7E26D5CE1B4EA94D0030F2DD /* HJXmppClientImpl.mm */,
+				7EEE81CD1B56BDE8003FC7FC /* HJXmppClientImpl+UnitTest.h */,
+				7EEE81CE1B56BDE8003FC7FC /* HJXmppClientImpl+UnitTest.m */,
 				7E26D5DD1B4EC2390030F2DD /* HJAuthenticationStages.h */,
 				7E26D5DE1B4EC5780030F2DD /* HJTransportForXmppDelegate.h */,
 			);
@@ -628,6 +633,7 @@
 				7E26D5CF1B4EA94D0030F2DD /* HJXmppClientImpl.mm in Sources */,
 				7EFDD7CD1B55516200430942 /* HJXmppErrorForHistory.m in Sources */,
 				7EFDD7CA1B55514400430942 /* HJXmppErrorBase.m in Sources */,
+				7EEE81CF1B56BDE8003FC7FC /* HJXmppClientImpl+UnitTest.m in Sources */,
 				7EB9C4131B559C5200F94871 /* HJXmppBindParserError.m in Sources */,
 				7EEDFFBA1B55335A0093DE7E /* HJChatHistoryRequestBuilder.m in Sources */,
 				7EB9C42A1B55A8F500F94871 /* HJFinMessageParser.m in Sources */,
