@@ -45,6 +45,10 @@ static const NSTimeInterval TIMEOUT_FOR_TEST = 10.f;
     NSString* _historyRoomJid;
     NSError* _historyError;
     NSMutableArray* _historyData;
+    
+    XCTestExpectation* _isSendMessageEchoReceived;
+    id<XMPPMessageProto> _sentMessageEcho;
+
 }
 
 - (void)cleanupTestResultIvars
@@ -66,6 +70,7 @@ static const NSTimeInterval TIMEOUT_FOR_TEST = 10.f;
     self->_isSinglePresenseResponseReceived = nil;
     self->_isAllPresenseResponseReceived = nil;
     self->_isHistoryLoaded = nil;
+    self->_isSendMessageEchoReceived = nil;
 }
 
 - (void)setUp
@@ -233,12 +238,84 @@ static const NSTimeInterval TIMEOUT_FOR_TEST = 10.f;
     
     
     /// THEN
-    [self waitForExpectationsWithTimeout: 30000
+    [self waitForExpectationsWithTimeout: TIMEOUT_FOR_TEST
                                  handler: handlerOrNil];
     
     XCTAssertNil(self->_historyError);
     XCTAssertEqual([self->_historyData count],  (NSUInteger)1);
     XCTAssertEqualObjects(self->_historyRoomJid, roomJid);
+}
+
+- (void)testMessageSending
+{
+    /*
+    <presence from='user+11952@xmpp-dev.healthjoy.com/24536774811436968628882896' to='071515_142949_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com/Qatest37 Qatest37 (id 11952)' xmlns='jabber:client'><x xmlns='http://jabber.org/protocol/muc'/></presence>
+    
+    <iq type='set' id='7344163'><query xmlns='urn:xmpp:mam:0' queryid='5999853'><x xmlns='jabber:x:data'><field var='FORM_TYPE'><value>urn:xmpp:mam:0</value></field><field var='with'><value>071515_142949_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com</value></field><field var='start'><value>1970-01-01T00:00:00Z</value></field></x><set xmlns='http://jabber.org/protocol/rsm'><max>1000</max></set></query></iq>
+    
+    <message to='071515_142949_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com' type='groupchat' xmlns='jabber:client'><body>test send message (manual)</body><html xmlns='http://jabber.org/protocol/xhtml-im'><body><p>test send message (manual)</p></body></html></message>
+     
+     
+     <message from="071515_142949_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com/Qatest37 Qatest37 (id 11952)" to="user+11952@xmpp-dev.healthjoy.com/24536774811436968628882896" type="groupchat" xmlns="jabber:client" xmlns:stream="http://etherx.jabber.org/streams" version="1.0"><body>test send message (manual)</body><html xmlns="http://jabber.org/protocol/xhtml-im"><body><p>test send message (manual)</p></body></html></message>
+    */
+
+    
+    
+    // GIVEN
+    self->_isAllPresenseResponseReceived = [self expectationWithDescription: @"All presense response received"];
+    
+    NSArray* rooms =
+    @[
+      @"071515_142949_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com/Qatest37 Qatest37 (id 11952)"
+      ];
+    
+    XCWaitCompletionHandler handlerOrNil = ^void(NSError *error)
+    {
+        // TODO : add asserts
+        NSLog(@"done");
+    };
+    
+    [self->_sut sendPresenseForRooms: rooms];
+    [self waitForExpectationsWithTimeout: TIMEOUT_FOR_TEST
+                                 handler: handlerOrNil];
+    
+    XCTAssertTrue(self->_isReceivedDidSubscribe);
+    XCTAssertTrue(self->_isReceivedAllDidSubscribe);
+    XCTAssertEqual(self->_didSubscribeEventsCount, (NSUInteger)1);
+    XCTAssertEqual(self->_didFinishSubscribeEventsCount, (NSUInteger)1);
+    
+    //// WHEN
+    self->_isReceivedDidSubscribe    = nil;
+    self->_isReceivedAllDidSubscribe = nil;
+    
+    static NSString* const roomJid = @"071515_142949_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com";
+    self->_isHistoryLoaded = [self expectationWithDescription: @"History loaded"];
+    [self->_sut loadHistoryForRoom: roomJid];
+    
+    
+    [self waitForExpectationsWithTimeout: TIMEOUT_FOR_TEST
+                                 handler: handlerOrNil];
+    
+    XCTAssertNil(self->_historyError);
+    XCTAssertEqual([self->_historyData count],  (NSUInteger)1);
+    XCTAssertEqualObjects(self->_historyRoomJid, roomJid);
+    self->_isHistoryLoaded = nil;
+    
+    /// THEN
+    self->_isSendMessageEchoReceived = [self expectationWithDescription: @"Outcoming message echo received"];
+    
+    NSDate* nowDate = [NSDate date];
+    NSString* outgoingMessage = [NSString stringWithFormat: @"test send message + %@", nowDate];
+    [self->_sut sendMessage: outgoingMessage
+                         to: roomJid];
+    
+    [self waitForExpectationsWithTimeout: TIMEOUT_FOR_TEST
+                                 handler: handlerOrNil];
+    
+    XCTAssertNotNil(self->_sentMessageEcho);
+    XCTAssertEqualObjects([self->_sentMessageEcho fromStr], @"071515_142949_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com/Qatest37 Qatest37 (id 11952)");
+    XCTAssertEqualObjects([self->_sentMessageEcho toStr], @"user+11952@xmpp-dev.healthjoy.com/24536774811436968628882896");
+    XCTAssertEqualObjects([self->_sentMessageEcho body], outgoingMessage);
 }
 
 #pragma mark - HJXmppClientDelegate
@@ -248,6 +325,12 @@ didReceiveMessage:(id<XMPPMessageProto>)message
 {
     NSLog(@"message");
     [self->_historyData addObject: message];
+    
+    if (!isMessageIncoming)
+    {
+        self->_sentMessageEcho = message;
+        [self->_isSendMessageEchoReceived fulfill];
+    }
 }
 
 - (void)xmppClent:(id<HJXmppClient>)sender
