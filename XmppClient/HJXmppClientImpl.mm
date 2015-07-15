@@ -56,6 +56,7 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     NSMutableSet*          _pendingHistoryRequests;
     NSMutableDictionary*   _queryIdForIqId        ;
     NSMutableDictionary*   _iqIdForQueryId        ;
+    NSMutableDictionary*   _roomJidForQueryId     ;
     
     NSString*              _jidStringFromUserInfo;
     NSString*              _jidStringFromBind    ;
@@ -127,6 +128,7 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
         self->_pendingHistoryRequests = [NSMutableSet new];
         self->_queryIdForIqId         = [NSMutableDictionary new];
         self->_iqIdForQueryId         = [NSMutableDictionary new];
+        self->_roomJidForQueryId      = [NSMutableDictionary new];
     }
     
     return self;
@@ -258,6 +260,8 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
         
         self->_queryIdForIqId[key  ] = value;
         self->_iqIdForQueryId[value] = key  ;
+        
+        self->_roomJidForQueryId[value] = roomJid;
     }
     [self->_transport send: [request dataToSend]];
 }
@@ -761,12 +765,20 @@ didFailToReceiveMessageWithError:error];
 
 - (void)handleFinMessage:(id<XMPPMessageProto>)element
 {
+    id<HJXmppClientDelegate> strongDelegate = self.listenerDelegate;
+    
     NSString* queryId = [HJFinMessageParser queryIdFromFinMessage: element];
     NSString* iqId = self->_iqIdForQueryId[queryId];
+    NSString* roomJid = self->_roomJidForQueryId[queryId];
     
     [self->_pendingHistoryRequests removeObject: iqId];
     [self->_iqIdForQueryId removeObjectForKey: queryId];
     [self->_queryIdForIqId removeObjectForKey: iqId];
+    
+
+    [strongDelegate xmppClent: self
+        didLoadHistoryForRoom: roomJid
+                        error: nil];
 }
 
 - (void)handleLiveMessage:(id<XMPPMessageProto>)element
