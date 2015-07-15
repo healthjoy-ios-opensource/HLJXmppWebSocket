@@ -15,6 +15,8 @@
 
 #import "HJXmppClientImpl.h"
 #import "HLJWebSocketTransportForXmpp.h"
+#import "HJXmppClientImpl+UnitTest.h"
+
 
 static const NSTimeInterval TIMEOUT_FOR_TEST = 10.f;
 
@@ -222,11 +224,7 @@ static const NSTimeInterval TIMEOUT_FOR_TEST = 10.f;
     [self->_sut sendPresenseForRooms: rooms];
     [self waitForExpectationsWithTimeout: TIMEOUT_FOR_TEST
                                  handler: handlerOrNil];
-    
-    XCTAssertTrue(self->_isReceivedDidSubscribe);
-    XCTAssertTrue(self->_isReceivedAllDidSubscribe);
-    XCTAssertEqual(self->_didSubscribeEventsCount, (NSUInteger)1);
-    XCTAssertEqual(self->_didFinishSubscribeEventsCount, (NSUInteger)1);
+
     
     //// WHEN
     self->_isReceivedDidSubscribe    = nil;
@@ -279,11 +277,6 @@ static const NSTimeInterval TIMEOUT_FOR_TEST = 10.f;
     [self waitForExpectationsWithTimeout: TIMEOUT_FOR_TEST
                                  handler: handlerOrNil];
     
-    XCTAssertTrue(self->_isReceivedDidSubscribe);
-    XCTAssertTrue(self->_isReceivedAllDidSubscribe);
-    XCTAssertEqual(self->_didSubscribeEventsCount, (NSUInteger)1);
-    XCTAssertEqual(self->_didFinishSubscribeEventsCount, (NSUInteger)1);
-    
     //// WHEN
     self->_isReceivedDidSubscribe    = nil;
     self->_isReceivedAllDidSubscribe = nil;
@@ -296,9 +289,6 @@ static const NSTimeInterval TIMEOUT_FOR_TEST = 10.f;
     [self waitForExpectationsWithTimeout: TIMEOUT_FOR_TEST
                                  handler: handlerOrNil];
     
-    XCTAssertNil(self->_historyError);
-    XCTAssertEqual([self->_historyData count],  (NSUInteger)1);
-    XCTAssertEqualObjects(self->_historyRoomJid, roomJid);
     self->_isHistoryLoaded = nil;
     
     /// THEN
@@ -314,8 +304,60 @@ static const NSTimeInterval TIMEOUT_FOR_TEST = 10.f;
     
     XCTAssertNotNil(self->_sentMessageEcho);
     XCTAssertEqualObjects([self->_sentMessageEcho fromStr], @"071515_142949_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com/Qatest37 Qatest37 (id 11952)");
-    XCTAssertEqualObjects([self->_sentMessageEcho toStr], @"user+11952@xmpp-dev.healthjoy.com/24536774811436968628882896");
+    
+
+    NSString* expectedToStr = [self->_sut jidStringFromBind];
+    XCTAssertEqualObjects([self->_sentMessageEcho toStr], expectedToStr);
     XCTAssertEqualObjects([self->_sentMessageEcho body], outgoingMessage);
+}
+
+- (void)testAttachmentSending
+{
+    XCTFail(@"TODO : Write a test");
+    
+    // Request
+    //
+    /*
+    <message
+        to='071515_142949_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com' 
+        type='groupchat' 
+        xmlns='jabber:client'>
+            <body>
+            </body>
+     
+            <attachment 
+                 file_name='tmp.png' 
+                 size='120x90' 
+                 thumb_url='http://cdn-dev.hjdev/objects/HNkqNvh5ca_thumb_tmp.png' 
+                 url='http://cdn-dev.hjdev/objects/HNkqNvh5ca_tmp.png'/>
+             
+            <html xmlns='http://jabber.org/protocol/xhtml-im'>
+                <body>
+                    <p></p>
+                    <a href='http://cdn-dev.hjdev/objects/HNkqNvh5ca_tmp.png'>http://cdn-dev.hjdev/objects/HNkqNvh5ca_tmp.png</a>
+                </body>
+            </html>
+     </message>
+    */
+    
+    
+    
+    // Response
+    //
+    /*
+    <message 
+         from="071515_142949_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com/Qatest37 Qatest37 (id 11952)" 
+         to="user+11952@xmpp-dev.healthjoy.com/24536774811436968628882896" 
+         type="groupchat" 
+         xmlns="jabber:client" 
+         xmlns:stream="http://etherx.jabber.org/streams" 
+         version="1.0">
+             <body/>
+      
+             <attachment 
+                  file_name="tmp.png" 
+                  size="120x90" thumb_url="http://cdn-dev.hjdev/objects/HNkqNvh5ca_thumb_tmp.png" url="http://cdn-dev.hjdev/objects/HNkqNvh5ca_tmp.png"/><html xmlns="http://jabber.org/protocol/xhtml-im"><body><p/><a href="http://cdn-dev.hjdev/objects/HNkqNvh5ca_tmp.png">http://cdn-dev.hjdev/objects/HNkqNvh5ca_tmp.png</a></body></html></message>
+    */
 }
 
 #pragma mark - HJXmppClientDelegate
