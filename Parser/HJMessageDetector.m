@@ -40,7 +40,7 @@
         NSXMLElement* castedRawMessage = (NSXMLElement*)element;
         NSArray* finElementArray = [castedRawMessage elementsForName: @"fin"];
         
-        isFinMessage = (0 == [finElementArray count]);
+        isFinMessage = (0 != [finElementArray count]);
     }
     
     return isFinMessage;
