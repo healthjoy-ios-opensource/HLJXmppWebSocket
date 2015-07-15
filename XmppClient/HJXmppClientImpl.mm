@@ -38,6 +38,9 @@ typedef std::set< __strong id<XMPPParserProto> > XmppParsersSet;
 typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaRootForParserMap;
 
 @interface HJXmppClientImpl() <XMPPParserDelegate, HJTransportForXmppDelegate>
+
+@property (nonatomic, readonly) NSString* jidStringFromBind;
+
 @end
 
 
@@ -846,7 +849,10 @@ didFailToReceiveMessageWithError:error];
 #pragma mark - Utils
 - (BOOL)isMessageIncoming:(id<XMPPMessageProto>)element
 {
-    return [[element toStr] isEqualToString: self->_jidStringFromBind];
+    NSString* messageSender = [element fromStr];
+    BOOL isSentMessage = [self->_jidStringsForRooms containsObject: messageSender];
+    
+    return !isSentMessage;
 }
 
 @end
