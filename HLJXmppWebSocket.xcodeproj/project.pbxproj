@@ -21,6 +21,7 @@
 		7E4596FA1B54087A001AD170 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E4596F91B54087A001AD170 /* libc++.dylib */; };
 		7E4596FC1B54217F001AD170 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E4596FB1B54217F001AD170 /* libiconv.dylib */; };
 		7E45D25E1B500388001F9ECC /* HLJWebSocketAuthIntegrationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E45D25D1B500388001F9ECC /* HLJWebSocketAuthIntegrationTest.m */; };
+		7E6F87E61B5800EA0057B504 /* HJMockAttachmentUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E6F87E51B5800EA0057B504 /* HJMockAttachmentUploader.m */; };
 		7EB9C4131B559C5200F94871 /* HJXmppBindParserError.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EB9C4121B559C5200F94871 /* HJXmppBindParserError.m */; };
 		7EB9C41E1B559E8100F94871 /* HJSessionResponseParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EB9C41D1B559E8100F94871 /* HJSessionResponseParser.m */; };
 		7EB9C4211B559FE700F94871 /* HJXmppSessionResponseError.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EB9C4201B559FE700F94871 /* HJXmppSessionResponseError.m */; };
@@ -195,6 +196,10 @@
 		7E4F126B1B4FCB75001F1769 /* KissXML-iOS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "KissXML-iOS.xcodeproj"; path = "../../KissXML/KissXML-iOS.xcodeproj"; sourceTree = "<group>"; };
 		7E56BF981B4D8A8700D27597 /* HJXmppClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJXmppClient.h; sourceTree = "<group>"; };
 		7E56BF991B4D8A9D00D27597 /* HJXmppClientDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJXmppClientDelegate.h; sourceTree = "<group>"; };
+		7E6F87DD1B57ED580057B504 /* HJXmppChatAttachment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJXmppChatAttachment.h; sourceTree = "<group>"; };
+		7E6F87E31B57F3690057B504 /* HJAttachmentUploader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJAttachmentUploader.h; sourceTree = "<group>"; };
+		7E6F87E41B5800EA0057B504 /* HJMockAttachmentUploader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJMockAttachmentUploader.h; sourceTree = "<group>"; };
+		7E6F87E51B5800EA0057B504 /* HJMockAttachmentUploader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJMockAttachmentUploader.m; sourceTree = "<group>"; };
 		7E7720E71B4D78470082FA43 /* HLJXmppWebSocket.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLJXmppWebSocket.pch; sourceTree = "<group>"; };
 		7E7B9A9E1B4D727200FB15F1 /* HLJXmppWebSocket.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLJXmppWebSocket.h; sourceTree = "<group>"; };
 		7EB9C4111B559C5200F94871 /* HJXmppBindParserError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJXmppBindParserError.h; sourceTree = "<group>"; };
@@ -383,11 +388,23 @@
 			path = XmppClient;
 			sourceTree = "<group>";
 		};
+		7E6F87D41B57ED430057B504 /* Attachments */ = {
+			isa = PBXGroup;
+			children = (
+				7E6F87DD1B57ED580057B504 /* HJXmppChatAttachment.h */,
+				7E6F87E31B57F3690057B504 /* HJAttachmentUploader.h */,
+				7E6F87E41B5800EA0057B504 /* HJMockAttachmentUploader.h */,
+				7E6F87E51B5800EA0057B504 /* HJMockAttachmentUploader.m */,
+			);
+			path = Attachments;
+			sourceTree = "<group>";
+		};
 		7E7B9A9D1B4D726300FB15F1 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
 				7E7B9A9E1B4D727200FB15F1 /* HLJXmppWebSocket.h */,
 				7E7720E71B4D78470082FA43 /* HLJXmppWebSocket.pch */,
+				7E6F87D41B57ED430057B504 /* Attachments */,
 				7E19623A1B55993E00D4CD32 /* Parser */,
 				7EFDD7BF1B55513100430942 /* Error */,
 				7EEDFFAF1B5533460093DE7E /* PacketBuilder */,
@@ -631,6 +648,7 @@
 				7E1962451B55995E00D4CD32 /* HJBindResponseParser.m in Sources */,
 				7EB9C42D1B55A9DC00F94871 /* HJHistoryMessageParser.m in Sources */,
 				7E26D5CF1B4EA94D0030F2DD /* HJXmppClientImpl.mm in Sources */,
+				7E6F87E61B5800EA0057B504 /* HJMockAttachmentUploader.m in Sources */,
 				7EFDD7CD1B55516200430942 /* HJXmppErrorForHistory.m in Sources */,
 				7EFDD7CA1B55514400430942 /* HJXmppErrorBase.m in Sources */,
 				7EEE81CF1B56BDE8003FC7FC /* HJXmppClientImpl+UnitTest.m in Sources */,
