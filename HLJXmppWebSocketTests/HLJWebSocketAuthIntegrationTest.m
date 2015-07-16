@@ -16,6 +16,7 @@
 #import "HJXmppClientImpl.h"
 #import "HLJWebSocketTransportForXmpp.h"
 #import "HJXmppClientImpl+UnitTest.h"
+#import "HJMockAttachmentUploader.h"
 
 
 static const NSTimeInterval TIMEOUT_FOR_TEST = 10.f;
@@ -29,6 +30,7 @@ static const NSTimeInterval TIMEOUT_FOR_TEST = 10.f;
     HJXmppClientImpl* _sut      ;
     SRWebSocket     * _webSocket;
     HLJWebSocketTransportForXmpp* _webSocketWrapper;
+    HJMockAttachmentUploader* _mockAttachments;
     
     
     XCTestExpectation* _isAuthFinished;
@@ -50,7 +52,7 @@ static const NSTimeInterval TIMEOUT_FOR_TEST = 10.f;
     
     XCTestExpectation* _isSendMessageEchoReceived;
     id<XMPPMessageProto> _sentMessageEcho;
-
+    NSString* _roomOfMessageEcho;
 }
 
 - (void)cleanupTestResultIvars
@@ -64,6 +66,9 @@ static const NSTimeInterval TIMEOUT_FOR_TEST = 10.f;
     self->_historyError = nil;
     self->_historyRoomJid = nil;
     self->_historyData = [NSMutableArray new];
+    
+    self->_sentMessageEcho = nil;
+    self->_roomOfMessageEcho = nil;
 }
 
 - (void)cleanupExpectations
@@ -95,7 +100,7 @@ static const NSTimeInterval TIMEOUT_FOR_TEST = 10.f;
     
     
     
-    
+    self->_mockAttachments = [HJMockAttachmentUploader new];
     XmppParserBuilderBlock parserFactory = ^id<XMPPParserProto>()
     {
         XMPPParser* parser = [[XMPPParser alloc] initWithDelegate: nil
@@ -103,6 +108,7 @@ static const NSTimeInterval TIMEOUT_FOR_TEST = 10.f;
         return parser;
     };
     self->_sut = [[HJXmppClientImpl alloc] initWithTransport: self->_webSocketWrapper
+                                           attachmentsUpload: self->_mockAttachments
                                            xmppParserFactory: parserFactory
                                                         host: @"xmpp-dev.healthjoy.com"
                                                  accessToken: accessToken
@@ -304,6 +310,7 @@ static const NSTimeInterval TIMEOUT_FOR_TEST = 10.f;
     
     XCTAssertNotNil(self->_sentMessageEcho);
     XCTAssertEqualObjects([self->_sentMessageEcho fromStr], @"071515_142949_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com/Qatest37 Qatest37 (id 11952)");
+    XCTAssertEqualObjects(self->_roomOfMessageEcho, roomJid);
     
 
     NSString* expectedToStr = [self->_sut jidStringFromBind];
@@ -363,6 +370,7 @@ static const NSTimeInterval TIMEOUT_FOR_TEST = 10.f;
 #pragma mark - HJXmppClientDelegate
 - (void)xmppClent:(id<HJXmppClient>)sender
 didReceiveMessage:(id<XMPPMessageProto>)message
+           atRoom:(NSString*)roomJid
          incoming:(BOOL)isMessageIncoming
 {
     NSLog(@"message");
@@ -370,6 +378,7 @@ didReceiveMessage:(id<XMPPMessageProto>)message
     
     if (!isMessageIncoming)
     {
+        self->_roomOfMessageEcho = roomJid;
         self->_sentMessageEcho = message;
         [self->_isSendMessageEchoReceived fulfill];
     }
@@ -439,6 +448,19 @@ didLoadHistoryForRoom:(NSString*)roomJid
     self->_historyRoomJid = roomJid;
     self->_historyError = maybeError;
     [self->_isHistoryLoaded fulfill];
+}
+
+- (void)xmppClent:(id<HJXmppClient>)sender
+didSendAttachmentTo:(NSString*)roomJid
+{
+    
+}
+
+- (void)xmppClent:(id<HJXmppClient>)sender
+didFailSendingAttachmentTo:(NSString*)roomJid
+        withError:(NSError*)error
+{
+    
 }
 
 @end
