@@ -363,8 +363,109 @@ static const NSTimeInterval TIMEOUT_FOR_TEST = 10.f;
       
              <attachment 
                   file_name="tmp.png" 
-                  size="120x90" thumb_url="http://cdn-dev.hjdev/objects/HNkqNvh5ca_thumb_tmp.png" url="http://cdn-dev.hjdev/objects/HNkqNvh5ca_tmp.png"/><html xmlns="http://jabber.org/protocol/xhtml-im"><body><p/><a href="http://cdn-dev.hjdev/objects/HNkqNvh5ca_tmp.png">http://cdn-dev.hjdev/objects/HNkqNvh5ca_tmp.png</a></body></html></message>
+                  size="120x90" thumb_url="http://cdn-dev.hjdev/objects/HNkqNvh5ca_thumb_tmp.png" 
+                  url="http://cdn-dev.hjdev/objects/HNkqNvh5ca_tmp.png"/>
+            
+            <html xmlns="http://jabber.org/protocol/xhtml-im">
+            <body><p/><a href="http://cdn-dev.hjdev/objects/HNkqNvh5ca_tmp.png">http://cdn-dev.hjdev/objects/HNkqNvh5ca_tmp.png</a></body>
+            </html>
+     </message>
     */
+}
+
+- (void)testAttachmentWithTextSending
+{
+    XCTFail(@"TODO : Write a test");
+    //=======
+    
+    /*
+    <message
+        to='071515_142949_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com'
+        type='groupchat'
+        xmlns='jabber:client'>
+            <body>Image and text</body>
+            <attachment
+                file_name='IMG_0423.PNG'
+                size='120x90'
+                thumb_url='http://cdn-dev.hjdev/objects/q4VOduEXPl_thumb_IMG_0423.PNG'
+                url='http://cdn-dev.hjdev/objects/q4VOduEXPl_IMG_0423.PNG'/>
+            <html xmlns='http://jabber.org/protocol/xhtml-im'>
+                <body>
+                    <p>Image and text</p>
+                    <a href='http://cdn-dev.hjdev/objects/q4VOduEXPl_IMG_0423.PNG'>
+                        http://cdn-dev.hjdev/objects/q4VOduEXPl_IMG_0423.PNG
+                    </a>
+                </body>
+            </html>
+    </message>
+    
+    <message
+        from="071515_142949_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com/Qatest37 Qatest37 (id 11952)"
+        to="user+11952@xmpp-dev.healthjoy.com/2786719646143761414240863"
+        type="groupchat"
+        xmlns="jabber:client"
+        xmlns:stream="http://etherx.jabber.org/streams"
+        version="1.0">
+    
+        <body>Image and text</body>
+        <attachment
+            file_name="IMG_0423.PNG"
+            size="120x90"
+            thumb_url="http://cdn-dev.hjdev/objects/q4VOduEXPl_thumb_IMG_0423.PNG"
+            url="http://cdn-dev.hjdev/objects/q4VOduEXPl_IMG_0423.PNG"/>
+     
+        <html xmlns="http://jabber.org/protocol/xhtml-im">
+            <body>
+                <p>Image and text</p>
+                <a href="http://cdn-dev.hjdev/objects/q4VOduEXPl_IMG_0423.PNG">
+                    http://cdn-dev.hjdev/objects/q4VOduEXPl_IMG_0423.PNG
+                </a>
+            </body>
+        </html>
+     </message>
+     */
+}
+
+- (void)testTwoAttachmentsAndTextSend
+{
+    XCTFail(@"TODO : Write a test");
+    
+    /*
+    <message
+        to='071515_142949_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com'
+        type='groupchat'
+        xmlns='jabber:client'>
+            <body>Message and two images</body>
+    
+            <attachment
+                file_name='IMG_0050.PNG'
+                size='67x120'
+                thumb_url='http://cdn-dev.hjdev/objects/RjSIVPeoW5_thumb_IMG_0050.PNG'
+                url='http://cdn-dev.hjdev/objects/RjSIVPeoW5_IMG_0050.PNG'/>
+    
+            <attachment
+                file_name='IMG_0084.PNG'
+                size='80x120'
+                thumb_url='http://cdn-dev.hjdev/objects/S3ztL9p7vq_thumb_IMG_0084.PNG'
+                url='http://cdn-dev.hjdev/objects/S3ztL9p7vq_IMG_0084.PNG'/>
+    
+            <html xmlns='http://jabber.org/protocol/xhtml-im'>
+                <body>
+                    <p>Message and two images</p>
+                    <a href='http://cdn-dev.hjdev/objects/RjSIVPeoW5_IMG_0050.PNG'>
+                        http://cdn-dev.hjdev/objects/RjSIVPeoW5_IMG_0050.PNG
+                    </a>
+                    <a href='http://cdn-dev.hjdev/objects/S3ztL9p7vq_IMG_0084.PNG'>
+                        http://cdn-dev.hjdev/objects/S3ztL9p7vq_IMG_0084.PNG
+                    </a>
+                </body>
+            </html>
+    </message>
+    
+    
+    
+    <message from="071515_142949_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com/Qatest37 Qatest37 (id 11952)" to="user+11952@xmpp-dev.healthjoy.com/2786719646143761414240863" type="groupchat" xmlns="jabber:client" xmlns:stream="http://etherx.jabber.org/streams" version="1.0"><body>Message and two images</body><attachment file_name="IMG_0050.PNG" size="67x120" thumb_url="http://cdn-dev.hjdev/objects/RjSIVPeoW5_thumb_IMG_0050.PNG" url="http://cdn-dev.hjdev/objects/RjSIVPeoW5_IMG_0050.PNG"/><attachment file_name="IMG_0084.PNG" size="80x120" thumb_url="http://cdn-dev.hjdev/objects/S3ztL9p7vq_thumb_IMG_0084.PNG" url="http://cdn-dev.hjdev/objects/S3ztL9p7vq_IMG_0084.PNG"/><html xmlns="http://jabber.org/protocol/xhtml-im"><body><p>Message and two images</p><a href="http://cdn-dev.hjdev/objects/RjSIVPeoW5_IMG_0050.PNG">http://cdn-dev.hjdev/objects/RjSIVPeoW5_IMG_0050.PNG</a><a href="http://cdn-dev.hjdev/objects/S3ztL9p7vq_IMG_0084.PNG">http://cdn-dev.hjdev/objects/S3ztL9p7vq_IMG_0084.PNG</a></body></html></message>
+     */
 }
 
 #pragma mark - HJXmppClientDelegate
