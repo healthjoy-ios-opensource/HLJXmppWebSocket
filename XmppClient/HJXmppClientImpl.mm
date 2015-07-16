@@ -30,6 +30,8 @@
 
 #import "HJChatHistoryRequestProto.h"
 
+#import "HJAttachmentUploader.h"
+#import "HJXmppChatAttachment.h"
 
 
 #define NSLog(...)
@@ -46,23 +48,24 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
 
 @implementation HJXmppClientImpl
 {
-    id<HJTransportForXmpp> _transport            ;
-    XmppParserBuilderBlock _xmppParserFactory    ;
-    XmppParsersSet         _parsers              ;
-    StanzaRootForParserMap _rootNodeForParser    ;
+    id<HJTransportForXmpp>   _transport             ;
+    id<HJAttachmentUploader> _attachmentUpload      ;
+    XmppParserBuilderBlock   _xmppParserFactory     ;
+    XmppParsersSet           _parsers               ;
+    StanzaRootForParserMap   _rootNodeForParser     ;
     
-    NSString*              _xmppHost             ;
-    NSString*              _accessToken          ;
-    NSArray *              _jidStringsForRooms   ;
+    NSString*                _xmppHost              ;
+    NSString*                _accessToken           ;
+    NSArray *                _jidStringsForRooms    ;
     
-    NSMutableSet*          _pendingRooms;
-    NSMutableSet*          _pendingHistoryRequests;
-    NSMutableDictionary*   _queryIdForIqId        ;
-    NSMutableDictionary*   _iqIdForQueryId        ;
-    NSMutableDictionary*   _roomJidForQueryId     ;
+    NSMutableSet*            _pendingRooms;
+    NSMutableSet*            _pendingHistoryRequests;
+    NSMutableDictionary*     _queryIdForIqId        ;
+    NSMutableDictionary*     _iqIdForQueryId        ;
+    NSMutableDictionary*     _roomJidForQueryId     ;
     
-    NSString*              _jidStringFromUserInfo;
-    NSString*              _jidStringFromBind    ;
+    NSString*                _jidStringFromUserInfo ;
+    NSString*                _jidStringFromBind     ;
 
     
     
@@ -95,6 +98,7 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
 }
 
 - (instancetype)initWithTransport:(id<HJTransportForXmpp>)transport
+                attachmentsUpload:(id<HJAttachmentUploader>)attachmentUpload
                 xmppParserFactory:(XmppParserBuilderBlock)xmppParserFactory
                              host:(NSString*)host
                       accessToken:(NSString*)accessToken
@@ -117,6 +121,7 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     self->_transport             = transport  ;
     [self->_transport setDelegate: self];
     
+    self->_attachmentUpload = attachmentUpload;
     self->_xmppParserFactory = [xmppParserFactory copy];
     
     self->_xmppHost              = host       ;
@@ -230,7 +235,28 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
 {
     NSParameterAssert(XMPP_PLAIN_AUTH__COMPLETED == self->_authStage);
     
-    NSAssert(NO, @"not implemented");
+    id<HJXmppClientDelegate> strongDelegate = self.listenerDelegate;
+    __weak HJXmppClientImpl* weakSelf = self;
+    
+    HJAttachmentUploadSuccessBlock onAttachmentUploadedBlock = ^void(id<HJXmppChatAttachment> attachment)
+    {
+        HJXmppClientImpl* strongSelf = weakSelf;
+        [strongSelf sendAttachmentRequest: attachment
+                                       to: roomJid];
+    };
+    
+    HJAttachmentUploadErrorBlock onAttachmentUploadError = ^void(NSError* error)
+    {
+        HJXmppClientImpl* strongSelf = weakSelf;
+        
+        [strongDelegate xmppClent: strongSelf
+       didFailSendingAttachmentTo: roomJid
+                        withError: error];
+    };
+    
+    [self->_attachmentUpload uploadAtachment: binaryFromUser
+                          withSuccessHandler: [onAttachmentUploadedBlock copy]
+                                errorHandler: [onAttachmentUploadError   copy]];
 }
 
 - (void)loadHistoryForRoom:(NSString*)roomJid {
@@ -791,10 +817,12 @@ didFailToReceiveMessageWithError:error];
     //    <message from="070815_114612_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com/Qatest37 Qatest37 (id 11952)" to="user+11952@xmpp-dev.healthjoy.com/11356033521436884287873659" type="groupchat" xm lns="jabber:client" xmlns:stream="http://etherx.jabber.org/streams" version="1.0"><body>sent message</body><html xmlns="http://jabber.org/protocol/xhtml-im"><body><p>sent message</p></body></html></message>
     
     BOOL isIncoming = [self isMessageIncoming: element];
+    NSString* roomJid = [self roomForMessage: element];
     
     id<HJXmppClientDelegate> strongDelegate = self.listenerDelegate;
     [strongDelegate xmppClent: self
             didReceiveMessage: element
+                       atRoom: roomJid
                      incoming: isIncoming];
 }
 
@@ -804,9 +832,11 @@ didFailToReceiveMessageWithError:error];
     
     id<XMPPMessageProto> unwrappedMessage = [HJHistoryMessageParser unwrapHistoryMessage: element];
     BOOL isIncoming = [self isMessageIncoming: unwrappedMessage];
+    NSString* roomJid = [self roomForMessage: element];
     
     [strongDelegate xmppClent: self
             didReceiveMessage: unwrappedMessage
+                       atRoom: roomJid
                      incoming: isIncoming];
 }
 
@@ -846,6 +876,46 @@ didFailToReceiveMessageWithError:error];
     [self disconnect];
 }
 
+#pragma mark - Attachments
+- (void)sendAttachmentRequest:(id<HJXmppChatAttachment>)attachment
+                           to:(NSString*)roomJid
+{
+    static NSString* const requestFormat =
+    @"<message                                          \n"
+    @"to='%@'                                           \n" // 071515_142949_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com
+    @"type='groupchat'                                  \n"
+    @"xmlns='jabber:client'>                            \n"
+    @"<body>                                            \n"
+    @"</body>                                           \n"
+    @"                                                  \n"
+    @"<attachment                                       \n"
+    @"file_name='%@'                                    \n" // tmp.png
+    @"size='%@'                                         \n" // 120x90
+    @"thumb_url='%@'                                    \n" // http://cdn-dev.hjdev/objects/HNkqNvh5ca_thumb_tmp.png
+    @"url='%@'/>                                        \n" // http://cdn-dev.hjdev/objects/HNkqNvh5ca_tmp.png
+    @"                                                  \n"
+    @"<html xmlns='http://jabber.org/protocol/xhtml-im'>\n"
+    @"<body>                                            \n"
+    @"<p></p>                                           \n"
+    @"<a href='%@'>%@</a>                               \n" // 2x http://cdn-dev.hjdev/objects/HNkqNvh5ca_tmp.png
+    @"</body>                                           \n"
+    @"</html>                                           \n"
+    @"</message>";
+    
+    
+    NSString* fullSizeUrl = [attachment fullSizeImageUrl];
+    NSString* request =
+        [NSString stringWithFormat: requestFormat,
+            roomJid,
+            [attachment fileName],
+            [attachment rawImageSize],
+            [attachment thumbnailUrl],
+            fullSizeUrl,
+            fullSizeUrl, fullSizeUrl];
+    
+    [self->_transport send: request];
+}
+
 #pragma mark - Utils
 - (BOOL)isMessageIncoming:(id<XMPPMessageProto>)element
 {
@@ -853,6 +923,16 @@ didFailToReceiveMessageWithError:error];
     BOOL isSentMessage = [self->_jidStringsForRooms containsObject: messageSender];
     
     return !isSentMessage;
+}
+
+- (NSString*)roomForMessage:(id<XMPPMessageProto>)element
+{
+    NSString* messageSender = [element fromStr];
+    NSArray* tokens = [messageSender componentsSeparatedByString: @"/"];
+    
+    NSString* result = [tokens firstObject];
+    
+    return result;
 }
 
 @end
