@@ -16,7 +16,6 @@
 - (void)uploadAtachment:(NSData*)attachmentBinary
      withSuccessHandler:(HJAttachmentUploadSuccessBlock)onAttachmentUploadedBlock
            errorHandler:(HJAttachmentUploadErrorBlock)onAttachmentUploadNetworkError
-
 {
     HJXmppChatAttachmentPOD* result = [HJXmppChatAttachmentPOD new];
     {
