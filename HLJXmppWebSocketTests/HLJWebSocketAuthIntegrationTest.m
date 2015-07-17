@@ -19,6 +19,7 @@
 #import "HJMockAttachmentUploader.h"
 
 #import "HJXmppChatAttachment.h"
+#import "HJMockSuccessAttachmentUploader.h"
 
 
 static const NSTimeInterval TIMEOUT_FOR_TEST = 10.f;
@@ -32,11 +33,12 @@ static const NSTimeInterval TIMEOUT_FOR_TEST = 10.f;
     HJXmppClientImpl* _sut      ;
     SRWebSocket     * _webSocket;
     HLJWebSocketTransportForXmpp* _webSocketWrapper;
-    HJMockAttachmentUploader* _mockAttachments;
+    HJMockSuccessAttachmentUploader* _mockAttachments;
     
     
     XCTestExpectation* _isAuthFinished;
     NSError* _authError;
+    NSData* _imageToSend;
     
     
     XCTestExpectation* _isAllPresenseResponseReceived;
@@ -93,6 +95,11 @@ static const NSTimeInterval TIMEOUT_FOR_TEST = 10.f;
 
     [self cleanupTestResultIvars];
     
+    NSBundle* mainBundle = [NSBundle bundleForClass: [self class]];
+    NSString* filePath = [mainBundle pathForResource: @"monkey-selfie"
+                                              ofType: @"jpg"];
+    self->_imageToSend = [NSData dataWithContentsOfFile: filePath];
+    
     static NSString* const jid = @"070815_113113_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com/Qatest37 Qatest37 (id 11952)";
 
     
@@ -106,7 +113,7 @@ static const NSTimeInterval TIMEOUT_FOR_TEST = 10.f;
     
     
     
-    self->_mockAttachments = [HJMockAttachmentUploader new];
+    self->_mockAttachments = [HJMockSuccessAttachmentUploader new];
     XmppParserBuilderBlock parserFactory = ^id<XMPPParserProto>()
     {
         XMPPParser* parser = [[XMPPParser alloc] initWithDelegate: nil
@@ -130,6 +137,7 @@ static const NSTimeInterval TIMEOUT_FOR_TEST = 10.f;
     [self->_sut disconnect];
     [self->_webSocket close];
     
+    self->_imageToSend = nil;
     self->_sut = nil;
     self->_webSocket = nil;
     
@@ -524,55 +532,61 @@ static const NSTimeInterval TIMEOUT_FOR_TEST = 10.f;
 
 - (void)testAttachmentWithTextSending
 {
-    XCTFail(@"TODO : Write a test");
-    //=======
+    // GIVEN
+    self->_isAllPresenseResponseReceived = [self expectationWithDescription: @"All presense response received"];
     
-    /*
-    <message
-        to='071515_142949_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com'
-        type='groupchat'
-        xmlns='jabber:client'>
-            <body>Image and text</body>
-            <attachment
-                file_name='IMG_0423.PNG'
-                size='120x90'
-                thumb_url='http://cdn-dev.hjdev/objects/q4VOduEXPl_thumb_IMG_0423.PNG'
-                url='http://cdn-dev.hjdev/objects/q4VOduEXPl_IMG_0423.PNG'/>
-            <html xmlns='http://jabber.org/protocol/xhtml-im'>
-                <body>
-                    <p>Image and text</p>
-                    <a href='http://cdn-dev.hjdev/objects/q4VOduEXPl_IMG_0423.PNG'>
-                        http://cdn-dev.hjdev/objects/q4VOduEXPl_IMG_0423.PNG
-                    </a>
-                </body>
-            </html>
-    </message>
+    NSArray* rooms =
+    @[
+      @"071715_130351_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com/Qatest37 Qatest37 (id 11952)"
+      ];
     
-    <message
-        from="071515_142949_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com/Qatest37 Qatest37 (id 11952)"
-        to="user+11952@xmpp-dev.healthjoy.com/2786719646143761414240863"
-        type="groupchat"
-        xmlns="jabber:client"
-        xmlns:stream="http://etherx.jabber.org/streams"
-        version="1.0">
+    XCWaitCompletionHandler handlerOrNil = ^void(NSError *error)
+    {
+        // TODO : add asserts
+        NSLog(@"done");
+    };
     
-        <body>Image and text</body>
-        <attachment
-            file_name="IMG_0423.PNG"
-            size="120x90"
-            thumb_url="http://cdn-dev.hjdev/objects/q4VOduEXPl_thumb_IMG_0423.PNG"
-            url="http://cdn-dev.hjdev/objects/q4VOduEXPl_IMG_0423.PNG"/>
-     
-        <html xmlns="http://jabber.org/protocol/xhtml-im">
-            <body>
-                <p>Image and text</p>
-                <a href="http://cdn-dev.hjdev/objects/q4VOduEXPl_IMG_0423.PNG">
-                    http://cdn-dev.hjdev/objects/q4VOduEXPl_IMG_0423.PNG
-                </a>
-            </body>
-        </html>
-     </message>
-     */
+    [self->_sut sendPresenseForRooms: rooms];
+    [self waitForExpectationsWithTimeout: TIMEOUT_FOR_TEST
+                                 handler: handlerOrNil];
+    
+    //// WHEN
+    self->_isReceivedDidSubscribe    = nil;
+    self->_isReceivedAllDidSubscribe = nil;
+    
+    static NSString* const roomJid = @"071715_130351_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com";
+    self->_isHistoryLoaded = [self expectationWithDescription: @"History loaded"];
+    [self->_sut loadHistoryForRoom: roomJid];
+    
+    
+    [self waitForExpectationsWithTimeout: TIMEOUT_FOR_TEST
+                                 handler: handlerOrNil];
+    
+    self->_isHistoryLoaded = nil;
+    
+    /// THEN
+    self->_isSendMessageEchoReceived = [self expectationWithDescription: @"Outcoming message echo received"];
+    
+    [self->_sut sendAttachment: self->_imageToSend
+                            to: roomJid];
+    
+    [self waitForExpectationsWithTimeout: TIMEOUT_FOR_TEST
+                                 handler: handlerOrNil];
+    
+    XCTAssertNotNil(self->_sentMessageEcho);
+    XCTAssertEqualObjects([self->_sentMessageEcho fromStr], @"071715_130351_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com/Qatest37 Qatest37 (id 11952)");
+    XCTAssertEqualObjects(self->_roomOfMessageEcho, roomJid);
+    
+    
+    NSString* expectedToStr = [self->_sut jidStringFromBind];
+    XCTAssertEqualObjects([self->_sentMessageEcho toStr], expectedToStr);
+    
+    NSString* trimmedBody = [[self->_sentMessageEcho body] stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    XCTAssertEqual([trimmedBody length], (NSUInteger)0 );
+    
+    
+    XCTAssertNotNil(self->_attachmentsFromMessageEcho);
+    XCTAssertEqual([self->_attachmentsFromMessageEcho count], (NSUInteger)1);
 }
 
 - (void)testTwoAttachmentsAndTextSend
