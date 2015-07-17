@@ -530,7 +530,7 @@ static const NSTimeInterval TIMEOUT_FOR_TEST = 10.f;
     }
 }
 
-- (void)testAttachmentWithTextSending
+- (void)testAttachmentSending
 {
     // GIVEN
     self->_isAllPresenseResponseReceived = [self expectationWithDescription: @"All presense response received"];
@@ -589,79 +589,6 @@ static const NSTimeInterval TIMEOUT_FOR_TEST = 10.f;
     XCTAssertEqual([self->_attachmentsFromMessageEcho count], (NSUInteger)1);
 }
 
-- (void)testTwoAttachmentsAndTextSend
-{
-    XCTFail(@"TODO : Write a test");
-    
-    /*
-    <message
-        to='071515_142949_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com'
-        type='groupchat'
-        xmlns='jabber:client'>
-            <body>Message and two images</body>
-    
-            <attachment
-                file_name='IMG_0050.PNG'
-                size='67x120'
-                thumb_url='http://cdn-dev.hjdev/objects/RjSIVPeoW5_thumb_IMG_0050.PNG'
-                url='http://cdn-dev.hjdev/objects/RjSIVPeoW5_IMG_0050.PNG'/>
-    
-            <attachment
-                file_name='IMG_0084.PNG'
-                size='80x120'
-                thumb_url='http://cdn-dev.hjdev/objects/S3ztL9p7vq_thumb_IMG_0084.PNG'
-                url='http://cdn-dev.hjdev/objects/S3ztL9p7vq_IMG_0084.PNG'/>
-    
-            <html xmlns='http://jabber.org/protocol/xhtml-im'>
-                <body>
-                    <p>Message and two images</p>
-                    <a href='http://cdn-dev.hjdev/objects/RjSIVPeoW5_IMG_0050.PNG'>
-                        http://cdn-dev.hjdev/objects/RjSIVPeoW5_IMG_0050.PNG
-                    </a>
-                    <a href='http://cdn-dev.hjdev/objects/S3ztL9p7vq_IMG_0084.PNG'>
-                        http://cdn-dev.hjdev/objects/S3ztL9p7vq_IMG_0084.PNG
-                    </a>
-                </body>
-            </html>
-    </message>
-    
-    
-    
-    <message 
-        from="071515_142949_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com/Qatest37 Qatest37 (id 11952)" 
-        to="user+11952@xmpp-dev.healthjoy.com/2786719646143761414240863" 
-        type="groupchat" 
-        xmlns="jabber:client" 
-        xmlns:stream="http://etherx.jabber.org/streams" 
-        version="1.0">
-            <body>Message and two images</body>
-     
-            <attachment 
-                file_name="IMG_0050.PNG" 
-                size="67x120" 
-                thumb_url="http://cdn-dev.hjdev/objects/RjSIVPeoW5_thumb_IMG_0050.PNG" 
-                url="http://cdn-dev.hjdev/objects/RjSIVPeoW5_IMG_0050.PNG"/>
-     
-            <attachment 
-                file_name="IMG_0084.PNG" 
-                size="80x120" 
-                thumb_url="http://cdn-dev.hjdev/objects/S3ztL9p7vq_thumb_IMG_0084.PNG" 
-                url="http://cdn-dev.hjdev/objects/S3ztL9p7vq_IMG_0084.PNG"/>
-     
-                <html xmlns="http://jabber.org/protocol/xhtml-im">
-                    <body>
-                        <p>Message and two images</p>
-                        <a href="http://cdn-dev.hjdev/objects/RjSIVPeoW5_IMG_0050.PNG">
-                            http://cdn-dev.hjdev/objects/RjSIVPeoW5_IMG_0050.PNG
-                        </a>
-                        <a href="http://cdn-dev.hjdev/objects/S3ztL9p7vq_IMG_0084.PNG">
-                            http://cdn-dev.hjdev/objects/S3ztL9p7vq_IMG_0084.PNG
-                        </a>
-                    </body>
-                </html>
-     </message>
-     */
-}
 
 #pragma mark - HJXmppClientDelegate
 - (void)xmppClent:(id<HJXmppClient>)sender
