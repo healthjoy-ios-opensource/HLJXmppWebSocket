@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		7E00D37C1B4D68720031D045 /* libHLJXmppWebSocket.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E00D3701B4D68720031D045 /* libHLJXmppWebSocket.a */; };
+		7E15409C1B599F01007771A8 /* HJMockErrorAttachmentUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E15409B1B599F01007771A8 /* HJMockErrorAttachmentUploader.m */; };
 		7E1962451B55995E00D4CD32 /* HJBindResponseParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E1962441B55995E00D4CD32 /* HJBindResponseParser.m */; };
 		7E226F4E1B50060C00E9B35C /* libKissXML-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E45D2661B500525001F9ECC /* libKissXML-iOS.a */; };
 		7E226F4F1B50060C00E9B35C /* libSocketRocket.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E45D2711B500530001F9ECC /* libSocketRocket.a */; };
@@ -181,6 +182,8 @@
 		7E00D3701B4D68720031D045 /* libHLJXmppWebSocket.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libHLJXmppWebSocket.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E00D37B1B4D68720031D045 /* HLJXmppWebSocketTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HLJXmppWebSocketTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E00D3811B4D68720031D045 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7E15409A1B599F01007771A8 /* HJMockErrorAttachmentUploader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJMockErrorAttachmentUploader.h; sourceTree = "<group>"; };
+		7E15409B1B599F01007771A8 /* HJMockErrorAttachmentUploader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJMockErrorAttachmentUploader.m; sourceTree = "<group>"; };
 		7E1962431B55995E00D4CD32 /* HJBindResponseParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJBindResponseParser.h; sourceTree = "<group>"; };
 		7E1962441B55995E00D4CD32 /* HJBindResponseParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJBindResponseParser.m; sourceTree = "<group>"; };
 		7E226F511B5008FB00E9B35C /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
@@ -419,6 +422,8 @@
 				7E6F87E51B5800EA0057B504 /* HJMockAttachmentUploader.m */,
 				7EB0EE491B593A0500F319CC /* HJMockSuccessAttachmentUploader.h */,
 				7EB0EE4A1B593A0500F319CC /* HJMockSuccessAttachmentUploader.m */,
+				7E15409A1B599F01007771A8 /* HJMockErrorAttachmentUploader.h */,
+				7E15409B1B599F01007771A8 /* HJMockErrorAttachmentUploader.m */,
 				7EB0EE4C1B5945B900F319CC /* HJUrlSessionImageUploader.h */,
 				7EB0EE4D1B5945B900F319CC /* HJUrlSessionImageUploader.m */,
 			);
@@ -695,6 +700,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7EB0EE481B5939F300F319CC /* HJMockAttachmentUploader.m in Sources */,
+				7E15409C1B599F01007771A8 /* HJMockErrorAttachmentUploader.m in Sources */,
 				7E8768991B598D660080835A /* HJIncomingXmppMessagesIntegrationTest.m in Sources */,
 				7E45D25E1B500388001F9ECC /* HLJWebSocketAuthIntegrationTest.m in Sources */,
 				7EB0EE4B1B593A0500F319CC /* HJMockSuccessAttachmentUploader.m in Sources */,
