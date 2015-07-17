@@ -32,6 +32,7 @@
 
 #import "HJAttachmentUploader.h"
 #import "HJXmppChatAttachment.h"
+#import "HJXmppAttachmentsParser.h"
 
 
 #define NSLog(...)
@@ -818,10 +819,12 @@ didFailToReceiveMessageWithError:error];
     
     BOOL isIncoming = [self isMessageIncoming: element];
     NSString* roomJid = [self roomForMessage: element];
-    
+    NSArray* attachments = [HJXmppAttachmentsParser parseAttachmentsOfMessage: element];
+
     id<HJXmppClientDelegate> strongDelegate = self.listenerDelegate;
     [strongDelegate xmppClent: self
             didReceiveMessage: element
+              withAttachments: attachments
                        atRoom: roomJid
                      incoming: isIncoming];
 }
@@ -833,9 +836,11 @@ didFailToReceiveMessageWithError:error];
     id<XMPPMessageProto> unwrappedMessage = [HJHistoryMessageParser unwrapHistoryMessage: element];
     BOOL isIncoming = [self isMessageIncoming: unwrappedMessage];
     NSString* roomJid = [self roomForMessage: element];
+    NSArray* attachments = [HJXmppAttachmentsParser parseAttachmentsOfMessage: element];
     
     [strongDelegate xmppClent: self
             didReceiveMessage: unwrappedMessage
+              withAttachments: attachments
                        atRoom: roomJid
                      incoming: isIncoming];
 }

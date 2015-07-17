@@ -16,6 +16,7 @@
 
 - (void)xmppClent:(id<HJXmppClient>)sender
 didReceiveMessage:(id<XMPPMessageProto>)message
+  withAttachments:(NSArray*)attachments
            atRoom:(NSString*)roomJid
          incoming:(BOOL)isMessageIncoming;
 
