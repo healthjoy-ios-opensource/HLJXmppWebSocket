@@ -20,9 +20,19 @@
 
 #import "HJXmppChatAttachment.h"
 #import "HJMockSuccessAttachmentUploader.h"
+#import "HJMockErrorAttachmentUploader.h"
 
 
 static const NSTimeInterval TIMEOUT_FOR_TEST = 10.f;
+// !!! A token needs manual updating
+static NSString* const accessToken = @"dXNlcisxMTk1MkB4bXBwLWRldi5oZWFsdGhqb3kuY29tAHVzZXIrMTE5NTIAZHVseGdybExwS3hicXNFcXdYSGVtZEJmOUF0MDFo";
+
+XmppParserBuilderBlock parserFactory = ^id<XMPPParserProto>()
+{
+    XMPPParser* parser = [[XMPPParser alloc] initWithDelegate: nil
+                                                delegateQueue: NULL];
+    return parser;
+};
 
 @interface HLJWebSocketAuthIntegrationTest : XCTestCase<HJXmppClientDelegate>
 @end
@@ -59,6 +69,8 @@ static const NSTimeInterval TIMEOUT_FOR_TEST = 10.f;
     id<XMPPMessageProto> _sentMessageEcho;
     NSString* _roomOfMessageEcho;
     NSArray* _attachmentsFromMessageEcho;
+    
+    XCTestExpectation* _isAttachmenUploadFailed;
 }
 
 - (void)cleanupTestResultIvars
@@ -101,9 +113,6 @@ static const NSTimeInterval TIMEOUT_FOR_TEST = 10.f;
     self->_imageToSend = [NSData dataWithContentsOfFile: filePath];
     
     
-    // !!! A token needs manual updating
-    static NSString* const accessToken = @"dXNlcisxMTk1MkB4bXBwLWRldi5oZWFsdGhqb3kuY29tAHVzZXIrMTE5NTIAZHVseGdybExwS3hicXNFcXdYSGVtZEJmOUF0MDFo";
-    
     NSURL* webSocketUrl = [NSURL URLWithString: @"wss://gohealth-dev.hjdev/ws-chat/"];
     self->_webSocket = [[SRWebSocket alloc] initWithURL: webSocketUrl];
     
@@ -112,12 +121,7 @@ static const NSTimeInterval TIMEOUT_FOR_TEST = 10.f;
     
     
     self->_mockAttachments = [HJMockSuccessAttachmentUploader new];
-    XmppParserBuilderBlock parserFactory = ^id<XMPPParserProto>()
-    {
-        XMPPParser* parser = [[XMPPParser alloc] initWithDelegate: nil
-                                                    delegateQueue: NULL];
-        return parser;
-    };
+
     self->_sut = [[HJXmppClientImpl alloc] initWithTransport: self->_webSocketWrapper
                                            attachmentsUpload: self->_mockAttachments
                                            xmppParserFactory: parserFactory
@@ -586,6 +590,80 @@ static const NSTimeInterval TIMEOUT_FOR_TEST = 10.f;
     XCTAssertEqual([self->_attachmentsFromMessageEcho count], (NSUInteger)1);
 }
 
+- (void)testDelegateIsNotifiedIfAttachmentIsNotUploaded
+{
+    NSError* mockError = [NSError errorWithDomain: @"mock.error"
+                                             code: 111
+                                         userInfo: nil];
+    HJMockErrorAttachmentUploader* mockUpload = [[HJMockErrorAttachmentUploader alloc] initWithMockError: mockError];
+
+    
+    // SET UP
+    {
+        [self->_sut disconnect];
+        self->_sut.listenerDelegate = nil;
+        self->_sut = nil;
+        
+        [self->_webSocketWrapper close];
+        self->_webSocketWrapper = nil;
+        
+        NSURL* webSocketUrl = [NSURL URLWithString: @"wss://gohealth-dev.hjdev/ws-chat/"];
+        self->_webSocket = [[SRWebSocket alloc] initWithURL: webSocketUrl];
+        self->_webSocketWrapper = [[HLJWebSocketTransportForXmpp alloc] initWithWebSocket: self->_webSocket];
+        
+        
+        self->_sut = [[HJXmppClientImpl alloc] initWithTransport: self->_webSocketWrapper
+                                               attachmentsUpload: mockUpload
+                                               xmppParserFactory: parserFactory
+                                                            host: @"xmpp-dev.healthjoy.com"
+                                                     accessToken: accessToken];
+        self->_sut.listenerDelegate = self;
+    }
+    
+    // GIVEN
+    self->_isAllPresenseResponseReceived = [self expectationWithDescription: @"All presense response received"];
+    
+    NSArray* rooms =
+    @[
+      @"071715_130351_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com/Qatest37 Qatest37 (id 11952)"
+      ];
+    
+    XCWaitCompletionHandler handlerOrNil = ^void(NSError *error)
+    {
+        // TODO : add asserts
+        NSLog(@"done");
+    };
+    
+    [self->_sut sendPresenseForRooms: rooms];
+    [self waitForExpectationsWithTimeout: TIMEOUT_FOR_TEST
+                                 handler: handlerOrNil];
+    
+    //// WHEN
+    self->_isReceivedDidSubscribe    = nil;
+    self->_isReceivedAllDidSubscribe = nil;
+    
+    static NSString* const roomJid = @"071715_130351_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com";
+    self->_isHistoryLoaded = [self expectationWithDescription: @"History loaded"];
+    [self->_sut loadHistoryForRoom: roomJid];
+    
+    
+    [self waitForExpectationsWithTimeout: TIMEOUT_FOR_TEST
+                                 handler: handlerOrNil];
+    
+    self->_isHistoryLoaded = nil;
+    
+    /// THEN
+    self->_isAttachmenUploadFailed = [self expectationWithDescription: @"Attachment upload error notification received"];
+    
+    self->_sentMessageEcho = nil;
+    [self->_sut sendAttachment: self->_imageToSend
+                            to: roomJid];
+    
+    [self waitForExpectationsWithTimeout: TIMEOUT_FOR_TEST
+                                 handler: handlerOrNil];
+    
+    XCTAssertNil(self->_sentMessageEcho);
+}
 
 #pragma mark - HJXmppClientDelegate
 - (void)xmppClent:(id<HJXmppClient>)sender
@@ -677,7 +755,7 @@ didLoadHistoryForRoom:(NSString*)roomJid
 didFailSendingAttachmentTo:(NSString*)roomJid
         withError:(NSError*)error
 {
-    
+    [self->_isAttachmenUploadFailed fulfill];
 }
 
 @end
