@@ -419,17 +419,104 @@ static const NSTimeInterval TIMEOUT_FOR_TEST = 10.f;
                                  handler: handlerOrNil];
     
     XCTAssertNil(self->_historyError);
-    XCTAssertEqual([self->_historyData count],  (NSUInteger)2);
     XCTAssertEqualObjects(self->_historyRoomJid, roomJid);
     
-    XCTAssertEqual([self->_historyImages count], (NSUInteger)1);
     
+    XCTAssertEqual([self->_historyData count],  (NSUInteger)2);
+    id<XMPPMessageProto> messageWithAttachment = self->_historyData[1];
+    {
+        XCTAssertEqualObjects([messageWithAttachment body], @"Attachment and text in one message");
+    }
+    
+    XCTAssertEqual([self->_historyImages count], (NSUInteger)1);
     id<HJXmppChatAttachment> attachment = self->_historyImages[0];
     {
         XCTAssertEqualObjects([attachment fileName], @"IMG_0080.PNG");
         XCTAssertEqualObjects([attachment rawImageSize], @"80x120");
         XCTAssertEqualObjects([attachment fullSizeImageUrl], @"http://cdn-dev.hjdev/objects/T386GAul98_IMG_0080.PNG");
         XCTAssertEqualObjects([attachment thumbnailUrl], @"http://cdn-dev.hjdev/objects/T386GAul98_thumb_IMG_0080.PNG");
+        
+        XCTAssertThrows([attachment imageSize]);
+    }
+}
+
+- (void)testMultipleAttachmentsInOneMessageWithTextFromHistory
+{
+    /*
+<message from="user+11952@xmpp-dev.healthjoy.com" to="user+11952@xmpp-dev.healthjoy.com/5821303091437135703858160" id="+aO0Oh7Zzr15" xmlns="jabber:client" xmlns:stream="http://etherx.jabber.org/streams" version="1.0"><result xmlns="urn:xmpp:mam:0" id="2" queryid="7453827"><forwarded xmlns="urn:xmpp:forward:0"><message xmlns="jabber:client" to="user+11952@xmpp-dev.healthjoy.com/5821303091437135703858160" from="071715_121652_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com/Qatest37 Qatest37 (id 11952)" type="groupchat"><body>Message With three images</body><attachment file_name="IMG_0050.PNG" size="67x120" thumb_url="http://cdn-dev.hjdev/objects/krXhb9qHay_thumb_IMG_0050.PNG" url="http://cdn-dev.hjdev/objects/krXhb9qHay_IMG_0050.PNG"/><attachment file_name="IMG_0080.PNG" size="80x120" thumb_url="http://cdn-dev.hjdev/objects/Bp1gIVBhES_thumb_IMG_0080.PNG" url="http://cdn-dev.hjdev/objects/Bp1gIVBhES_IMG_0080.PNG"/><attachment file_name="IMG_0084.PNG" size="80x120" thumb_url="http://cdn-dev.hjdev/objects/IMpRM0dalB_thumb_IMG_0084.PNG" url="http://cdn-dev.hjdev/objects/IMpRM0dalB_IMG_0084.PNG"/><html xmlns="http://jabber.org/protocol/xhtml-im"><body><p>Message With three images</p><a href="http://cdn-dev.hjdev/objects/krXhb9qHay_IMG_0050.PNG">http://cdn-dev.hjdev/objects/krXhb9qHay_IMG_0050.PNG</a><a href="http://cdn-dev.hjdev/objects/Bp1gIVBhES_IMG_0080.PNG">http://cdn-dev.hjdev/objects/Bp1gIVBhES_IMG_0080.PNG</a><a href="http://cdn-dev.hjdev/objects/IMpRM0dalB_IMG_0084.PNG">http://cdn-dev.hjdev/objects/IMpRM0dalB_IMG_0084.PNG</a></body></html></message><delay xmlns="urn:xmpp:delay" from="xmpp-dev.healthjoy.com" stamp="2015-07-17T12:17:44.689Z"/><x xmlns="jabber:x:delay" from="xmpp-dev.healthjoy.com" stamp="20150717T12:17:44"/></forwarded></result><no-copy xmlns="urn:xmpp:hints"/></message>
+     */
+    
+    
+    // GIVEN
+    self->_isAllPresenseResponseReceived = [self expectationWithDescription: @"All presense response received"];
+    
+    NSArray* rooms =
+    @[
+      @"071715_121652_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com/Qatest37 Qatest37 (id 11952)"
+      ];
+    
+    XCWaitCompletionHandler handlerOrNil = ^void(NSError *error)
+    {
+        // TODO : add asserts
+        NSLog(@"done");
+    };
+    
+    [self->_sut sendPresenseForRooms: rooms];
+    [self waitForExpectationsWithTimeout: TIMEOUT_FOR_TEST
+                                 handler: handlerOrNil];
+    
+    
+    //// WHEN
+    self->_isReceivedDidSubscribe    = nil;
+    self->_isReceivedAllDidSubscribe = nil;
+    
+    static NSString* const roomJid = @"071715_121652_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com";
+    self->_isHistoryLoaded = [self expectationWithDescription: @"History loaded"];
+    [self->_sut loadHistoryForRoom: roomJid];
+    
+    
+    /// THEN
+    [self waitForExpectationsWithTimeout: TIMEOUT_FOR_TEST
+                                 handler: handlerOrNil];
+    
+    XCTAssertNil(self->_historyError);
+    XCTAssertEqualObjects(self->_historyRoomJid, roomJid);
+    
+    XCTAssertEqual([self->_historyData count],  (NSUInteger)2);
+    id<XMPPMessageProto> messageWithAttachment = self->_historyData[1];
+    {
+        XCTAssertEqualObjects([messageWithAttachment body], @"Message With three images");
+    }
+    
+    
+    XCTAssertEqual([self->_historyImages count], (NSUInteger)3);
+    id<HJXmppChatAttachment> attachment = nil;
+    attachment = self->_historyImages[0];
+    {
+        XCTAssertEqualObjects([attachment fileName], @"IMG_0050.PNG");
+        XCTAssertEqualObjects([attachment rawImageSize], @"67x120");
+        XCTAssertEqualObjects([attachment fullSizeImageUrl], @"http://cdn-dev.hjdev/objects/krXhb9qHay_IMG_0050.PNG");
+        XCTAssertEqualObjects([attachment thumbnailUrl], @"http://cdn-dev.hjdev/objects/krXhb9qHay_thumb_IMG_0050.PNG");
+        
+        XCTAssertThrows([attachment imageSize]);
+    }
+    
+    attachment = self->_historyImages[1];
+    {
+        XCTAssertEqualObjects([attachment fileName], @"IMG_0080.PNG");
+        XCTAssertEqualObjects([attachment rawImageSize], @"80x120");
+        XCTAssertEqualObjects([attachment fullSizeImageUrl], @"http://cdn-dev.hjdev/objects/Bp1gIVBhES_IMG_0080.PNG");
+        XCTAssertEqualObjects([attachment thumbnailUrl], @"http://cdn-dev.hjdev/objects/Bp1gIVBhES_thumb_IMG_0080.PNG");
+        
+        XCTAssertThrows([attachment imageSize]);
+    }
+    
+    attachment = self->_historyImages[2];
+    {
+        XCTAssertEqualObjects([attachment fileName], @"IMG_0084.PNG");
+        XCTAssertEqualObjects([attachment rawImageSize], @"80x120");
+        XCTAssertEqualObjects([attachment fullSizeImageUrl], @"http://cdn-dev.hjdev/objects/IMpRM0dalB_IMG_0084.PNG");
+        XCTAssertEqualObjects([attachment thumbnailUrl], @"http://cdn-dev.hjdev/objects/IMpRM0dalB_thumb_IMG_0084.PNG");
         
         XCTAssertThrows([attachment imageSize]);
     }
