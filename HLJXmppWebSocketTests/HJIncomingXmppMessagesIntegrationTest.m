@@ -10,6 +10,7 @@
 #import <XCTest/XCTest.h>
 
 #import "HJXmppClientImpl.h"
+#import "HJXmppClientImpl+UnitTest.h"
 #import "HJXmppClientDelegate.h"
 
 #import "HLJWebSocketTransportForXmpp.h"
@@ -146,6 +147,45 @@ static const NSTimeInterval TIMEOUT_FOR_TEST = 3000.f;
     XCTAssertNil(self->_historyError);
     XCTAssertEqual([self->_historyData count],  (NSUInteger)6);
     XCTAssertEqualObjects(self->_historyRoomJid, roomJid);
+    
+    id<XMPPMessageProto> message = nil;
+    
+    message = self->_historyData[0];
+    {
+        XCTAssertEqual( [message body], @"How can I help you today?");
+        XCTAssertTrue( [self->_sut isMessageIncoming: message]);
+    }
+    
+    message = self->_historyData[1];
+    {
+        XCTAssertEqual( [message body], @"Test tedt");
+        XCTAssertFalse( [self->_sut isMessageIncoming: message]);
+    }
+    
+    message = self->_historyData[2];
+    {
+        XCTAssertEqual( [message body], @"test");
+        XCTAssertTrue( [self->_sut isMessageIncoming: message]);
+    }
+    
+    message = self->_historyData[3];
+    {
+        XCTAssertEqual( [message body], @"1");
+        XCTAssertTrue( [self->_sut isMessageIncoming: message]);
+    }
+    
+    
+    message = self->_historyData[4];
+    {
+        XCTAssertEqual( [message body], @"2");
+        XCTAssertTrue( [self->_sut isMessageIncoming: message]);
+    }
+    
+    message = self->_historyData[5];
+    {
+        XCTAssertEqual( [message body], @"3");
+        XCTAssertTrue( [self->_sut isMessageIncoming: message]);
+    }
 }
 
 
