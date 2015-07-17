@@ -21,9 +21,11 @@
 		7E4596FA1B54087A001AD170 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E4596F91B54087A001AD170 /* libc++.dylib */; };
 		7E4596FC1B54217F001AD170 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E4596FB1B54217F001AD170 /* libiconv.dylib */; };
 		7E45D25E1B500388001F9ECC /* HLJWebSocketAuthIntegrationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E45D25D1B500388001F9ECC /* HLJWebSocketAuthIntegrationTest.m */; };
-		7E6F87E61B5800EA0057B504 /* HJMockAttachmentUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E6F87E51B5800EA0057B504 /* HJMockAttachmentUploader.m */; };
 		7EB0EE061B58FDD200F319CC /* HJXmppAttachmentsParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EB0EE051B58FDD200F319CC /* HJXmppAttachmentsParser.m */; };
 		7EB0EE451B59097800F319CC /* HJXmppChatAttachmentPOD.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EB0EE441B59097800F319CC /* HJXmppChatAttachmentPOD.m */; };
+		7EB0EE471B59368E00F319CC /* monkey-selfie.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7EB0EE461B59368E00F319CC /* monkey-selfie.jpg */; };
+		7EB0EE481B5939F300F319CC /* HJMockAttachmentUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E6F87E51B5800EA0057B504 /* HJMockAttachmentUploader.m */; };
+		7EB0EE4B1B593A0500F319CC /* HJMockSuccessAttachmentUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EB0EE4A1B593A0500F319CC /* HJMockSuccessAttachmentUploader.m */; };
 		7EB9C4131B559C5200F94871 /* HJXmppBindParserError.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EB9C4121B559C5200F94871 /* HJXmppBindParserError.m */; };
 		7EB9C41E1B559E8100F94871 /* HJSessionResponseParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EB9C41D1B559E8100F94871 /* HJSessionResponseParser.m */; };
 		7EB9C4211B559FE700F94871 /* HJXmppSessionResponseError.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EB9C4201B559FE700F94871 /* HJXmppSessionResponseError.m */; };
@@ -208,6 +210,9 @@
 		7EB0EE051B58FDD200F319CC /* HJXmppAttachmentsParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJXmppAttachmentsParser.m; sourceTree = "<group>"; };
 		7EB0EE431B59097800F319CC /* HJXmppChatAttachmentPOD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJXmppChatAttachmentPOD.h; sourceTree = "<group>"; };
 		7EB0EE441B59097800F319CC /* HJXmppChatAttachmentPOD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJXmppChatAttachmentPOD.m; sourceTree = "<group>"; };
+		7EB0EE461B59368E00F319CC /* monkey-selfie.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "monkey-selfie.jpg"; sourceTree = "<group>"; };
+		7EB0EE491B593A0500F319CC /* HJMockSuccessAttachmentUploader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJMockSuccessAttachmentUploader.h; sourceTree = "<group>"; };
+		7EB0EE4A1B593A0500F319CC /* HJMockSuccessAttachmentUploader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJMockSuccessAttachmentUploader.m; sourceTree = "<group>"; };
 		7EB9C4111B559C5200F94871 /* HJXmppBindParserError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJXmppBindParserError.h; sourceTree = "<group>"; };
 		7EB9C4121B559C5200F94871 /* HJXmppBindParserError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJXmppBindParserError.m; sourceTree = "<group>"; };
 		7EB9C41C1B559E8100F94871 /* HJSessionResponseParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJSessionResponseParser.h; sourceTree = "<group>"; };
@@ -287,6 +292,7 @@
 		7E00D37F1B4D68720031D045 /* HLJXmppWebSocketTests */ = {
 			isa = PBXGroup;
 			children = (
+				7EB0EE461B59368E00F319CC /* monkey-selfie.jpg */,
 				7E4596FB1B54217F001AD170 /* libiconv.dylib */,
 				7E4596F91B54087A001AD170 /* libc++.dylib */,
 				7E226F571B50095100E9B35C /* libicucore.dylib */,
@@ -401,10 +407,12 @@
 			children = (
 				7E6F87DD1B57ED580057B504 /* HJXmppChatAttachment.h */,
 				7E6F87E31B57F3690057B504 /* HJAttachmentUploader.h */,
-				7E6F87E41B5800EA0057B504 /* HJMockAttachmentUploader.h */,
-				7E6F87E51B5800EA0057B504 /* HJMockAttachmentUploader.m */,
 				7EB0EE431B59097800F319CC /* HJXmppChatAttachmentPOD.h */,
 				7EB0EE441B59097800F319CC /* HJXmppChatAttachmentPOD.m */,
+				7E6F87E41B5800EA0057B504 /* HJMockAttachmentUploader.h */,
+				7E6F87E51B5800EA0057B504 /* HJMockAttachmentUploader.m */,
+				7EB0EE491B593A0500F319CC /* HJMockSuccessAttachmentUploader.h */,
+				7EB0EE4A1B593A0500F319CC /* HJMockSuccessAttachmentUploader.m */,
 			);
 			path = Attachments;
 			sourceTree = "<group>";
@@ -641,6 +649,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7EB0EE471B59368E00F319CC /* monkey-selfie.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -658,7 +667,6 @@
 				7E1962451B55995E00D4CD32 /* HJBindResponseParser.m in Sources */,
 				7EB9C42D1B55A9DC00F94871 /* HJHistoryMessageParser.m in Sources */,
 				7E26D5CF1B4EA94D0030F2DD /* HJXmppClientImpl.mm in Sources */,
-				7E6F87E61B5800EA0057B504 /* HJMockAttachmentUploader.m in Sources */,
 				7EFDD7CD1B55516200430942 /* HJXmppErrorForHistory.m in Sources */,
 				7EFDD7CA1B55514400430942 /* HJXmppErrorBase.m in Sources */,
 				7EB0EE451B59097800F319CC /* HJXmppChatAttachmentPOD.m in Sources */,
@@ -677,7 +685,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7EB0EE481B5939F300F319CC /* HJMockAttachmentUploader.m in Sources */,
 				7E45D25E1B500388001F9ECC /* HLJWebSocketAuthIntegrationTest.m in Sources */,
+				7EB0EE4B1B593A0500F319CC /* HJMockSuccessAttachmentUploader.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
