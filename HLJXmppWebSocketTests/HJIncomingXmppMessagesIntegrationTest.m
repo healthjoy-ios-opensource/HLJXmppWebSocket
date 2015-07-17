@@ -301,11 +301,6 @@ didLoadHistoryForRoom:(NSString*)roomJid
 }
 
 - (void)xmppClent:(id<HJXmppClient>)sender
-didSendAttachmentTo:(NSString*)roomJid
-{
-}
-
-- (void)xmppClent:(id<HJXmppClient>)sender
 didFailSendingAttachmentTo:(NSString*)roomJid
         withError:(NSError*)error
 {
