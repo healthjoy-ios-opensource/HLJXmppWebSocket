@@ -18,6 +18,8 @@
 #import "HJXmppClientImpl+UnitTest.h"
 #import "HJMockAttachmentUploader.h"
 
+#import "HJXmppChatAttachment.h"
+
 
 static const NSTimeInterval TIMEOUT_FOR_TEST = 10.f;
 
@@ -49,10 +51,12 @@ static const NSTimeInterval TIMEOUT_FOR_TEST = 10.f;
     NSString* _historyRoomJid;
     NSError* _historyError;
     NSMutableArray* _historyData;
+    NSMutableArray* _historyImages;
     
     XCTestExpectation* _isSendMessageEchoReceived;
     id<XMPPMessageProto> _sentMessageEcho;
     NSString* _roomOfMessageEcho;
+    NSArray* _attachmentsFromMessageEcho;
 }
 
 - (void)cleanupTestResultIvars
@@ -66,6 +70,7 @@ static const NSTimeInterval TIMEOUT_FOR_TEST = 10.f;
     self->_historyError = nil;
     self->_historyRoomJid = nil;
     self->_historyData = [NSMutableArray new];
+    self->_historyImages = [NSMutableArray new];
     
     self->_sentMessageEcho = nil;
     self->_roomOfMessageEcho = nil;
@@ -78,6 +83,7 @@ static const NSTimeInterval TIMEOUT_FOR_TEST = 10.f;
     self->_isAllPresenseResponseReceived = nil;
     self->_isHistoryLoaded = nil;
     self->_isSendMessageEchoReceived = nil;
+    self->_attachmentsFromMessageEcho = nil;
 }
 
 - (void)setUp
@@ -318,59 +324,115 @@ static const NSTimeInterval TIMEOUT_FOR_TEST = 10.f;
     XCTAssertEqualObjects([self->_sentMessageEcho body], outgoingMessage);
 }
 
-- (void)testAttachmentSending
+- (void)testSingleAttachmentFromHistory
 {
-    XCTFail(@"TODO : Write a test");
+    // GIVEN
+    self->_isAllPresenseResponseReceived = [self expectationWithDescription: @"All presense response received"];
     
-    // Request
-    //
+    NSArray* rooms =
+    @[
+      @"071715_112152_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com/Qatest37 Qatest37 (id 11952)"
+      ];
+    
+    XCWaitCompletionHandler handlerOrNil = ^void(NSError *error)
+    {
+        // TODO : add asserts
+        NSLog(@"done");
+    };
+    
+    [self->_sut sendPresenseForRooms: rooms];
+    [self waitForExpectationsWithTimeout: TIMEOUT_FOR_TEST
+                                 handler: handlerOrNil];
+    
+    
+    //// WHEN
+    self->_isReceivedDidSubscribe    = nil;
+    self->_isReceivedAllDidSubscribe = nil;
+    
+    static NSString* const roomJid = @"071715_112152_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com";
+    self->_isHistoryLoaded = [self expectationWithDescription: @"History loaded"];
+    [self->_sut loadHistoryForRoom: roomJid];
+    
+    
+    /// THEN
+    [self waitForExpectationsWithTimeout: TIMEOUT_FOR_TEST
+                                 handler: handlerOrNil];
+    
+    XCTAssertNil(self->_historyError);
+    XCTAssertEqual([self->_historyData count],  (NSUInteger)3);
+    XCTAssertEqualObjects(self->_historyRoomJid, roomJid);
+    
+    XCTAssertEqual([self->_historyImages count], (NSUInteger)1);
+    
+    id<HJXmppChatAttachment> attachment = self->_historyImages[0];
+    {
+        XCTAssertEqualObjects([attachment fileName], @"IMG_0080.PNG");
+        XCTAssertEqualObjects([attachment rawImageSize], @"80x120");
+        XCTAssertEqualObjects([attachment fullSizeImageUrl], @"http://cdn-dev.hjdev/objects/9iJzPaQl2M_IMG_0080.PNG");
+        XCTAssertEqualObjects([attachment thumbnailUrl], @"http://cdn-dev.hjdev/objects/9iJzPaQl2M_thumb_IMG_0080.PNG");
+        
+        XCTAssertThrows([attachment imageSize]);
+    }
+    
     /*
-    <message
-        to='071515_142949_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com' 
-        type='groupchat' 
-        xmlns='jabber:client'>
-            <body>
-            </body>
-     
-            <attachment 
-                 file_name='tmp.png' 
-                 size='120x90' 
-                 thumb_url='http://cdn-dev.hjdev/objects/HNkqNvh5ca_thumb_tmp.png' 
-                 url='http://cdn-dev.hjdev/objects/HNkqNvh5ca_tmp.png'/>
-             
-            <html xmlns='http://jabber.org/protocol/xhtml-im'>
-                <body>
-                    <p></p>
-                    <a href='http://cdn-dev.hjdev/objects/HNkqNvh5ca_tmp.png'>http://cdn-dev.hjdev/objects/HNkqNvh5ca_tmp.png</a>
-                </body>
-            </html>
-     </message>
-    */
-    
-    
-    
-    // Response
-    //
+    <message from="user+11952@xmpp-dev.healthjoy.com" to="user+11952@xmpp-dev.healthjoy.com/19864967261437132266909917" id="ReNcM3JfCV3a" xmlns="jabber:client" xmlns:stream="http://etherx.jabber.org/streams" version="1.0"><result xmlns="urn:xmpp:mam:0" id="2" queryid="6026788"><forwarded xmlns="urn:xmpp:forward:0"><message xmlns="jabber:client" to="user+11952@xmpp-dev.healthjoy.com/19864967261437132266909917" from="071715_112152_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com/Qatest37 Qatest37 (id 11952)" type="groupchat"><body/><attachment file_name="IMG_0080.PNG" size="80x120" thumb_url="http://cdn-dev.hjdev/objects/9iJzPaQl2M_thumb_IMG_0080.PNG" url="http://cdn-dev.hjdev/objects/9iJzPaQl2M_IMG_0080.PNG"/><html xmlns="http://jabber.org/protocol/xhtml-im"><body><p/><a href="http://cdn-dev.hjdev/objects/9iJzPaQl2M_IMG_0080.PNG">http://cdn-dev.hjdev/objects/9iJzPaQl2M_IMG_0080.PNG</a></body></html></message><delay xmlns="urn:xmpp:delay" from="xmpp-dev.healthjoy.com" stamp="2015-07-17T11:24:17.834Z"/><x xmlns="jabber:x:delay" from="xmpp-dev.healthjoy.com" stamp="20150717T11:24:17"/></forwarded></result><no-copy xmlns="urn:xmpp:hints"/></message>
+   */
+}
+
+- (void)testSingleAttachmentWithTextFromHistory
+{
     /*
-    <message 
-         from="071515_142949_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com/Qatest37 Qatest37 (id 11952)" 
-         to="user+11952@xmpp-dev.healthjoy.com/24536774811436968628882896" 
-         type="groupchat" 
-         xmlns="jabber:client" 
-         xmlns:stream="http://etherx.jabber.org/streams" 
-         version="1.0">
-             <body/>
-      
-             <attachment 
-                  file_name="tmp.png" 
-                  size="120x90" thumb_url="http://cdn-dev.hjdev/objects/HNkqNvh5ca_thumb_tmp.png" 
-                  url="http://cdn-dev.hjdev/objects/HNkqNvh5ca_tmp.png"/>
-            
-            <html xmlns="http://jabber.org/protocol/xhtml-im">
-            <body><p/><a href="http://cdn-dev.hjdev/objects/HNkqNvh5ca_tmp.png">http://cdn-dev.hjdev/objects/HNkqNvh5ca_tmp.png</a></body>
-            </html>
-     </message>
-    */
+    <message from="user+11952@xmpp-dev.healthjoy.com" to="user+11952@xmpp-dev.healthjoy.com/29685965691437133878966496" id="lsXKwxFym3rv" xmlns="jabber:client" xmlns:stream="http://etherx.jabber.org/streams" version="1.0"><result xmlns="urn:xmpp:mam:0" id="2" queryid="9010833"><forwarded xmlns="urn:xmpp:forward:0"><message xmlns="jabber:client" to="user+11952@xmpp-dev.healthjoy.com/29685965691437133878966496" from="071715_115021_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com/Qatest37 Qatest37 (id 11952)" type="groupchat"><body>Attachment and text in one message</body><attachment file_name="IMG_0080.PNG" size="80x120" thumb_url="http://cdn-dev.hjdev/objects/T386GAul98_thumb_IMG_0080.PNG" url="http://cdn-dev.hjdev/objects/T386GAul98_IMG_0080.PNG"/><html xmlns="http://jabber.org/protocol/xhtml-im"><body><p>Attachment and text in one message</p><a href="http://cdn-dev.hjdev/objects/T386GAul98_IMG_0080.PNG">http://cdn-dev.hjdev/objects/T386GAul98_IMG_0080.PNG</a></body></html></message><delay xmlns="urn:xmpp:delay" from="xmpp-dev.healthjoy.com" stamp="2015-07-17T11:51:00.049Z"/><x xmlns="jabber:x:delay" from="xmpp-dev.healthjoy.com" stamp="20150717T11:51:00"/></forwarded></result><no-copy xmlns="urn:xmpp:hints"/></message>
+     */
+    
+    
+    // GIVEN
+    self->_isAllPresenseResponseReceived = [self expectationWithDescription: @"All presense response received"];
+    
+    NSArray* rooms =
+    @[
+      @"071715_115021_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com/Qatest37 Qatest37 (id 11952)"
+      ];
+    
+    XCWaitCompletionHandler handlerOrNil = ^void(NSError *error)
+    {
+        // TODO : add asserts
+        NSLog(@"done");
+    };
+    
+    [self->_sut sendPresenseForRooms: rooms];
+    [self waitForExpectationsWithTimeout: TIMEOUT_FOR_TEST
+                                 handler: handlerOrNil];
+    
+    
+    //// WHEN
+    self->_isReceivedDidSubscribe    = nil;
+    self->_isReceivedAllDidSubscribe = nil;
+    
+    static NSString* const roomJid = @"071715_115021_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com";
+    self->_isHistoryLoaded = [self expectationWithDescription: @"History loaded"];
+    [self->_sut loadHistoryForRoom: roomJid];
+    
+    
+    /// THEN
+    [self waitForExpectationsWithTimeout: TIMEOUT_FOR_TEST
+                                 handler: handlerOrNil];
+    
+    XCTAssertNil(self->_historyError);
+    XCTAssertEqual([self->_historyData count],  (NSUInteger)2);
+    XCTAssertEqualObjects(self->_historyRoomJid, roomJid);
+    
+    XCTAssertEqual([self->_historyImages count], (NSUInteger)1);
+    
+    id<HJXmppChatAttachment> attachment = self->_historyImages[0];
+    {
+        XCTAssertEqualObjects([attachment fileName], @"IMG_0080.PNG");
+        XCTAssertEqualObjects([attachment rawImageSize], @"80x120");
+        XCTAssertEqualObjects([attachment fullSizeImageUrl], @"http://cdn-dev.hjdev/objects/T386GAul98_IMG_0080.PNG");
+        XCTAssertEqualObjects([attachment thumbnailUrl], @"http://cdn-dev.hjdev/objects/T386GAul98_thumb_IMG_0080.PNG");
+        
+        XCTAssertThrows([attachment imageSize]);
+    }
 }
 
 - (void)testAttachmentWithTextSending
@@ -464,23 +526,58 @@ static const NSTimeInterval TIMEOUT_FOR_TEST = 10.f;
     
     
     
-    <message from="071515_142949_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com/Qatest37 Qatest37 (id 11952)" to="user+11952@xmpp-dev.healthjoy.com/2786719646143761414240863" type="groupchat" xmlns="jabber:client" xmlns:stream="http://etherx.jabber.org/streams" version="1.0"><body>Message and two images</body><attachment file_name="IMG_0050.PNG" size="67x120" thumb_url="http://cdn-dev.hjdev/objects/RjSIVPeoW5_thumb_IMG_0050.PNG" url="http://cdn-dev.hjdev/objects/RjSIVPeoW5_IMG_0050.PNG"/><attachment file_name="IMG_0084.PNG" size="80x120" thumb_url="http://cdn-dev.hjdev/objects/S3ztL9p7vq_thumb_IMG_0084.PNG" url="http://cdn-dev.hjdev/objects/S3ztL9p7vq_IMG_0084.PNG"/><html xmlns="http://jabber.org/protocol/xhtml-im"><body><p>Message and two images</p><a href="http://cdn-dev.hjdev/objects/RjSIVPeoW5_IMG_0050.PNG">http://cdn-dev.hjdev/objects/RjSIVPeoW5_IMG_0050.PNG</a><a href="http://cdn-dev.hjdev/objects/S3ztL9p7vq_IMG_0084.PNG">http://cdn-dev.hjdev/objects/S3ztL9p7vq_IMG_0084.PNG</a></body></html></message>
+    <message 
+        from="071515_142949_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com/Qatest37 Qatest37 (id 11952)" 
+        to="user+11952@xmpp-dev.healthjoy.com/2786719646143761414240863" 
+        type="groupchat" 
+        xmlns="jabber:client" 
+        xmlns:stream="http://etherx.jabber.org/streams" 
+        version="1.0">
+            <body>Message and two images</body>
+     
+            <attachment 
+                file_name="IMG_0050.PNG" 
+                size="67x120" 
+                thumb_url="http://cdn-dev.hjdev/objects/RjSIVPeoW5_thumb_IMG_0050.PNG" 
+                url="http://cdn-dev.hjdev/objects/RjSIVPeoW5_IMG_0050.PNG"/>
+     
+            <attachment 
+                file_name="IMG_0084.PNG" 
+                size="80x120" 
+                thumb_url="http://cdn-dev.hjdev/objects/S3ztL9p7vq_thumb_IMG_0084.PNG" 
+                url="http://cdn-dev.hjdev/objects/S3ztL9p7vq_IMG_0084.PNG"/>
+     
+                <html xmlns="http://jabber.org/protocol/xhtml-im">
+                    <body>
+                        <p>Message and two images</p>
+                        <a href="http://cdn-dev.hjdev/objects/RjSIVPeoW5_IMG_0050.PNG">
+                            http://cdn-dev.hjdev/objects/RjSIVPeoW5_IMG_0050.PNG
+                        </a>
+                        <a href="http://cdn-dev.hjdev/objects/S3ztL9p7vq_IMG_0084.PNG">
+                            http://cdn-dev.hjdev/objects/S3ztL9p7vq_IMG_0084.PNG
+                        </a>
+                    </body>
+                </html>
+     </message>
      */
 }
 
 #pragma mark - HJXmppClientDelegate
 - (void)xmppClent:(id<HJXmppClient>)sender
 didReceiveMessage:(id<XMPPMessageProto>)message
+  withAttachments:(NSArray*)attachments
            atRoom:(NSString*)roomJid
          incoming:(BOOL)isMessageIncoming
 {
     NSLog(@"message");
     [self->_historyData addObject: message];
+    [self->_historyImages addObjectsFromArray: attachments];
     
     if (!isMessageIncoming)
     {
         self->_roomOfMessageEcho = roomJid;
         self->_sentMessageEcho = message;
+        self->_attachmentsFromMessageEcho = attachments;
         [self->_isSendMessageEchoReceived fulfill];
     }
 }
