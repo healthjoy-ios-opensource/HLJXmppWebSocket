@@ -8,8 +8,12 @@
 
 #import "HJXmppClientImpl.h"
 
+@protocol XMPPMessageProto;
+
+
 @interface HJXmppClientImpl (UnitTest)
 
 @property (nonatomic, readonly) NSString* jidStringFromBind;
+- (BOOL)isMessageIncoming:(id<XMPPMessageProto>)element;
 
 @end
