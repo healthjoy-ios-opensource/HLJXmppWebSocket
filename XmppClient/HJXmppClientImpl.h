@@ -25,17 +25,13 @@ typedef id<XMPPParserProto>(^XmppParserBuilderBlock)();
  xmpp.healthjoy.com
  
  
- @param accessToken See OAuth docs for details
- 
- @param jidString For example, '070815_113113_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com/Qatest37 Qatest37 (id 11952)'
- 
+ @param accessToken See OAuth docs for details 
  */
 - (instancetype)initWithTransport:(id<HJTransportForXmpp>)transport
                 attachmentsUpload:(id<HJAttachmentUploader>)attachmentUpload
                 xmppParserFactory:(XmppParserBuilderBlock)xmppParserFactory
                              host:(NSString*)xmppHost
                       accessToken:(NSString*)accessToken
-                    userJidString:(NSString*)jidString
 NS_DESIGNATED_INITIALIZER
 NS_REQUIRES_SUPER
 __attribute__((nonnull));

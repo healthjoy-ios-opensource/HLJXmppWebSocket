@@ -65,7 +65,6 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     NSMutableDictionary*     _iqIdForQueryId        ;
     NSMutableDictionary*     _roomJidForQueryId     ;
     
-    NSString*                _jidStringFromUserInfo ;
     NSString*                _jidStringFromBind     ;
 
     
@@ -103,13 +102,11 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
                 xmppParserFactory:(XmppParserBuilderBlock)xmppParserFactory
                              host:(NSString*)host
                       accessToken:(NSString*)accessToken
-                    userJidString:(NSString*)jidString {
-
+{
     NSParameterAssert(nil != transport);
     NSParameterAssert(nil != xmppParserFactory);
     NSParameterAssert(nil != host);
     NSParameterAssert(nil != accessToken);
-    NSParameterAssert(nil != jidString);
     
     self = [super init];
     if (nil == self) {
@@ -128,7 +125,6 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     self->_xmppHost              = host       ;
     self->_accessToken           = accessToken;
     
-    self->_jidStringFromUserInfo = jidString  ;
     
     {
         self->_randomizerForHistoryBuilder = [HJRandomizerImpl new];

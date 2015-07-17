@@ -100,8 +100,6 @@ static const NSTimeInterval TIMEOUT_FOR_TEST = 10.f;
                                               ofType: @"jpg"];
     self->_imageToSend = [NSData dataWithContentsOfFile: filePath];
     
-    static NSString* const jid = @"070815_113113_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com/Qatest37 Qatest37 (id 11952)";
-
     
     // !!! A token needs manual updating
     static NSString* const accessToken = @"dXNlcisxMTk1MkB4bXBwLWRldi5oZWFsdGhqb3kuY29tAHVzZXIrMTE5NTIAZHVseGdybExwS3hicXNFcXdYSGVtZEJmOUF0MDFo";
@@ -124,8 +122,7 @@ static const NSTimeInterval TIMEOUT_FOR_TEST = 10.f;
                                            attachmentsUpload: self->_mockAttachments
                                            xmppParserFactory: parserFactory
                                                         host: @"xmpp-dev.healthjoy.com"
-                                                 accessToken: accessToken
-                                               userJidString: jid];
+                                                 accessToken: accessToken];
     self->_sut.listenerDelegate = self;
 }
 
