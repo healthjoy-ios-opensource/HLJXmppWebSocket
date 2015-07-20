@@ -16,8 +16,14 @@
 
 - (instancetype)initWithHost:(NSString*)schemeAndHostAndPort
                    authToken:(NSString*)token
+                  urlSession:(NSURLSession*)session
 NS_REQUIRES_SUPER
 NS_DESIGNATED_INITIALIZER
+__attribute__((nonnull));
+
+- (void)uploadAtachment:(NSData*)attachmentBinary
+     withSuccessHandler:(HJAttachmentUploadSuccessBlock)onAttachmentUploadedBlock
+           errorHandler:(HJAttachmentUploadErrorBlock)onAttachmentUploadNetworkError
 __attribute__((nonnull));
 
 @end
