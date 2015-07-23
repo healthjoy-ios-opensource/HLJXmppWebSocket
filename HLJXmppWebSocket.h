@@ -5,5 +5,5 @@
 
 #import <HLJXmppWebSocket/Attachments/HJXmppChatAttachment.h>
 
-
-
+#import <HLJXmppWebSocket/XmppClient/HJXmppClientImpl.h>
+#import <HLJXmppWebSocket/WebSocket/HLJWebSocketTransportForXmpp.h>
