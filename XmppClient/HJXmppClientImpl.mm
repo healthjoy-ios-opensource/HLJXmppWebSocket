@@ -565,6 +565,16 @@ didFailToReceiveMessageWithError:error];
     else
     {
         self->_authStage = XMPP_PLAIN_AUTH__FAILED;
+
+        NSError* error = [NSError errorWithDomain: @"com.healthjoy.chat.xmpp.auth"
+                                             code: 1
+                                         userInfo: nil];
+        
+        id<HJXmppClientDelegate> strongDelegate = self.listenerDelegate;
+        [strongDelegate xmppClentDidFailToAuthenticate: self
+                                                 error: error];
+        
+        [self disconnect];
     }
 }
 
