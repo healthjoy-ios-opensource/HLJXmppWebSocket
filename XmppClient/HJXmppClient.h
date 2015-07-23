@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+@class UIImage;
 @protocol HJTransportForXmpp;
 @protocol HJXmppClientDelegate;
 
@@ -41,7 +42,7 @@
  @param roomJid One of values passed to the [HJXmppClient sendPresenseForRooms:] method. Should not contain any user id.
  '070815_113113_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com'
  */
-- (void)sendAttachment:(NSData*)binaryFromUser
+- (void)sendAttachment:(UIImage*)attachment
                     to:(NSString*)roomJid;
 
 - (void)disconnect;

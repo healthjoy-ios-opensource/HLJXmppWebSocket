@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 
-@class NSData;
+@class UIImage;
 @protocol HJXmppChatAttachment;
 
 
@@ -19,7 +19,7 @@ typedef void(^HJAttachmentUploadErrorBlock)(NSError* error);
 
 @protocol HJAttachmentUploader <NSObject>
 
-- (void)uploadAtachment:(NSData*)attachmentBinary
+- (void)uploadAtachment:(UIImage*)attachment
      withSuccessHandler:(HJAttachmentUploadSuccessBlock)onAttachmentUploadedBlock
            errorHandler:(HJAttachmentUploadErrorBlock)onAttachmentUploadNetworkError;
 

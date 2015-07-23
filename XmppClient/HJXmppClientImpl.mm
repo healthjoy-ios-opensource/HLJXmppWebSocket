@@ -227,7 +227,7 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     [self->_transport send: message];
 }
 
-- (void)sendAttachment:(NSData*)binaryFromUser
+- (void)sendAttachment:(UIImage*)attachment
                     to:(NSString*)roomJid
 {
     NSParameterAssert(XMPP_PLAIN_AUTH__COMPLETED == self->_authStage);
@@ -251,7 +251,7 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
                         withError: error];
     };
     
-    [self->_attachmentUpload uploadAtachment: binaryFromUser
+    [self->_attachmentUpload uploadAtachment: attachment
                           withSuccessHandler: [onAttachmentUploadedBlock copy]
                                 errorHandler: [onAttachmentUploadError   copy]];
 }
