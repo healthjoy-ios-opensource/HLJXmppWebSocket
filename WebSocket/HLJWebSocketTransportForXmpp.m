@@ -17,10 +17,10 @@
 
 @implementation HLJWebSocketTransportForXmpp
 {
-    SRWebSocket* _webSocket;
+    id<SRWebSocketProtocol> _webSocket;
 }
 
-- (instancetype)initWithWebSocket:(SRWebSocket*)webSocket {
+- (instancetype)initWithWebSocket:(id<SRWebSocketProtocol>)webSocket {
     
     self = [super init];
     if (nil == self) {
@@ -29,7 +29,7 @@
     }
     
     self->_webSocket = webSocket;
-    self->_webSocket.delegate = self;
+    [self->_webSocket setDelegate: self];
     
     return self;
 }
