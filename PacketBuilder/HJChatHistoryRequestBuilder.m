@@ -41,11 +41,11 @@
     @"        <query                                                \n"
     @"            xmlns='urn:xmpp:mam:0'                            \n"
     @"            queryid='%@'>                                     \n" //<!-- Random -->
-    @"                <x xmlns='jabber:x:data'>                     \n"
+    @"                <x xmlns='jabber:x:data' type='submit'>       \n"
     @"                    <field var='FORM_TYPE'>                   \n"
     @"                        <value>urn:xmpp:mam:0</value>         \n"
     @"                    </field>                                  \n"
-    @"                    <field var='with'>                        \n"
+    @"                    <field var='withroom'>                    \n"
     @"                        <value>%@</value>                     \n" // roomJid
     @"                    </field>                                  \n"
     @"                    <field var='start'>                       \n"
