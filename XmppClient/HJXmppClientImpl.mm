@@ -19,6 +19,7 @@
 
 #import "HJXmppErrorForHistory.h"
 #import "HJXmppBindParserError.h"
+#import "HJXmppAuthResponseError.h"
 #import "HJXmppSessionResponseError.h"
 
 #import "HJBindResponseParser.h"
@@ -566,9 +567,8 @@ didFailToReceiveMessageWithError:error];
     {
         self->_authStage = XMPP_PLAIN_AUTH__FAILED;
 
-        NSError* error = [NSError errorWithDomain: @"com.healthjoy.chat.xmpp.auth"
-                                             code: 1
-                                         userInfo: nil];
+        // TODO : extract a proper error class
+        NSError* error = [HJXmppAuthResponseError new];
         
         id<HJXmppClientDelegate> strongDelegate = self.listenerDelegate;
         [strongDelegate xmppClentDidFailToAuthenticate: self
