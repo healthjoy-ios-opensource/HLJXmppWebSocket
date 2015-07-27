@@ -19,6 +19,11 @@
     NSXMLElement* castedRawMessage = (NSXMLElement*)xmlMessage;
     
     NSArray* attachmentElements = [castedRawMessage elementsForName: @"attachment"];
+    if (0 == [attachmentElements count])
+    {
+        // Checking explicitly for better debugging experience
+        return nil;
+    }
     
     
     LINQSelector parseAttachmentBlock = ^id<HJXmppChatAttachment>(NSXMLElement* singleAttachmentElement)

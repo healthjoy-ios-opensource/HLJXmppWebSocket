@@ -842,7 +842,7 @@ didFailToReceiveMessageWithError:error];
     id<XMPPMessageProto> unwrappedMessage = [HJHistoryMessageParser unwrapHistoryMessage: element];
     BOOL isIncoming = [self isMessageIncoming: unwrappedMessage];
     NSString* roomJid = [self roomForMessage: element];
-    NSArray* attachments = [HJXmppAttachmentsParser parseAttachmentsOfMessage: element];
+    NSArray* attachments = [HJXmppAttachmentsParser parseAttachmentsOfMessage: unwrappedMessage];
     
     [strongDelegate xmppClent: self
             didReceiveMessage: unwrappedMessage
