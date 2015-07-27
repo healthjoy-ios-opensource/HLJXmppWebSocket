@@ -171,8 +171,9 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
         @"\t from='%@' \n"
         @"\t to='%@'   \n"
         @"\t xmlns='jabber:client'> \n"
-        @"\t\t <x \n"
-        @"\t\t\t\t xmlns='http://jabber.org/protocol/muc'/> \n"
+        @"\t\t <x xmlns='http://jabber.org/protocol/muc'> \n"
+        @"\t\t\t\t <history maxstanzas='0'/> \n"
+        @"</x>"
         @"</presence>";
 
     
