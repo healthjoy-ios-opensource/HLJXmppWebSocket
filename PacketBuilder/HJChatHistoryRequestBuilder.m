@@ -34,29 +34,29 @@
 - (id<HJChatHistoryRequestProto>)buildRequestForRoom:(NSString*)roomJid
 {
     NSString* messageFormat =
-    @"    <iq                                                       \n"
-    @"      type='set'                                              \n"
-    @"      id='%@'                                                 \n" //<!-- Random -->
-    @"    >                                                         \n"
-    @"        <query                                                \n"
-    @"            xmlns='urn:xmpp:mam:0'                            \n"
-    @"            queryid='%@'>                                     \n" //<!-- Random -->
-    @"                <x xmlns='jabber:x:data' type='submit'>       \n"
-    @"                    <field var='FORM_TYPE'>                   \n"
-    @"                        <value>urn:xmpp:mam:0</value>         \n"
-    @"                    </field>                                  \n"
-    @"                    <field var='withroom'>                    \n" // [dev, "withroom"], [prod : "with"]
-    @"                        <value>%@</value>                     \n" // roomJid
-    @"                    </field>                                  \n"
-    @"                    <field var='start'>                       \n"
-    @"                        <value>1970-01-01T00:00:00Z</value>   \n" // <!-- The service did not exist back in 1970 -->
-    @"                    </field>                                  \n"
-    @"                </x>                                          \n"
-    @"            <set xmlns='http://jabber.org/protocol/rsm'>      \n"
-    @"                <max>10000</max>                              \n" // No way to request everything. Using a large constant
-    @"            </set>                                            \n"
-    @"        </query>                                              \n"
-    @"    </iq>";
+    @"<iq "
+    @"  type='set' "
+    @"  id='%@' " //<!-- Random -->
+    @"> "
+    @"    <query "
+    @"        xmlns='urn:xmpp:mam:0' "
+    @"        queryid='%@'> " //<!-- Random -->
+    @"            <x xmlns='jabber:x:data' type='submit'> "
+    @"                <field var='FORM_TYPE'> "
+    @"                    <value>urn:xmpp:mam:0</value> "
+    @"                </field> "
+    @"                <field var='with'> " // [dev, "withroom"], [prod : "with"]
+    @"                    <value>%@</value> " // roomJid
+    @"                </field> "
+    @"                <field var='start'> "
+    @"                    <value>1970-01-01T00:00:00Z</value> " // <!-- The service did not exist back in 1970 -->
+    @"                </field> "
+    @"            </x> "
+    @"        <set xmlns='http://jabber.org/protocol/rsm'> "
+    @"            <max>10000</max> " // No way to request everything. Using a large constant
+    @"        </set> "
+    @"    </query> "
+    @"</iq>";
     
     NSString* randomIdForIq    = [self->_randomizer getRandomIdForStanza];
     NSString* randomIdForQuery = [self->_randomizer getRandomIdForStanza];
