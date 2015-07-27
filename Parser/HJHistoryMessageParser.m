@@ -20,7 +20,45 @@
     NSXMLElement* rawResult = [[forwardedNode elementsForName: @"message"] firstObject];
     XMPPMessage* result = [XMPPMessage messageFromElement: rawResult];
     
-    return result;
+    NSArray* attachments = [rawResult elementsForName: @"attachment"];
+    BOOL isMessageWithContent =
+        (nil != [result body]) ||
+        (0   != [attachments count]);
+    
+    
+    
+    BOOL isMessageHasTimestamp = (nil != [XMPPMessageTimestampParser parseTimestampFromXmlElement: result]);
+    
+    NSDate* elementNodeTimestamp = [XMPPMessageTimestampParser parseTimestampFromXmlElement: element];
+    BOOL isElementHasTimestamp = (nil != elementNodeTimestamp);
+    
+    NSDate* forwardedNodeTimestamp = [XMPPMessageTimestampParser parseTimestampFromXmlElement: forwardedNode];
+    BOOL isElementForwardedHasTimestamp = (nil != forwardedNodeTimestamp);
+    
+    if (nil == result)
+    {
+        return element;
+    }
+    else if (isMessageWithContent)
+    {
+        if (!isMessageHasTimestamp)
+        {
+            if (isElementHasTimestamp)
+            {
+                result.timestamp = elementNodeTimestamp;
+            }
+            else if (isElementForwardedHasTimestamp)
+            {
+                result.timestamp = forwardedNodeTimestamp;
+            }
+        }
+
+        return result;
+    }
+    else
+    {
+        return [self unwrapHistoryMessage: result];
+    }
 }
 
 @end
