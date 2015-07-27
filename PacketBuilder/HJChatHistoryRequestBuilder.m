@@ -45,7 +45,7 @@
     @"                    <field var='FORM_TYPE'>                   \n"
     @"                        <value>urn:xmpp:mam:0</value>         \n"
     @"                    </field>                                  \n"
-    @"                    <field var='withroom'>                    \n"
+    @"                    <field var='withroom'>                    \n" // [dev, "withroom"], [prod : "with"]
     @"                        <value>%@</value>                     \n" // roomJid
     @"                    </field>                                  \n"
     @"                    <field var='start'>                       \n"
