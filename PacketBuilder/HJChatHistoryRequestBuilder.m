@@ -34,28 +34,28 @@
 - (id<HJChatHistoryRequestProto>)buildRequestForRoom:(NSString*)roomJid
 {
     NSString* messageFormat =
-    @"<iq "
-    @"  type='set' "
-    @"  id='%@' " //<!-- Random -->
-    @"> "
-    @"    <query "
-    @"        xmlns='urn:xmpp:mam:0' "
-    @"        queryid='%@'> " //<!-- Random -->
-    @"            <x xmlns='jabber:x:data' type='submit'> "
-    @"                <field var='FORM_TYPE'> "
-    @"                    <value>urn:xmpp:mam:0</value> "
-    @"                </field> "
-    @"                <field var='with'> " // [dev, "withroom"], [prod : "with"]
-    @"                    <value>%@</value> " // roomJid
-    @"                </field> "
-    @"                <field var='start'> "
-    @"                    <value>1970-01-01T00:00:00Z</value> " // <!-- The service did not exist back in 1970 -->
-    @"                </field> "
-    @"            </x> "
-    @"        <set xmlns='http://jabber.org/protocol/rsm'> "
-    @"            <max>10000</max> " // No way to request everything. Using a large constant
-    @"        </set> "
-    @"    </query> "
+    @"<iq"
+    @" type='set'"
+    @" id='%@'" //<!-- Random -->
+    @">"
+    @"<query "
+    @" xmlns='urn:xmpp:mam:0'"
+    @" queryid='%@'>" //<!-- Random -->
+    @"<x xmlns='jabber:x:data' type='submit'>"
+    @"<field var='FORM_TYPE'>"
+    @"<value>urn:xmpp:mam:0</value>"
+    @"</field>"
+    @"<field var='with'>" // [dev, "withroom"], [prod : "with"]
+    @"<value>%@</value>" // roomJid
+    @"</field>"
+    @"<field var='start'>"
+    @"<value>1970-01-01T00:00:00Z</value>" // <!-- The service did not exist back in 1970 -->
+    @"</field>"
+    @"</x>"
+    @"<set xmlns='http://jabber.org/protocol/rsm'>"
+    @"<max>10000</max>" // No way to request everything. Using a large constant
+    @"</set>"
+    @"</query>"
     @"</iq>";
     
     NSString* randomIdForIq    = [self->_randomizer getRandomIdForStanza];
