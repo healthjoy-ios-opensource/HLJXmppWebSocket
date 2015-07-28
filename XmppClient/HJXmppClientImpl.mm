@@ -898,25 +898,22 @@ didFailToReceiveMessageWithError:error];
                            to:(NSString*)roomJid
 {
     static NSString* const requestFormat =
-    @"<message                                          \n"
-    @"to='%@'                                           \n" // 071515_142949_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com
-    @"type='groupchat'                                  \n"
-    @"xmlns='jabber:client'>                            \n"
-    @"<body>                                            \n"
-    @"</body>                                           \n"
-    @"                                                  \n"
-    @"<attachment                                       \n"
-    @"file_name='%@'                                    \n" // tmp.png
-    @"size='%@'                                         \n" // 120x90
-    @"thumb_url='%@'                                    \n" // http://cdn-dev.hjdev/objects/HNkqNvh5ca_thumb_tmp.png
-    @"url='%@'/>                                        \n" // http://cdn-dev.hjdev/objects/HNkqNvh5ca_tmp.png
-    @"                                                  \n"
-    @"<html xmlns='http://jabber.org/protocol/xhtml-im'>\n"
-    @"<body>                                            \n"
-    @"<p></p>                                           \n"
-    @"<a href='%@'>%@</a>                               \n" // 2x http://cdn-dev.hjdev/objects/HNkqNvh5ca_tmp.png
-    @"</body>                                           \n"
-    @"</html>                                           \n"
+    @"<message"
+    @" to='%@'" // 071515_142949_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com
+    @" type='groupchat' "
+    @" xmlns='jabber:client'>"
+    @"<body></body>"
+    @"<attachment"
+    @" file_name='%@'" // tmp.png
+    @" size='%@'" // 120x90
+    @" thumb_url='%@'" // http://cdn-dev.hjdev/objects/HNkqNvh5ca_thumb_tmp.png
+    @" url='%@'/>" // http://cdn-dev.hjdev/objects/HNkqNvh5ca_tmp.png
+    @"<html xmlns='http://jabber.org/protocol/xhtml-im'>"
+    @"<body>"
+    @"<p></p>"
+    @"<a href='%@'>%@</a>" // 2x http://cdn-dev.hjdev/objects/HNkqNvh5ca_tmp.png
+    @"</body>"
+    @"</html>"
     @"</message>";
     
     
