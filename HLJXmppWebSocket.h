@@ -10,3 +10,13 @@
 #import <HLJXmppWebSocket/WebSocket/HLJWebSocketTransportForXmpp.h>
 
 
+#import <HLJXmppWebSocket/Error/HJXmppErrorBase.h>
+
+#import <HLJXmppWebSocket/Error/HJXmppErrorForHistory.h>
+#import <HLJXmppWebSocket/Error/HJXmppBindParserError.h>
+#import <HLJXmppWebSocket/Error/HJXmppSessionResponseError.h>
+#import <HLJXmppWebSocket/Error/HJXmppAuthResponseError.h>
+
+#import <HLJXmppWebSocket/Error/HJInvalidAttachmentResponseError.h>
+#import <HLJXmppWebSocket/Error/HJValidButEmptyAttachmentResponseError.h>
+
