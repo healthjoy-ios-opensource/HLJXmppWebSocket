@@ -140,6 +140,11 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     return self;
 }
 
+- (void)authenticateAsync
+{
+    [self->_transport open];
+}
+
 - (void)sendPresenseForRooms:(NSArray*)jidStringsForRooms {
     
     NSParameterAssert(nil == self->_jidStringsForRooms);

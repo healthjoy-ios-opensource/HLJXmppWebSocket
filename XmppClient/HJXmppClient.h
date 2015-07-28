@@ -15,6 +15,14 @@
 
 @protocol HJXmppClient <NSObject>
 
+
+/**
+ Performs PLAIN authentication only.
+ 
+ Note : this method is used for the hot fix. If you are going to send/receive messages, please use [HJXmppClient sendPresenseForRooms:] instead.
+ */
+- (void)authenticateAsync;
+
 /**
  Performs PLAIN authentication as well
  
