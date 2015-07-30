@@ -315,7 +315,10 @@ didReceiveMessage:(id)rawMessage
     }
     else
     {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wgnu-zero-variadic-macro-arguments"
         NSAssert(NO, @"Unknown transport response object");
+#pragma clang diagnostic pop        
     }
     
     // "parseData:" is NOT reenterable
