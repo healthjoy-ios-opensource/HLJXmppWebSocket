@@ -879,7 +879,8 @@ didFailToReceiveMessageWithError:error];
 {
     // "Send message" response
     //
-    //    <message from="070815_114612_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com/Qatest37 Qatest37 (id 11952)" to="user+11952@xmpp-dev.healthjoy.com/11356033521436884287873659" type="groupchat" xm lns="jabber:client" xmlns:stream="http://etherx.jabber.org/streams" version="1.0"><body>sent message</body><html xmlns="http://jabber.org/protocol/xhtml-im"><body><p>sent message</p></body></html></message>
+    //
+//    <message xmlns="jabber:client" xmlns:stream="http://etherx.jabber.org/streams" from="072915_095742_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com/Oleksandr Dodatko" to="user+11952@xmpp-dev.healthjoy.com/14438263551438356765960568" type="groupchat" id="purple6d2e31b4" version="1.0"><archived xmlns="urn:xmpp:mam:tmp" by="072915_095742_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com" id="1438356783636318"></archived><body xmlns="jabber:client">helllll</body></message>
     
     BOOL isIncoming = [self isMessageIncoming: element];
     NSString* roomJid = [self roomForMessage: element];
