@@ -32,7 +32,10 @@
 }
 
 - (id<HJChatHistoryRequestProto>)buildRequestForRoom:(NSString*)roomJid
+                                               limit:(NSUInteger)maxMessageCount
 {
+    NSString* strMaxMessageCount = [@(maxMessageCount) descriptionWithLocale: nil];
+    
     NSString* messageFormat =
     @"<iq"
     @" type='set'"
@@ -53,7 +56,7 @@
     @"</field>"
     @"</x>"
     @"<set xmlns='http://jabber.org/protocol/rsm'>"
-    @"<max>10000</max>" // No way to request everything. Using a large constant
+    @"<max>%@</max>" // No way to request everything. Using a large constant
     @"</set>"
     @"</query>"
     @"</iq>";
@@ -61,7 +64,12 @@
     NSString* randomIdForIq    = [self->_randomizer getRandomIdForStanza];
     NSString* randomIdForQuery = [self->_randomizer getRandomIdForStanza];
     
-    NSString* request = [NSString stringWithFormat: messageFormat, randomIdForIq, randomIdForQuery, roomJid];
+    NSString* request =
+        [NSString stringWithFormat: messageFormat,
+            randomIdForIq     ,
+            randomIdForQuery  ,
+            roomJid           ,
+            strMaxMessageCount];
     
     HJChatHistoryRequest* result = [HJChatHistoryRequest new];
     {
@@ -71,6 +79,16 @@
     }
     
     return result;
+}
+
+- (id<HJChatHistoryRequestProto>)buildUnlimitedRequestForRoom:(NSString*)roomJid
+{
+    // TODO : maybe use NSUIntegerMax
+    // Ensure the back end supports NSUIntegerMax for both x86 and x64
+    static const NSUInteger INFINITE_MESSAGE_COUNT = 10000;
+    
+    return [self buildRequestForRoom: roomJid
+                               limit: INFINITE_MESSAGE_COUNT];
 }
 
 @end

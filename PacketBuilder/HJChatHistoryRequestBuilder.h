@@ -22,7 +22,10 @@ NS_REQUIRES_SUPER
 NS_DESIGNATED_INITIALIZER
 __attribute__((nonnull));
 
-- (id<HJChatHistoryRequestProto>)buildRequestForRoom:(NSString*)roomJid;
+- (id<HJChatHistoryRequestProto>)buildUnlimitedRequestForRoom:(NSString*)roomJid;
+
+- (id<HJChatHistoryRequestProto>)buildRequestForRoom:(NSString*)roomJid
+                                               limit:(NSUInteger)maxMessageCount;
 
 
 @end

@@ -36,8 +36,22 @@
 /**
  @param roomJid One of values passed to the [HJXmppClient sendPresenseForRooms:] method. Should not contain any user id.
  '070815_113113_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com'
+ 
+  Note : Latest messages arrive first
  */
 - (void)loadHistoryForRoom:(NSString*)roomJid;
+
+
+/**
+ @param roomJid One of values passed to the [HJXmppClient sendPresenseForRooms:] method. Should not contain any user id.
+ '070815_113113_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com'
+ 
+ @param maxMessageCount Limit of messages returned in response. 
+ 
+ Note : Latest messages arrive first
+ */
+- (void)loadHistoryForRoom:(NSString*)roomJid
+                     limit:(NSUInteger)maxMessageCount;
 
 /**
  @param roomJid One of values passed to the [HJXmppClient sendPresenseForRooms:] method. Should not contain any user id.

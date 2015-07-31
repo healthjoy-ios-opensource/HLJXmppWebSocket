@@ -275,13 +275,55 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
                                 errorHandler: [onAttachmentUploadError   copy]];
 }
 
-- (void)loadHistoryForRoom:(NSString*)roomJid {
+- (void)loadHistoryForRoom:(NSString*)roomJid
+{
+    BOOL isRoomOnTheList = [self isTruncatedJidOnTheRoomList: roomJid];
+    if (!isRoomOnTheList)
+    {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wgnu-zero-variadic-macro-arguments"
+        NSAssert(NO, @"Attempting to request history before subscribing to the room : %@", roomJid);
+#pragma clang diagnostic pop
+        
+        return;
+    }
+
+    id<HJChatHistoryRequestProto> request = [self->_historyRequestBuilder buildUnlimitedRequestForRoom: roomJid];
+    [self addHistoryRequestToPendingList: request
+                                 forRoom: roomJid];
+
+    [self->_transport send: [request dataToSend]];
+}
+
+- (void)loadHistoryForRoom:(NSString*)roomJid
+                     limit:(NSUInteger)maxMessageCount
+{
+    BOOL isRoomOnTheList = [self isTruncatedJidOnTheRoomList: roomJid];
+    if (!isRoomOnTheList)
+    {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wgnu-zero-variadic-macro-arguments"
+        NSAssert(NO, @"Attempting to request history before subscribing to the room : %@", roomJid);
+#pragma clang diagnostic pop
+        
+        return;
+    }
     
+    id<HJChatHistoryRequestProto> request = [self->_historyRequestBuilder buildRequestForRoom: roomJid
+                                                                                        limit: maxMessageCount];
+    [self addHistoryRequestToPendingList: request
+                                 forRoom: roomJid];
+    
+    [self->_transport send: [request dataToSend]];
+}
+
+- (BOOL)isTruncatedJidOnTheRoomList:(NSString*)roomJid
+{
     LINQSelector truncatedRoomId = ^NSString*(NSString* fullRoomString)
     {
         //    [presense] - 070815_113113_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com/Qatest37 Qatest37 (id 11952)
         //    [iq      ] - 070815_114612_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com
-
+        
         
         NSArray* chunks = [fullRoomString componentsSeparatedByString: @"/"];
         NSString* blockResult = [chunks firstObject];
@@ -291,24 +333,19 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     NSArray* multipleRoomIdForHistory = [self->_jidStringsForRooms linq_select: truncatedRoomId];
     BOOL isRoomOnTheList = (0 != [multipleRoomIdForHistory count]);
     
-    if (!isRoomOnTheList)
-    {
-        NSParameterAssert([multipleRoomIdForHistory containsObject: roomJid]);
-        return;
-    }
+    return isRoomOnTheList;
+}
 
+- (void)addHistoryRequestToPendingList:(id<HJChatHistoryRequestProto>)request
+                               forRoom:(NSString*)roomJid
+{
+    NSString* key   = [request idForIq   ];
+    NSString* value = [request idForQuery];
     
-    id<HJChatHistoryRequestProto> request = [self->_historyRequestBuilder buildRequestForRoom: roomJid];
-    {
-        NSString* key   = [request idForIq   ];
-        NSString* value = [request idForQuery];
-        
-        self->_queryIdForIqId[key  ] = value;
-        self->_iqIdForQueryId[value] = key  ;
-        
-        self->_roomJidForQueryId[value] = roomJid;
-    }
-    [self->_transport send: [request dataToSend]];
+    self->_queryIdForIqId[key  ] = value;
+    self->_iqIdForQueryId[value] = key  ;
+    
+    self->_roomJidForQueryId[value] = roomJid;
 }
 
 #pragma mark - HJTransportForXmppDelegate
