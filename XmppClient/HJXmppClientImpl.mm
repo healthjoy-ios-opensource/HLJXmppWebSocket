@@ -147,11 +147,23 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
 
 - (void)sendPresenseForRooms:(NSArray*)jidStringsForRooms {
     
-    NSParameterAssert(nil == self->_jidStringsForRooms);
-
+    BOOL isInitialState = (XMPP_PLAIN_AUTH__NOT_STARTED == self->_authStage);
+    BOOL isAuthenticatedState = (XMPP_PLAIN_AUTH__COMPLETED == self->_authStage);
     
-    self->_jidStringsForRooms = jidStringsForRooms;
-    [self->_transport open];
+    if (isInitialState)
+    {
+        self->_jidStringsForRooms = jidStringsForRooms;
+        [self->_transport open];
+    }
+    else if (isAuthenticatedState)
+    {
+        self->_jidStringsForRooms = [self->_jidStringsForRooms arrayByAddingObjectsFromArray: jidStringsForRooms];
+        [self doSendPresenseRequestsForRooms: jidStringsForRooms];
+    }
+    else
+    {
+        NSParameterAssert(isInitialState || isAuthenticatedState);
+    }
 }
 
 - (void)doPerformPlainAuthentication {
@@ -160,8 +172,8 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     [self sendStreamRequest];
 }
 
-- (void)doSendPresenseRequests {
-    
+- (void)doSendPresenseRequestsForRooms:(NSArray*)jidStringsForRooms
+{
 //    <presence
 //    from='user+11952@xmpp-dev.healthjoy.com/42306807851436517615666295'
 //    to='070815_113113_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com/Qatest37 Qatest37 (id 11952)'
@@ -192,10 +204,10 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
         
         return presenseRequest;
     };
-    NSArray* presenseRequests = [self->_jidStringsForRooms linq_select: jidToPresenseRequest];
+    NSArray* presenseRequests = [jidStringsForRooms linq_select: jidToPresenseRequest];
     
     
-    self->_pendingRooms = [NSMutableSet setWithArray: self->_jidStringsForRooms];
+    self->_pendingRooms = [NSMutableSet setWithArray: jidStringsForRooms];
     for (NSString* singlePresenseRequest in presenseRequests)
     {
         [self->_transport send: singlePresenseRequest];
@@ -681,7 +693,7 @@ didFailToReceiveMessageWithError:error];
         [strongDelegate xmppClentDidAuthenticate: self];
         
         
-        [self doSendPresenseRequests];
+        [self doSendPresenseRequestsForRooms: self->_jidStringsForRooms];
     }
     else
     {
