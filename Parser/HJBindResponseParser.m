@@ -12,6 +12,8 @@
 
 + (BOOL)isResponseToSkip:(id)nsXmlElement
 {
+    NSParameterAssert([nsXmlElement isKindOfClass: [NSXMLElement class]]);
+    
     NSXMLElement* element = (NSXMLElement*)nsXmlElement;
     NSString* elementName = [element name];
     
@@ -22,6 +24,7 @@
 
 + (BOOL)isSuccessfulBindResponse:(id)nsXmlElement
 {
+    NSParameterAssert([nsXmlElement isKindOfClass: [NSXMLElement class]]);
     NSXMLElement* element = (NSXMLElement*)nsXmlElement;
     XMPPIQ* responseIq = [XMPPIQ iqFromElement: element];
     
@@ -44,6 +47,7 @@
 
 + (NSString*)jidFromBindResponse:(id)nsXmlElement
 {
+    NSParameterAssert([nsXmlElement isKindOfClass: [NSXMLElement class]]);
     NSXMLElement* element = (NSXMLElement*)nsXmlElement;
     XMPPIQ* responseIq = [XMPPIQ iqFromElement: element];
     

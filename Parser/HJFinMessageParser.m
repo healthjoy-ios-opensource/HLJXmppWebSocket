@@ -12,7 +12,9 @@
 
 + (NSString*)queryIdFromFinMessage:(id<XMPPMessageProto>)element
 {
+    NSParameterAssert([element isKindOfClass: [NSXMLElement class]]);
     NSXMLElement* castedElement = (NSXMLElement*)element;
+    
     NSXMLElement* finElement = [[castedElement elementsForName: @"fin"] lastObject];
     NSXMLNode* queryIdAttr = [finElement attributeForName: @"queryid"];
     

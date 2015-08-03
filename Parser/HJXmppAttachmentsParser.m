@@ -16,6 +16,7 @@
 
 + (NSArray*)parseAttachmentsOfMessage:(id)xmlMessage
 {
+    NSParameterAssert([xmlMessage isKindOfClass: [NSXMLElement class]]);
     NSXMLElement* castedRawMessage = (NSXMLElement*)xmlMessage;
     
     NSArray* attachmentElements = [castedRawMessage elementsForName: @"attachment"];
@@ -37,6 +38,7 @@
 
 + (id<HJXmppChatAttachment>)parseSingleAttachmentElement:(id)xmlAttachmentElement
 {
+    NSParameterAssert([xmlAttachmentElement isKindOfClass: [NSXMLElement class]]);
     NSXMLElement* castedRawAttachment = (NSXMLElement*)xmlAttachmentElement;
     
     NSString* rawImageSize = [[castedRawAttachment attributeForName: @"size"     ] stringValue];

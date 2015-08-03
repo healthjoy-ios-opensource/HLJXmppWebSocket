@@ -37,7 +37,9 @@
     BOOL isFinMessage = NO;
     {
         // TODO : remove cast
+        NSParameterAssert([element isKindOfClass: [NSXMLElement class]]);
         NSXMLElement* castedRawMessage = (NSXMLElement*)element;
+        
         NSArray* finElementArray = [castedRawMessage elementsForName: @"fin"];
         
         isFinMessage = (0 != [finElementArray count]);
@@ -48,7 +50,9 @@
 
 + (BOOL)isHistoryMessage:(id<XMPPMessageProto>)element
 {
+    NSParameterAssert([element isKindOfClass: [NSXMLElement class]]);
     NSXMLElement* castedRawMessage = (NSXMLElement*)element;
+    
     NSArray* resultNodes = [castedRawMessage elementsForName: @"result"];
     
     return (0 != [resultNodes count]);

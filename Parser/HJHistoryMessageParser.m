@@ -12,7 +12,9 @@
 
 + (id<XMPPMessageProto>)unwrapHistoryMessage:(id<XMPPMessageProto>)element
 {
+    NSParameterAssert([element isKindOfClass: [NSXMLElement class]]);
     NSXMLElement* castedRawMessage = (NSXMLElement*)element;
+    
     NSXMLElement* resultNode = [[castedRawMessage elementsForName: @"result"] firstObject];
     NSXMLElement* forwardedNode = [[resultNode elementsForName: @"forwarded"] firstObject];
     

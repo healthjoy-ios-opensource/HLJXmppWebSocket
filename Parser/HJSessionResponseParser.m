@@ -12,9 +12,10 @@
 
 + (BOOL)isResponseToSkip:(id)nsXmlElement
 {
+    NSParameterAssert([nsXmlElement isKindOfClass: [NSXMLElement class]]);
     NSXMLElement* element = (NSXMLElement*)nsXmlElement;
-    NSString* elementName = [element name];
     
+    NSString* elementName = [element name];
     BOOL result = (![elementName isEqualToString: @"iq"]);
     
     return result;
@@ -22,7 +23,9 @@
 
 + (BOOL)isSuccessfulSessionResponse:(id)nsXmlElement
 {
+    NSParameterAssert([nsXmlElement isKindOfClass: [NSXMLElement class]]);
     NSXMLElement* element = (NSXMLElement*)nsXmlElement;
+    
     XMPPIQ* parsedIq = [XMPPIQ iqFromElement: element];
     if ([parsedIq isErrorIQ])
     {
