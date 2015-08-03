@@ -220,16 +220,16 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     NSParameterAssert(XMPP_PLAIN_AUTH__COMPLETED == self->_authStage);
     
     NSString* messageFormat =
-        @"<message                                                   \n"
-        @"    to='%@'                                                \n"
-        @"    type='groupchat'                                       \n"
-        @"    xmlns='jabber:client'>                                 \n"
-        @"        <body>%@</body>                                    \n"
-        @"        <html xmlns='http://jabber.org/protocol/xhtml-im'> \n"
-        @"            <body>                                         \n"
-        @"                <p>%@</p>                                  \n"
-        @"            </body>                                        \n"
-        @"        </html>                                            \n"
+        @"<message"
+        @" to='%@'"
+        @" type='groupchat'"
+        @" xmlns='jabber:client'>"
+        @"<body>%@</body>"
+        @"<html xmlns='http://jabber.org/protocol/xhtml-im'>"
+        @"<body>"
+        @"<p>%@</p>"
+        @"</body>"
+        @"</html>"
         @"</message>";
     
     
