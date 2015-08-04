@@ -147,6 +147,8 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
 
 - (void)sendPresenseForRooms:(NSArray*)jidStringsForRooms {
     
+    NSParameterAssert(nil != jidStringsForRooms);
+    
     BOOL isInitialState = (XMPP_PLAIN_AUTH__NOT_STARTED == self->_authStage);
     BOOL isAuthenticatedState = (XMPP_PLAIN_AUTH__COMPLETED == self->_authStage);
     
@@ -184,12 +186,12 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
 
     
     static NSString* const presenseRequestFormat =
-        @"<presence \n"
-        @"\t from='%@' \n"
-        @"\t to='%@'   \n"
-        @"\t xmlns='jabber:client'> \n"
-        @"\t\t <x xmlns='http://jabber.org/protocol/muc'> \n"
-        @"\t\t\t\t <history maxstanzas='0'/> \n"
+        @"<presence"
+        @" from='%@'"
+        @" to='%@'"
+        @" xmlns='jabber:client'>"
+        @"<x xmlns='http://jabber.org/protocol/muc'>"
+        @"<history maxstanzas='0'/>"
         @"</x>"
         @"</presence>";
 
