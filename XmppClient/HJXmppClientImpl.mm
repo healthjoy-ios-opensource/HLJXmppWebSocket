@@ -223,6 +223,7 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
         @"<message"
         @" to='%@'"
         @" type='groupchat'"
+        @" id='%@'"
         @" xmlns='jabber:client'>"
         @"<body>%@</body>"
         @"<html xmlns='http://jabber.org/protocol/xhtml-im'>"
@@ -232,7 +233,7 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
         @"</html>"
         @"</message>";
     
-    
+    NSString* randomMessageId = [self->_randomizerForHistoryBuilder getRandomIdForStanza];
     
     NSXMLNode* tempNodeForEscaping = [NSXMLNode textWithStringValue: messageFromUser];
     NSString* escapedMessageFromUser = [tempNodeForEscaping XMLString];
@@ -240,6 +241,7 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     NSString* message =
         [NSString stringWithFormat: messageFormat,
             roomJid,
+            randomMessageId,
             escapedMessageFromUser,
             escapedMessageFromUser];
     
@@ -953,7 +955,8 @@ didFailToReceiveMessageWithError:error];
     static NSString* const requestFormat =
     @"<message"
     @" to='%@'" // 071515_142949_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com
-    @" type='groupchat' "
+    @" type='groupchat'"
+    @" id='%@'"
     @" xmlns='jabber:client'>"
     @"<body></body>"
     @"<attachment"
@@ -969,11 +972,13 @@ didFailToReceiveMessageWithError:error];
     @"</html>"
     @"</message>";
     
+    NSString* randomMessageId = [self->_randomizerForHistoryBuilder getRandomIdForStanza];
     
     NSString* fullSizeUrl = [attachment fullSizeImageUrl];
     NSString* request =
         [NSString stringWithFormat: requestFormat,
             roomJid,
+            randomMessageId,
             [attachment fileName],
             [attachment rawImageSize],
             [attachment thumbnailUrl],
