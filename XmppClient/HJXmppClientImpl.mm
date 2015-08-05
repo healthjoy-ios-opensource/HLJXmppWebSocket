@@ -213,6 +213,9 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     for (NSString* singlePresenseRequest in presenseRequests)
     {
         [self->_transport send: singlePresenseRequest];
+        
+////        // For debugging purpose
+//        return;
     }
 }
 
@@ -335,7 +338,7 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
         return blockResult;
     };
     NSArray* multipleRoomIdForHistory = [self->_jidStringsForRooms linq_select: truncatedRoomId];
-    BOOL isRoomOnTheList = (0 != [multipleRoomIdForHistory count]);
+    BOOL isRoomOnTheList = [multipleRoomIdForHistory containsObject: roomJid];
     
     return isRoomOnTheList;
 }
@@ -904,7 +907,7 @@ didFailToReceiveMessageWithError:error];
     
     id<XMPPMessageProto> unwrappedMessage = [HJHistoryMessageParser unwrapHistoryMessage: element];
     BOOL isIncoming = [self isMessageIncoming: unwrappedMessage];
-    NSString* roomJid = [self roomForMessage: element];
+    NSString* roomJid = [self roomForMessage: unwrappedMessage];
     NSArray* attachments = [HJXmppAttachmentsParser parseAttachmentsOfMessage: unwrappedMessage];
     
     [strongDelegate xmppClent: self
