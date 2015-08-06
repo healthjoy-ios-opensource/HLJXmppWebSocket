@@ -78,6 +78,8 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     // TODO : use dependency injection
     HJChatHistoryRequestBuilder* _historyRequestBuilder;
     HJRandomizerImpl           * _randomizerForHistoryBuilder;
+
+    dispatch_queue_t _parserCallbackQueue;
 }
 
 - (void)dealloc {
@@ -92,10 +94,7 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
 
 - (dispatch_queue_t)parserCallbacksQueue {
     
-    // TODO : change for production if needed
-    
-    dispatch_queue_t parserCallbacksQueue = dispatch_get_main_queue();
-    return parserCallbacksQueue;
+    return self->_parserCallbackQueue;
 }
 
 - (instancetype)initWithTransport:(id<HJTransportForXmpp>)transport
@@ -114,6 +113,8 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
         
         return nil;
     }
+    
+    self->_parserCallbackQueue = dispatch_queue_create("com.healthjoy.chat.xmpp.client", DISPATCH_QUEUE_SERIAL);
     
     self->_authStage = XMPP_PLAIN_AUTH__NOT_STARTED;
     
