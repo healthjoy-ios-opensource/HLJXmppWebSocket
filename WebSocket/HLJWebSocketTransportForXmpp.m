@@ -35,6 +35,11 @@
 }
 
 
+- (NSInteger)readyState
+{
+    return [self->_webSocket readyState];
+}
+
 - (void)open {
     
     [self->_webSocket open];

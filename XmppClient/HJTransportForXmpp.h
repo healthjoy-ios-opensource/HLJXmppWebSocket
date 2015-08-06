@@ -15,6 +15,8 @@
  */
 @protocol HJTransportForXmpp <NSObject>
 
+- (NSInteger)readyState;
+
 - (void)open;
 
 - (void)close;

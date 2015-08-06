@@ -15,6 +15,10 @@
 
 @protocol HJXmppClient <NSObject>
 
+/**
+ Both the web socket is connected and the authentication has passed.
+ */
+- (BOOL)isOnline;
 
 /**
  Performs PLAIN authentication only.

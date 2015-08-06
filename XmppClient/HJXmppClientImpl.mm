@@ -89,6 +89,7 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
 
 - (void)disconnect {
     
+    self->_authStage = XMPP_PLAIN_AUTH__CONNECTION_CLOSED;
     [self->_transport close];
 }
 
@@ -139,6 +140,17 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     }
     
     return self;
+}
+
+- (BOOL)isOnline
+{
+    static const NSInteger IS_WEB_SOCKET_OPENED_STATUS = 1;
+    if (IS_WEB_SOCKET_OPENED_STATUS != [self->_transport readyState])
+    {
+        return NO;
+    }
+    
+    return (XMPP_PLAIN_AUTH__COMPLETED == self->_authStage);
 }
 
 - (void)authenticateAsync
