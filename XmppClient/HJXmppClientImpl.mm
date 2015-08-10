@@ -144,8 +144,17 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
 
 - (BOOL)isOnline
 {
-    static const NSInteger IS_WEB_SOCKET_OPENED_STATUS = 1;
-    if (IS_WEB_SOCKET_OPENED_STATUS != [self->_transport readyState])
+//    static const NSInteger IS_WEB_SOCKET_OPENED_STATUS = 1;
+
+    static const NSInteger IS_WEB_SOCKET_CLOSING_STATUS = 2;
+    static const NSInteger IS_WEB_SOCKET_CLOSED_STATUS = 3;
+    
+    NSInteger webSocketStatus = [self->_transport readyState];
+    BOOL isWebSocketShouldBeReopened =
+        (IS_WEB_SOCKET_CLOSING_STATUS == webSocketStatus) ||
+        (IS_WEB_SOCKET_CLOSED_STATUS == webSocketStatus);
+    
+    if (isWebSocketShouldBeReopened)
     {
         return NO;
     }
