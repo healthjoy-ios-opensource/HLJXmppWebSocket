@@ -406,7 +406,11 @@ didReceiveMessage:(id)rawMessage
     id<XMPPParserProto> parser = self->_xmppParserFactory();
     [parser setDelegate: self
           delegateQueue: parserCallbacksQueue];
-    self->_parsers.insert(parser);
+    
+    @synchronized (self)
+    {
+        self->_parsers.insert(parser);
+    }
 
     [parser parseData: rawMessageData];
 }
@@ -456,7 +460,11 @@ didFailToReceiveMessageWithError:error];
     NSLog(@"xmppParserDidEnd : %@", [stanzaRoot XMLString]);
 
     self->_rootNodeForParser.erase(sender);
-    self->_parsers.erase(sender);
+    
+    @synchronized (self)
+    {
+        self->_parsers.erase(sender);
+    }
     
     [self processStanza: stanzaRoot];
 }
@@ -466,8 +474,11 @@ didFailToReceiveMessageWithError:error];
     NSLog(@"xmppParser:didFail - %@", error);
     
     
-    // TODO : thread safety
-    self->_parsers.erase(sender);
+    @synchronized (self)
+    {
+        // TODO : thread safety
+        self->_parsers.erase(sender);
+    }
 }
 - (void)xmppParserDidParseData:(XMPPParser *)sender {
     
