@@ -59,4 +59,12 @@
 }
 
 
++ (BOOL)isCloseChatMessage:(id<XMPPMessageProto>)element
+{
+    return NO;
+    
+//    <message from="082015_144829_qatest_qatest_general_question@conf.xmpp.healthjoy.com/System Message" to="user+33254@xmpp.healthjoy.com/1039786960144082112156871" type="groupchat" xml:lang="en" id="_close" xmlns="jabber:client" xmlns:stream="http://etherx.jabber.org/streams" version="1.0"><archived by="082015_144829_qatest_qatest_general_question@conf.xmpp.healthjoy.com" xmlns="urn:xmpp:mam:tmp" id="1440082146068600"/></message>
+
+}
+
 @end

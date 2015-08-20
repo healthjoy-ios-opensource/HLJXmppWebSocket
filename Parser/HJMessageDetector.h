@@ -14,6 +14,6 @@
 
 + (BOOL)isFinMessage:(id<XMPPMessageProto>)element;
 + (BOOL)isHistoryMessage:(id<XMPPMessageProto>)element;
-
++ (BOOL)isCloseChatMessage:(id<XMPPMessageProto>)element;
 
 @end
