@@ -841,8 +841,9 @@ didFailToReceiveMessageWithError:error];
 
 - (void)handleMessage:(id<XMPPMessageProto>)element {
 
-    BOOL isFinMessage     = [HJMessageDetector isFinMessage    : element];
-    BOOL isHistoryMessage = [HJMessageDetector isHistoryMessage: element];
+    BOOL isCloseChatMessage = [HJMessageDetector isCloseChatMessage: element];
+    BOOL isFinMessage       = [HJMessageDetector isFinMessage    : element];
+    BOOL isHistoryMessage   = [HJMessageDetector isHistoryMessage: element];
     
     if (isFinMessage)
     {
@@ -851,6 +852,10 @@ didFailToReceiveMessageWithError:error];
     else if (isHistoryMessage)
     {
         [self handleMessageFromHistory: element];
+    }
+    else if (isCloseChatMessage)
+    {
+        [self handleCloseChatMessage: element];
     }
     else
     {
@@ -895,6 +900,11 @@ didFailToReceiveMessageWithError:error];
 //            </result>
 //            <no-copy xmlns="urn:xmpp:hints"/>
 //    </message>
+}
+
+- (void)handleCloseChatMessage:(id<XMPPMessageProto>)element
+{
+    // TODO : implement me
 }
 
 - (void)handleFinMessage:(id<XMPPMessageProto>)element
@@ -1046,3 +1056,4 @@ didFailToReceiveMessageWithError:error];
 }
 
 @end
+
