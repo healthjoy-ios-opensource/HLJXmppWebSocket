@@ -44,6 +44,11 @@ didLoadHistoryForRoom:(NSString*)roomJid
             error:(NSError*)maybeError;
 
 
+/**
+ Invoked when a message with |id="_close"| is received
+ */
+- (void)xmppClient:(id<HJXmppClient>)sender
+      didCloseRoom:(NSString*)roomJid;
 
 
 // ???

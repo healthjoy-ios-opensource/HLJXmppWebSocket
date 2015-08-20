@@ -904,7 +904,14 @@ didFailToReceiveMessageWithError:error];
 
 - (void)handleCloseChatMessage:(id<XMPPMessageProto>)element
 {
-    // TODO : implement me
+    id<HJXmppClientDelegate> strongDelegate = self.listenerDelegate;
+    NSString* roomJid = [self roomForMessage: element];
+    
+    [strongDelegate xmppClient: self
+                  didCloseRoom: roomJid];
+    
+    // !!! DO NOT !!! call [self disconnect]
+    // a client may be listening on other rooms
 }
 
 - (void)handleFinMessage:(id<XMPPMessageProto>)element
