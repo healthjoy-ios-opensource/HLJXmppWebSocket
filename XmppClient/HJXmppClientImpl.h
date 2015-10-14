@@ -15,6 +15,9 @@ typedef id<XMPPParserProto>(^XmppParserBuilderBlock)();
 
 @interface HJXmppClientImpl : NSObject<HJXmppClient>
 
++(instancetype)new NS_UNAVAILABLE;
+-(instancetype)init NS_UNAVAILABLE;
+
 /**
  
  @param transport SRWebSocket instance
