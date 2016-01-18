@@ -11,7 +11,7 @@
 
 @interface HJMockAttachmentUploader : NSObject<HJAttachmentUploader>
 
-- (void)uploadAtachment:(NSData*)attachmentBinary
+- (void)uploadAtachments:(NSArray*)attachments
      withSuccessHandler:(HJAttachmentUploadSuccessBlock)onAttachmentUploadedBlock
            errorHandler:(HJAttachmentUploadErrorBlock)onAttachmentUploadNetworkError;
 

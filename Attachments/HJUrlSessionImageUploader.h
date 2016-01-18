@@ -21,7 +21,7 @@ NS_REQUIRES_SUPER
 NS_DESIGNATED_INITIALIZER
 __attribute__((nonnull));
 
-- (void)uploadAtachment:(NSData*)attachmentBinary
+- (void)uploadAtachments:(NSData*)attachmentBinary
      withSuccessHandler:(HJAttachmentUploadSuccessBlock)onAttachmentUploadedBlock
            errorHandler:(HJAttachmentUploadErrorBlock)onAttachmentUploadNetworkError
 __attribute__((nonnull));

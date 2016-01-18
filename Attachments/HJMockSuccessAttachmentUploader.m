@@ -13,19 +13,19 @@
 
 @implementation HJMockSuccessAttachmentUploader
 
-- (void)uploadAtachment:(NSData*)attachmentBinary
+- (void)uploadAtachments:(NSArray*)attachments
      withSuccessHandler:(HJAttachmentUploadSuccessBlock)onAttachmentUploadedBlock
            errorHandler:(HJAttachmentUploadErrorBlock)onAttachmentUploadNetworkError
 {
     HJXmppChatAttachmentPOD* result = [HJXmppChatAttachmentPOD new];
     {
         result.fileName = @"IMG_0084.PNG";
-        result.rawImageSize = @"80x120";
-        result.fullSizeImageUrl = @"http://cdn-dev.hjdev/objects/IMpRM0dalB_IMG_0084.PNG";
+        result.rawSize = @"80x120";
+        result.fullSizeUrl = @"http://cdn-dev.hjdev/objects/IMpRM0dalB_IMG_0084.PNG";
         result.thumbnailUrl = @"http://cdn-dev.hjdev/objects/IMpRM0dalB_thumb_IMG_0084.PNG";
     }
 
-    onAttachmentUploadedBlock(result);
+    onAttachmentUploadedBlock(@[result]);
 }
 
 @end

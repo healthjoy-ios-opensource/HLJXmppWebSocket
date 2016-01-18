@@ -11,6 +11,7 @@
 @class UIImage;
 @protocol HJTransportForXmpp;
 @protocol HJXmppClientDelegate;
+@protocol HJChatButton;
 
 
 @protocol HJXmppClient <NSObject>
@@ -43,7 +44,7 @@
  
   Note : Latest messages arrive first
  */
-- (void)loadHistoryForRoom:(NSString*)roomJid;
+- (void)loadHistoryFrom:(NSString *)createdAt to:(NSString *)closedAt forRoomJID:(NSString *)roomJID;
 
 
 /**
@@ -68,8 +69,23 @@
  @param roomJid One of values passed to the [HJXmppClient sendPresenseForRooms:] method. Should not contain any user id.
  '070815_113113_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com'
  */
-- (void)sendAttachment:(UIImage*)attachment
+- (void)sendAttachments:(NSArray*)attachments
                     to:(NSString*)roomJid;
+
+
+/**
+ @param roomJid One of values passed to the [HJXmppClient sendPresenseForRooms:] method. Should not contain any user id.
+ '070815_113113_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com'
+ */
+- (void)selectOptionForID:(NSString*)optionID
+                    value:(NSString*)value
+                       to:(NSString*)roomJid;
+
+/**
+ @param jid User id. Request for user/doctor/hcc avatar.
+ hcc1.test+pha@xmpp-stage.healthjoy.com
+ */
+- (void)sendRequestAvatarForJid:(NSString *)jid;
 
 - (void)disconnect;
 

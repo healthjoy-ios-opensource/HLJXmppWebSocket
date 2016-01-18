@@ -6,6 +6,7 @@
 #import <HLJXmppWebSocket/Attachments/HJXmppChatAttachment.h>
 #import <HLJXmppWebSocket/Attachments/HJAttachmentUploader.h>
 #import <HLJXmppWebSocket/Attachments/HJMockErrorAttachmentUploader.h>
+#import <HLJXmppWebSocket/Attachments/HJXmppChatAttachmentPOD.h>
 
 #import <HLJXmppWebSocket/XmppClient/HJXmppClientImpl.h>
 #import <HLJXmppWebSocket/WebSocket/HLJWebSocketTransportForXmpp.h>

@@ -18,7 +18,10 @@
 didReceiveMessage:(id<XMPPMessageProto>)message
   withAttachments:(NSArray*)attachments
            atRoom:(NSString*)roomJid
-         incoming:(BOOL)isMessageIncoming;
+         isLiveMessage:(BOOL)isLiveMessage;
+
+- (void)xmppClient:(id<HJXmppClient>)sender
+didReceiveAvatarMessage:(id<XmppIqProto>)message;
 
 - (void)xmppClent:(id<HJXmppClient>)sender
 didFailSendingAttachmentTo:(NSString*)roomJid

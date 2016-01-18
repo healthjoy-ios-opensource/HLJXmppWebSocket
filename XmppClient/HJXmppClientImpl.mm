@@ -139,6 +139,8 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
         self->_roomJidForQueryId      = [NSMutableDictionary new];
     }
     
+    self->_jidStringsForRooms = [NSArray array];
+    
     return self;
 }
 
@@ -199,7 +201,7 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
 - (void)doSendPresenseRequestsForRooms:(NSArray*)jidStringsForRooms
 {
 //    <presence
-//    from='user+11952@xmpp-dev.healthjoy.com/42306807851436517615666295'
+//    from='user+11952@xmpp-dev.healthjoy.com'
 //    to='070815_113113_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com/Qatest37 Qatest37 (id 11952)'
 //    xmlns='jabber:client'>
 //    <x
@@ -217,13 +219,15 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
         @"</x>"
         @"</presence>";
 
+    NSRange range = [self->_jidStringFromBind rangeOfString:@"/"];
+    NSString *from = [self->_jidStringFromBind substringToIndex:range.location];
     
     LINQSelector jidToPresenseRequest = ^NSString*(NSString* jidItem)
     {
         NSString* presenseRequest =
             [NSString stringWithFormat:
                  presenseRequestFormat,
-                 self->_jidStringFromBind,
+                 from,
                  jidItem];
         
         return presenseRequest;
@@ -275,7 +279,7 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     [self->_transport send: message];
 }
 
-- (void)sendAttachment:(UIImage*)attachment
+- (void)sendAttachments:(NSArray*)attachments
                     to:(NSString*)roomJid
 {
     NSParameterAssert(XMPP_PLAIN_AUTH__COMPLETED == self->_authStage);
@@ -283,10 +287,10 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     id<HJXmppClientDelegate> strongDelegate = self.listenerDelegate;
     __weak HJXmppClientImpl* weakSelf = self;
     
-    HJAttachmentUploadSuccessBlock onAttachmentUploadedBlock = ^void(id<HJXmppChatAttachment> attachment)
+    HJAttachmentUploadSuccessBlock onAttachmentUploadedBlock = ^void(NSArray* attachments)
     {
         HJXmppClientImpl* strongSelf = weakSelf;
-        [strongSelf sendAttachmentRequest: attachment
+        [strongSelf sendAttachmentRequest: attachments
                                        to: roomJid];
     };
     
@@ -299,27 +303,84 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
                         withError: error];
     };
     
-    [self->_attachmentUpload uploadAtachment: attachment
-                          withSuccessHandler: [onAttachmentUploadedBlock copy]
-                                errorHandler: [onAttachmentUploadError   copy]];
+    [self->_attachmentUpload uploadAtachments: attachments
+                           withSuccessHandler: [onAttachmentUploadedBlock copy]
+                                 errorHandler: [onAttachmentUploadError   copy]];
 }
 
-- (void)loadHistoryForRoom:(NSString*)roomJid
-{
-    BOOL isRoomOnTheList = [self isTruncatedJidOnTheRoomList: roomJid];
-    if (!isRoomOnTheList)
-    {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wgnu-zero-variadic-macro-arguments"
-        NSAssert(NO, @"Attempting to request history before subscribing to the room : %@", roomJid);
-#pragma clang diagnostic pop
-        
-        return;
-    }
+- (void)selectOptionForID:(NSString*)optionID
+                    value:(NSString*)value
+                       to:(NSString*)roomJid {
+    
+//    <message to='main_thread_staging_premium_13319@conf.xmpp-stage.healthjoy.com' type='groupchat' id='7240507:msg' from='user+13319@xmpp-stage.healthjoy.com/4430049771452506415898986'
+//    xmlns='jabber:client'>
+//    <x
+//    xmlns='jabber:x:icr' type='submit' id='7634ea65a4'>
+//    <chat-select-directive value='money'/>
+//    </x>
+//    <body></body>
+//    </message>
+    
+    NSString *requestSelectOptionFormat =
+    @"<message to='%@'"
+    @" type='groupchat'"
+    @" id='%@'"
+    @" xmlns='jabber:client'>"
+    @"<x xmlns='jabber:x:icr'"
+    @" type='submit'"
+    @" id='%@'>"
+    @"<chat-select-directive value='%@'/>"
+    @"</x>"
+    @"<body></body>"
+    @"</message>";
+    
+    NSString* randomRequestId = [self->_randomizerForHistoryBuilder getRandomIdForStanza];
+    
+    NSString* requestSelectOption = [NSString stringWithFormat: requestSelectOptionFormat, roomJid, randomRequestId, optionID, value];
+    
+    [self->_transport send: requestSelectOption];
+    
+}
 
-    id<HJChatHistoryRequestProto> request = [self->_historyRequestBuilder buildUnlimitedRequestForRoom: roomJid];
+- (void)sendRequestAvatarForJid:(NSString *)jid {
+    
+    // <iq xmlns="jabber:client" id="-765685373:vCard" to="emma.watson@xmpp.healthjoy.com" type="get">
+    // <vCard xmlns="vcard-temp"/>
+    // </iq>
+    
+    NSString *requestAvatarFormat =
+    @"<iq xmlns='jabber:client'"
+    @" id='%@:vCard'"
+    @" to='%@'"
+    @" type='get'>"
+    @"<vCard xmlns='vcard-temp'/>"
+    @"</iq>";
+    
+    NSString* randomRequestId = [self->_randomizerForHistoryBuilder getRandomIdForStanza];
+    
+    NSString* requestForAvatar = [NSString stringWithFormat: requestAvatarFormat, randomRequestId, jid];
+    
+    [self->_transport send: requestForAvatar];
+}
+
+- (void)loadHistoryFrom:(NSString *)createdAt to:(NSString *)closedAt forRoomJID:(NSString *)roomJID
+{
+//    BOOL isRoomOnTheList = [self isTruncatedJidOnTheRoomList: roomJid];
+//    if (!isRoomOnTheList)
+//    {
+//#pragma clang diagnostic push
+//#pragma clang diagnostic ignored "-Wgnu-zero-variadic-macro-arguments"
+//        NSAssert(NO, @"Attempting to request history before subscribing to the room : %@", roomJid);
+//#pragma clang diagnostic pop
+//        
+//        return;
+//    }
+
+    id<HJChatHistoryRequestProto> request = [self->_historyRequestBuilder buildRequestFrom:createdAt to:closedAt forRoomJID:roomJID];
     [self addHistoryRequestToPendingList: request
-                                 forRoom: roomJid];
+                                 forRoom: roomJID];
+    
+    NSLog(@"load history request: %@",[request dataToSend]);
 
     [self->_transport send: [request dataToSend]];
 }
@@ -327,23 +388,23 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
 - (void)loadHistoryForRoom:(NSString*)roomJid
                      limit:(NSUInteger)maxMessageCount
 {
-    BOOL isRoomOnTheList = [self isTruncatedJidOnTheRoomList: roomJid];
-    if (!isRoomOnTheList)
-    {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wgnu-zero-variadic-macro-arguments"
-        NSAssert(NO, @"Attempting to request history before subscribing to the room : %@", roomJid);
-#pragma clang diagnostic pop
-        
-        return;
-    }
-    
-    id<HJChatHistoryRequestProto> request = [self->_historyRequestBuilder buildRequestForRoom: roomJid
-                                                                                        limit: maxMessageCount];
-    [self addHistoryRequestToPendingList: request
-                                 forRoom: roomJid];
-    
-    [self->_transport send: [request dataToSend]];
+//    BOOL isRoomOnTheList = [self isTruncatedJidOnTheRoomList: roomJid];
+//    if (!isRoomOnTheList)
+//    {
+//#pragma clang diagnostic push
+//#pragma clang diagnostic ignored "-Wgnu-zero-variadic-macro-arguments"
+//        NSAssert(NO, @"Attempting to request history before subscribing to the room : %@", roomJid);
+//#pragma clang diagnostic pop
+//        
+//        return;
+//    }
+//    
+//    id<HJChatHistoryRequestProto> request = [self->_historyRequestBuilder buildRequestForRoom: roomJid
+//                                                                                        limit: maxMessageCount];
+//    [self addHistoryRequestToPendingList: request
+//                                 forRoom: roomJid];
+//    
+//    [self->_transport send: [request dataToSend]];
 }
 
 - (BOOL)isTruncatedJidOnTheRoomList:(NSString*)roomJid
@@ -495,6 +556,7 @@ didFailToReceiveMessageWithError:error];
 
 
 - (void)processStanza:(NSXMLElement*)element {
+
     // TODO : use TransitionKit or other state machine
     // https://github.com/blakewatters/TransitionKit
     switch (self->_authStage)
@@ -834,7 +896,6 @@ didFailToReceiveMessageWithError:error];
     
     if (0 == [self->_pendingRooms count])
     {
-
         [strongDelegate xmppClentDidSubscribeToAllRooms: self];
     }
 }
@@ -842,8 +903,8 @@ didFailToReceiveMessageWithError:error];
 - (void)handleMessage:(id<XMPPMessageProto>)element {
 
     BOOL isCloseChatMessage = [HJMessageDetector isCloseChatMessage: element];
-    BOOL isFinMessage       = [HJMessageDetector isFinMessage    : element];
-    BOOL isHistoryMessage   = [HJMessageDetector isHistoryMessage: element];
+    BOOL isFinMessage       = [HJMessageDetector isFinMessage    :   element];
+    BOOL isHistoryMessage   = [HJMessageDetector isHistoryMessage:   element];
     
     if (isFinMessage)
     {
@@ -939,16 +1000,17 @@ didFailToReceiveMessageWithError:error];
     //
 //    <message xmlns="jabber:client" xmlns:stream="http://etherx.jabber.org/streams" from="072915_095742_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com/Oleksandr Dodatko" to="user+11952@xmpp-dev.healthjoy.com/14438263551438356765960568" type="groupchat" id="purple6d2e31b4" version="1.0"><archived xmlns="urn:xmpp:mam:tmp" by="072915_095742_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com" id="1438356783636318"></archived><body xmlns="jabber:client">helllll</body></message>
     
-    BOOL isIncoming = [self isMessageIncoming: element];
+//    BOOL isIncoming = [self isMessageIncoming: element];
     NSString* roomJid = [self roomForMessage: element];
     NSArray* attachments = [HJXmppAttachmentsParser parseAttachmentsOfMessage: element];
 
     id<HJXmppClientDelegate> strongDelegate = self.listenerDelegate;
+    
     [strongDelegate xmppClent: self
             didReceiveMessage: element
               withAttachments: attachments
                        atRoom: roomJid
-                     incoming: isIncoming];
+                isLiveMessage: YES];
 }
 
 - (void)handleMessageFromHistory:(id<XMPPMessageProto>)element
@@ -956,7 +1018,7 @@ didFailToReceiveMessageWithError:error];
     id<HJXmppClientDelegate> strongDelegate = self.listenerDelegate;
     
     id<XMPPMessageProto> unwrappedMessage = [HJHistoryMessageParser unwrapHistoryMessage: element];
-    BOOL isIncoming = [self isMessageIncoming: unwrappedMessage];
+//    BOOL isIncoming = [self isMessageIncoming: unwrappedMessage];
     NSString* roomJid = [self roomForMessage: unwrappedMessage];
     NSArray* attachments = [HJXmppAttachmentsParser parseAttachmentsOfMessage: unwrappedMessage];
     
@@ -964,7 +1026,7 @@ didFailToReceiveMessageWithError:error];
             didReceiveMessage: unwrappedMessage
               withAttachments: attachments
                        atRoom: roomJid
-                     incoming: isIncoming];
+                isLiveMessage: NO];
 }
 
 - (void)handleHistoryResponse:(id<XmppIqProto>)element {
@@ -985,6 +1047,12 @@ didFailToReceiveMessageWithError:error];
         <body>How can I help you today?</body>
         </message><delay xmlns="urn:xmpp:delay" from="xmpp-dev.healthjoy.com" stamp="2015-07-08T11:46:13.145Z"/><x xmlns="jabber:x:delay" from="xmpp-dev.healthjoy.com" stamp="20150708T11:46:13"/></forwarded></result><no-copy xmlns="urn:xmpp:hints"/></message>
          */
+        
+        if([element isAvatarIQ])
+        {
+            id<HJXmppClientDelegate> strongDelegate = self.listenerDelegate;
+            [strongDelegate xmppClient:self didReceiveAvatarMessage:element];
+        }
     }
 }
 
@@ -1004,41 +1072,60 @@ didFailToReceiveMessageWithError:error];
 }
 
 #pragma mark - Attachments
-- (void)sendAttachmentRequest:(id<HJXmppChatAttachment>)attachment
+- (void)sendAttachmentRequest:(NSArray *)attachments
                            to:(NSString*)roomJid
 {
-    static NSString* const requestFormat =
-    @"<message"
-    @" to='%@'" // 071515_142949_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com
-    @" type='groupchat'"
-    @" id='%@'"
-    @" xmlns='jabber:client'>"
-    @"<body></body>"
-    @"<attachment"
-    @" file_name='%@'" // tmp.png
-    @" size='%@'" // 120x90
-    @" thumb_url='%@'" // http://cdn-dev.hjdev/objects/HNkqNvh5ca_thumb_tmp.png
-    @" url='%@'/>" // http://cdn-dev.hjdev/objects/HNkqNvh5ca_tmp.png
-    @"<html xmlns='http://jabber.org/protocol/xhtml-im'>"
-    @"<body>"
-    @"<p></p>"
-    @"<a href='%@'>%@</a>" // 2x http://cdn-dev.hjdev/objects/HNkqNvh5ca_tmp.png
-    @"</body>"
-    @"</html>"
-    @"</message>";
+    NSMutableString *request = [NSMutableString string];
+//    @"<message"
+//    @" to='%@'" // 071515_142949_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com
+//    @" type='groupchat'"
+//    @" id='%@'"
+//    @" xmlns='jabber:client'>"
+//    @"<body></body>"
+//    @"<attachment"
+//    @" file_name='%@'" // tmp.png
+//    @" size='%@'" // 120x90
+//    @" thumb_url='%@'" // http://cdn-dev.hjdev/objects/HNkqNvh5ca_thumb_tmp.png
+//    @" url='%@'/>" // http://cdn-dev.hjdev/objects/HNkqNvh5ca_tmp.png
+//    @"<html xmlns='http://jabber.org/protocol/xhtml-im'>"
+//    @"<body>"
+//    @"<p></p>"
+//    @"<a href='%@'>%@</a>" // 2x http://cdn-dev.hjdev/objects/HNkqNvh5ca_tmp.png
+//    @"</body>"
+//    @"</html>"
+//    @"</message>";
     
     NSString* randomMessageId = [self->_randomizerForHistoryBuilder getRandomIdForStanza];
     
-    NSString* fullSizeUrl = [attachment fullSizeImageUrl];
-    NSString* request =
-        [NSString stringWithFormat: requestFormat,
-            roomJid,
-            randomMessageId,
-            [attachment fileName],
-            [attachment rawImageSize],
-            [attachment thumbnailUrl],
-            fullSizeUrl,
-            fullSizeUrl, fullSizeUrl];
+    [request appendString:[NSString stringWithFormat:@"<message"
+                                 @" to='%@'"
+                                 @" type='groupchat'"
+                                 @" id='%@'"
+                                 @" xmlns='jabber:client'>"
+                                 @"<body></body>", roomJid, randomMessageId]];
+    
+    
+    for(id<HJXmppChatAttachment> chatAttachmnt in attachments)
+    {
+        [request appendString:[NSString stringWithFormat:@"<attachment"
+                                     @" file_name='%@'"
+                                     @" size='%@'"
+                                     @" thumb_url='%@'" // http://cdn-dev.hjdev/objects/HNkqNvh5ca_thumb_tmp.png
+                                     @" url='%@'/>", chatAttachmnt.fileName, chatAttachmnt.rawSize, chatAttachmnt.thumbnailUrl, chatAttachmnt.fullSizeUrl]];
+    }
+    
+    [request appendString:@"<html xmlns='http://jabber.org/protocol/xhtml-im'>"
+                                @"<body>"
+                                @"<p></p>"];
+    
+    for(id<HJXmppChatAttachment> chatAttachmnt in attachments)
+    {
+        [request appendString:[NSString stringWithFormat:@"<a href='%@'>%@</a>", chatAttachmnt.fullSizeUrl, chatAttachmnt.fullSizeUrl]];
+    }
+    
+    [request appendString:@"</body>"
+                                @"</html>"
+                                @"</message>"];
     
     [self->_transport send: request];
 }

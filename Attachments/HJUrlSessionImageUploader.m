@@ -40,7 +40,7 @@ typedef void (^NSUrlSessionUploadCompletedBlock)(NSData *data, NSURLResponse *re
     return self;
 }
 
-- (void)uploadAtachment:(NSData*)attachmentBinary
+- (void)uploadAtachments:(NSData*)attachmentBinary
      withSuccessHandler:(HJAttachmentUploadSuccessBlock)onAttachmentUploadedBlock
            errorHandler:(HJAttachmentUploadErrorBlock)onAttachmentUploadNetworkError
 {
@@ -82,7 +82,7 @@ typedef void (^NSUrlSessionUploadCompletedBlock)(NSData *data, NSURLResponse *re
             }
             else
             {
-                onAttachmentUploadedBlock(result);
+                onAttachmentUploadedBlock(@[result]);
             }
         }
     };

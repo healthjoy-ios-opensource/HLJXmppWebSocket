@@ -58,7 +58,6 @@
     return (0 != [resultNodes count]);
 }
 
-
 + (BOOL)isCloseChatMessage:(id<XMPPMessageProto>)element
 {
     NSString* messageId = [element messageId];

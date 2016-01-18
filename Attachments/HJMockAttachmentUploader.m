@@ -15,15 +15,15 @@
 }
 
 
-- (void)uploadAtachment:(NSData*)attachmentBinary
-     withSuccessHandler:(HJAttachmentUploadSuccessBlock)onAttachmentUploadedBlock
-           errorHandler:(HJAttachmentUploadErrorBlock)onAttachmentUploadNetworkError
+- (void)uploadAtachments:(NSArray*)attachments
+      withSuccessHandler:(HJAttachmentUploadSuccessBlock)onAttachmentUploadedBlock
+            errorHandler:(HJAttachmentUploadErrorBlock)onAttachmentUploadNetworkError
 {
     self->_onAttachmentUploadedBlock      = [onAttachmentUploadedBlock      copy];
     self->_onAttachmentUploadNetworkError = [onAttachmentUploadNetworkError copy];
 }
 
-- (void)simulateSuccessWithResult:(id<HJXmppChatAttachment>)result
+- (void)simulateSuccessWithResult:(NSArray *)result
 {
     self->_onAttachmentUploadedBlock(result);
 }

@@ -11,7 +11,6 @@
 @protocol HJRandomizerForXmpp;
 @protocol HJChatHistoryRequestProto;
 
-
 @interface HJChatHistoryRequestBuilder : NSObject
 
 - (instancetype)init NS_UNAVAILABLE;
@@ -22,10 +21,8 @@ NS_REQUIRES_SUPER
 NS_DESIGNATED_INITIALIZER
 __attribute__((nonnull));
 
-- (id<HJChatHistoryRequestProto>)buildUnlimitedRequestForRoom:(NSString*)roomJid;
-
-- (id<HJChatHistoryRequestProto>)buildRequestForRoom:(NSString*)roomJid
-                                               limit:(NSUInteger)maxMessageCount;
-
+- (id<HJChatHistoryRequestProto>)buildRequestFrom:(NSString *)createdAt
+                                               to:(NSString *)closedAt
+                                       forRoomJID:(NSString *)roomJID;
 
 @end

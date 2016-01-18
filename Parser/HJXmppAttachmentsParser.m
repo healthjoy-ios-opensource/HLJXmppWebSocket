@@ -41,20 +41,42 @@
     NSParameterAssert([xmlAttachmentElement isKindOfClass: [NSXMLElement class]]);
     NSXMLElement* castedRawAttachment = (NSXMLElement*)xmlAttachmentElement;
     
-    NSString* rawImageSize = [[castedRawAttachment attributeForName: @"size"     ] stringValue];
     NSString* fileName     = [[castedRawAttachment attributeForName: @"file_name"] stringValue];
     NSString* fullSizeUrl  = [[castedRawAttachment attributeForName: @"url"      ] stringValue];
-    NSString* thumbnailUrl = [[castedRawAttachment attributeForName: @"thumb_url"] stringValue];
+    NSString* fileSize     = [[castedRawAttachment attributeForName: @"file_size"] stringValue];
+    NSString* rawImageSize = [[castedRawAttachment attributeForName: @"size"     ] stringValue];
     
-    HJXmppChatAttachmentPOD* result = [HJXmppChatAttachmentPOD new];
+    BOOL isFileAttachment = ([fileName rangeOfString:@"pdf"].location != NSNotFound);
+    
+    if(isFileAttachment)
     {
-        result.rawImageSize     = rawImageSize;
-        result.fileName         = fileName    ;
-        result.fullSizeImageUrl = fullSizeUrl ;
-        result.thumbnailUrl     = thumbnailUrl;
+        HJXmppChatAttachmentPOD* result = [HJXmppChatAttachmentPOD new];
+        {
+            result.rawSize     = fileSize    ;
+            result.fileName    = fileName    ;
+            result.fullSizeUrl = fullSizeUrl ;
+            
+            result.isFile      = YES;
+        }
+        
+        return result;
     }
-    
-    return result;
+    else
+    {
+        NSString* thumbnailUrl = [[castedRawAttachment attributeForName: @"thumb_url"] stringValue];
+        
+        HJXmppChatAttachmentPOD* result = [HJXmppChatAttachmentPOD new];
+        {
+            result.rawSize      = rawImageSize;
+            result.fileName     = fileName    ;
+            result.fullSizeUrl  = fullSizeUrl ;
+            result.thumbnailUrl = thumbnailUrl;
+            
+            result.isFile       = NO;
+        }
+        
+        return result;
+    }
 }
 
 @end

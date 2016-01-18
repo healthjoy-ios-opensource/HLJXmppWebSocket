@@ -13,13 +13,13 @@
 @protocol HJXmppChatAttachment;
 
 
-typedef void(^HJAttachmentUploadSuccessBlock)(id<HJXmppChatAttachment> attachment);
+typedef void(^HJAttachmentUploadSuccessBlock)(NSArray* attachments);
 typedef void(^HJAttachmentUploadErrorBlock)(NSError* error);
 
 
 @protocol HJAttachmentUploader <NSObject>
 
-- (void)uploadAtachment:(UIImage*)attachment
+- (void)uploadAtachments:(NSArray*)attachments
      withSuccessHandler:(HJAttachmentUploadSuccessBlock)onAttachmentUploadedBlock
            errorHandler:(HJAttachmentUploadErrorBlock)onAttachmentUploadNetworkError;
 

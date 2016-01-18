@@ -28,7 +28,9 @@ url='http://cdn-dev.hjdev/objects/HNkqNvh5ca_tmp.png'/>
 /*
  */
 - (NSString*)fileName;
-- (NSString*)fullSizeImageUrl;
+- (NSString*)fullSizeUrl;
+
+- (BOOL)isFile;
 
 
 #pragma mark - HJAttachmentThumbnail
@@ -37,7 +39,7 @@ url='http://cdn-dev.hjdev/objects/HNkqNvh5ca_tmp.png'/>
 /**
  Received from the back end
  */
--(NSString*)rawImageSize;
+-(NSString*)rawSize;
 
 /**
  Parsed for convenience

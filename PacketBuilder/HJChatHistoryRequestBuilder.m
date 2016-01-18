@@ -31,11 +31,10 @@
     return self;
 }
 
-- (id<HJChatHistoryRequestProto>)buildRequestForRoom:(NSString*)roomJid
-                                               limit:(NSUInteger)maxMessageCount
+- (id<HJChatHistoryRequestProto>)buildRequestFrom:(NSString *)createdAt
+                                               to:(NSString *)closedAt
+                                       forRoomJID:(NSString *)roomJID
 {
-    NSString* strMaxMessageCount = [@(maxMessageCount) descriptionWithLocale: nil];
-    
     NSString* messageFormat =
     @"<iq"
     @" type='set'"
@@ -52,14 +51,23 @@
     @"<value>%@</value>" // roomJid
     @"</field>"
     @"<field var='start'>"
-    @"<value>1970-01-01T00:00:00Z</value>" // <!-- The service did not exist back in 1970 -->
+    @"<value>%@</value>" // createdAt
+    @"</field>"
+    @"<field var='end'>"
+    @"<value>%@</value>" // closedAt
     @"</field>"
     @"</x>"
     @"<set xmlns='http://jabber.org/protocol/rsm'>"
-    @"<max>%@</max>" // No way to request everything. Using a large constant
+    @"<max/>"
     @"</set>"
     @"</query>"
     @"</iq>";
+    
+    if(!closedAt)
+    {
+        messageFormat = [messageFormat stringByReplacingOccurrencesOfString:@"<field var='end'><value>%@</value></field>"
+                                                 withString:@""];
+    }
     
     NSString* randomIdForIq    = [self->_randomizer getRandomIdForStanza];
     NSString* randomIdForQuery = [self->_randomizer getRandomIdForStanza];
@@ -68,8 +76,9 @@
         [NSString stringWithFormat: messageFormat,
             randomIdForIq     ,
             randomIdForQuery  ,
-            roomJid           ,
-            strMaxMessageCount];
+            roomJID           ,
+            createdAt         ,
+            closedAt];
     
     HJChatHistoryRequest* result = [HJChatHistoryRequest new];
     {
@@ -79,16 +88,6 @@
     }
     
     return result;
-}
-
-- (id<HJChatHistoryRequestProto>)buildUnlimitedRequestForRoom:(NSString*)roomJid
-{
-    // TODO : maybe use NSUIntegerMax
-    // Ensure the back end supports NSUIntegerMax for both x86 and x64
-    static const NSUInteger INFINITE_MESSAGE_COUNT = 10000;
-    
-    return [self buildRequestForRoom: roomJid
-                               limit: INFINITE_MESSAGE_COUNT];
 }
 
 @end

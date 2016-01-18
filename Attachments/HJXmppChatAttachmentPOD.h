@@ -13,8 +13,9 @@
 
 #pragma mark - HJAttachment
 @property (nonatomic, copy) NSString* fileName;
-@property (nonatomic, copy) NSString* fullSizeImageUrl;
+@property (nonatomic, copy) NSString* fullSizeUrl;
 
+@property (nonatomic, assign) BOOL isFile;
 
 #pragma mark - HJAttachmentThumbnail
 @property (nonatomic, copy) NSString* thumbnailUrl;
@@ -22,7 +23,7 @@
 /**
  Received from the back end
  */
-@property (nonatomic, copy) NSString* rawImageSize;
+@property (nonatomic, copy) NSString* rawSize;
 
 /**
  Not computed from rawImageSize.

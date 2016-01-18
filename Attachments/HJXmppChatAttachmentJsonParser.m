@@ -34,10 +34,10 @@
     NSDictionary* rawResult = (NSDictionary*)[rawAttachmentObjects firstObject];
     HJXmppChatAttachmentPOD* result = [HJXmppChatAttachmentPOD new];
     {
-        result.rawImageSize     = rawResult[@"size"     ];
+        result.rawSize          = rawResult[@"size"     ];
         result.fileName         = rawResult[@"file_name"];
         result.thumbnailUrl     = rawResult[@"thumb_url"];
-        result.fullSizeImageUrl = rawResult[@"url"      ];
+        result.fullSizeUrl      = rawResult[@"url"      ];
     }
     
     return result;
