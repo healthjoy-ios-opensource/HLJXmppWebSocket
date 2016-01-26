@@ -87,6 +87,13 @@
  */
 - (void)sendRequestAvatarForJid:(NSString *)jid;
 
+/**
+ @param jid User id. Request for user/doctor/hcc avatar.
+ hcc1.test+pha@xmpp-stage.healthjoy.com
+ */
+- (void)sendReadReceiptForID:(NSString *)identification
+                          to:(NSString *)roomJid;
+
 - (void)disconnect;
 
 /**

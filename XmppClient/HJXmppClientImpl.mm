@@ -36,7 +36,7 @@
 #import "HJXmppAttachmentsParser.h"
 
 
-#define NSLog(...)
+//#define NSLog(...)
 
 typedef std::set< __strong id<XMPPParserProto> > XmppParsersSet;
 typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaRootForParserMap;
@@ -361,6 +361,28 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     NSString* requestForAvatar = [NSString stringWithFormat: requestAvatarFormat, randomRequestId, jid];
     
     [self->_transport send: requestForAvatar];
+}
+
+- (void)sendReadReceiptForID:(NSString *)identification
+                          to:(NSString *)roomJid
+{
+//    <message type='groupchat' from='user+14451@xmpp-stage.healthjoy.com/41919754811453377514530616' to='main_thread_qatest_qatest_14451@conf.xmpp-stage.healthjoy.com' id='720783:readReceipt'
+//    xmlns='jabber:client'>
+//    <received
+//    xmlns='urn:xmpp:receipts' id='4407706:msg'/>
+//    </message>
+    
+    NSString *requestReadReceiptFormat =
+    @"<message type='groupchat' to='%@' id='%@:readReceipt'"
+    @" xmlns='jabber:client'>"
+    @"<received xmlns='urn:xmpp:receipts' id='%@'/>"
+    @"</message>";
+    
+    NSString* randomRequestId = [self->_randomizerForHistoryBuilder getRandomIdForStanza];
+    
+    NSString* requestReadReceipt = [NSString stringWithFormat: requestReadReceiptFormat, roomJid, randomRequestId, identification];
+    
+    [self->_transport send: requestReadReceipt];
 }
 
 - (void)loadHistoryFrom:(NSString *)createdAt to:(NSString *)closedAt forRoomJID:(NSString *)roomJID
@@ -897,6 +919,13 @@ didFailToReceiveMessageWithError:error];
     if (0 == [self->_pendingRooms count])
     {
         [strongDelegate xmppClentDidSubscribeToAllRooms: self];
+    }
+    
+    NSString *elementJid = [element jid];
+    if(elementJid)
+    {
+        [strongDelegate xmppClent:self
+                   didPresenseJid:elementJid];
     }
 }
 

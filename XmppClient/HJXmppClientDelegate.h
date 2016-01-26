@@ -36,6 +36,9 @@ didSubscribeToRoom:(NSString*)roomJid;
 
 - (void)xmppClentDidSubscribeToAllRooms:(id<HJXmppClient>)sender;
 
+- (void)xmppClent:(id<HJXmppClient>)sender
+   didPresenseJid:(NSString*)jid;
+
 /**
  Actual messages will arrive in regular callbacks 
  
