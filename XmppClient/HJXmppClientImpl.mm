@@ -36,7 +36,7 @@
 #import "HJXmppAttachmentsParser.h"
 
 
-//#define NSLog(...)
+#define NSLog(...)
 
 typedef std::set< __strong id<XMPPParserProto> > XmppParsersSet;
 typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaRootForParserMap;
@@ -934,6 +934,7 @@ didFailToReceiveMessageWithError:error];
     BOOL isCloseChatMessage = [HJMessageDetector isCloseChatMessage: element];
     BOOL isFinMessage       = [HJMessageDetector isFinMessage    :   element];
     BOOL isHistoryMessage   = [HJMessageDetector isHistoryMessage:   element];
+    BOOL isLiveMessage   = [HJMessageDetector isLiveMessage:         element];
     
     if (isFinMessage)
     {
@@ -947,12 +948,10 @@ didFailToReceiveMessageWithError:error];
     {
         [self handleCloseChatMessage: element];
     }
-    else
+    else if (isLiveMessage)
     {
         [self handleLiveMessage: element];
     }
-
-
     
     // Regular message
     //
