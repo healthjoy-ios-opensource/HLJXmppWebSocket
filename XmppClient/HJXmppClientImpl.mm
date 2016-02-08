@@ -366,6 +366,11 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
 - (void)sendReadReceiptForID:(NSString *)identification
                           to:(NSString *)roomJid
 {
+    
+    if(!roomJid)
+    {
+        return;
+    }
 //    <message type='groupchat' from='user+14451@xmpp-stage.healthjoy.com/41919754811453377514530616' to='main_thread_qatest_qatest_14451@conf.xmpp-stage.healthjoy.com' id='720783:readReceipt'
 //    xmlns='jabber:client'>
 //    <received
