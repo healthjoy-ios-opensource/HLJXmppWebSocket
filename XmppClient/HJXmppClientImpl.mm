@@ -350,7 +350,7 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     //    xmlns='jabber:client'>
     //    <x
     //    xmlns='jabber:x:icr' type='submit' id='7634ea65a4'>
-    //    <chat-select-directive value='money'/>
+    //    <chat-simple-select-directive value='money'/>
     //    </x>
     //    <body></body>
     //    </message>
