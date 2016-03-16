@@ -18,7 +18,8 @@
 didReceiveMessage:(id<XMPPMessageProto>)message
   withAttachments:(NSArray*)attachments
            atRoom:(NSString*)roomJid
-         isLiveMessage:(BOOL)isLiveMessage;
+    isLiveMessage:(BOOL)isLiveMessage
+        isRunTime:(BOOL)runTime;
 
 - (void)xmppClient:(id<HJXmppClient>)sender
 didReceiveAvatarMessage:(id<XmppIqProto>)message;

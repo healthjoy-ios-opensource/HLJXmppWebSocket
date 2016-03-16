@@ -41,7 +41,7 @@
     NSParameterAssert([xmlAttachmentElement isKindOfClass: [NSXMLElement class]]);
     NSXMLElement* castedRawAttachment = (NSXMLElement*)xmlAttachmentElement;
     
-    NSString* fileName     = [[castedRawAttachment attributeForName: @"file_name"] stringValue];
+    NSString* fileName     = [[[castedRawAttachment attributeForName: @"file_name"] stringValue] lowercaseString];
     NSString* fullSizeUrl  = [[castedRawAttachment attributeForName: @"url"      ] stringValue];
     NSString* fileSize     = [[castedRawAttachment attributeForName: @"file_size"] stringValue];
     NSString* rawImageSize = [[castedRawAttachment attributeForName: @"size"     ] stringValue];

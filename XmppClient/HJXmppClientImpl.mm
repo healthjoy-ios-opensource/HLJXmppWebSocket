@@ -375,6 +375,40 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     [self->_transport send: requestSelectOption];
 }
 
+- (void)selectAutocompleteItemForID:(NSString*)itemID
+                              name:(NSString*)name
+                          messageID:(NSString*)messageID
+                                 to:(NSString*)roomJid {
+    
+    //    <message to='main_thread_staging_premium_13319@conf.xmpp-stage.healthjoy.com' type='groupchat' id='7240507:msg' from='user+13319@xmpp-stage.healthjoy.com/4430049771452506415898986'
+    //    xmlns='jabber:client'>
+    //    <x
+    //    xmlns='jabber:x:icr' type='submit' id='7634ea65a4'>
+    //    <chat-autocomplete-directive show_value='name' value='itemID'/>"
+    //    </x>
+    //    <body></body>
+    //    </message>
+    
+    NSString *requestAutocompleteItemFormat =
+    @"<message to='%@'"
+    @" type='groupchat'"
+    @" id='%@'"
+    @" xmlns='jabber:client'>"
+    @"<x xmlns='jabber:x:icr'"
+    @" type='submit'"
+    @" id='%@'>"
+    @"<chat-autocomplete-directive show_value='%@' value='%@'/>"
+    @"</x>"
+    @"<body></body>"
+    @"</message>";
+    
+    NSString* randomRequestId = [self->_randomizerForHistoryBuilder getRandomIdForStanza];
+    
+    NSString* requestSelectAutocomplete = [NSString stringWithFormat: requestAutocompleteItemFormat, roomJid, randomRequestId, messageID, name, itemID];
+    
+    [self->_transport send: requestSelectAutocomplete];
+}
+
 - (void)sendRequestAvatarForJid:(NSString *)jid {
     
     // <iq xmlns="jabber:client" id="-765685373:vCard" to="emma.watson@xmpp.healthjoy.com" type="get">
@@ -586,6 +620,8 @@ didFailToReceiveMessageWithError:error];
     {
         self->_parsers.erase(sender);
     }
+    
+    NSLog(@"processStanza %@",stanzaRoot);
     
     [self processStanza: stanzaRoot];
 }
@@ -990,6 +1026,10 @@ didFailToReceiveMessageWithError:error];
     {
         [self handleLiveMessage: element];
     }
+    else
+    {
+        [self handleRunTimeMessage: element];
+    }
     
     // Regular message
     //
@@ -1061,12 +1101,6 @@ didFailToReceiveMessageWithError:error];
 
 - (void)handleLiveMessage:(id<XMPPMessageProto>)element
 {
-    // "Send message" response
-    //
-    //
-//    <message xmlns="jabber:client" xmlns:stream="http://etherx.jabber.org/streams" from="072915_095742_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com/Oleksandr Dodatko" to="user+11952@xmpp-dev.healthjoy.com/14438263551438356765960568" type="groupchat" id="purple6d2e31b4" version="1.0"><archived xmlns="urn:xmpp:mam:tmp" by="072915_095742_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com" id="1438356783636318"></archived><body xmlns="jabber:client">helllll</body></message>
-    
-//    BOOL isIncoming = [self isMessageIncoming: element];
     NSString* roomJid = [self roomForMessage: element];
     NSArray* attachments = [HJXmppAttachmentsParser parseAttachmentsOfMessage: element];
 
@@ -1076,7 +1110,23 @@ didFailToReceiveMessageWithError:error];
             didReceiveMessage: element
               withAttachments: attachments
                        atRoom: roomJid
-                isLiveMessage: YES];
+                isLiveMessage: YES
+                    isRunTime: NO];
+}
+
+- (void)handleRunTimeMessage:(id<XMPPMessageProto>)element
+{
+    NSString* roomJid = [self roomForMessage: element];
+    NSArray* attachments = [HJXmppAttachmentsParser parseAttachmentsOfMessage: element];
+    
+    id<HJXmppClientDelegate> strongDelegate = self.listenerDelegate;
+    
+    [strongDelegate xmppClent: self
+            didReceiveMessage: element
+              withAttachments: attachments
+                       atRoom: roomJid
+                isLiveMessage: YES
+                    isRunTime: YES];
 }
 
 - (void)handleMessageFromHistory:(id<XMPPMessageProto>)element
@@ -1084,7 +1134,6 @@ didFailToReceiveMessageWithError:error];
     id<HJXmppClientDelegate> strongDelegate = self.listenerDelegate;
     
     id<XMPPMessageProto> unwrappedMessage = [HJHistoryMessageParser unwrapHistoryMessage: element];
-//    BOOL isIncoming = [self isMessageIncoming: unwrappedMessage];
     NSString* roomJid = [self roomForMessage: unwrappedMessage];
     NSArray* attachments = [HJXmppAttachmentsParser parseAttachmentsOfMessage: unwrappedMessage];
     
@@ -1092,7 +1141,8 @@ didFailToReceiveMessageWithError:error];
             didReceiveMessage: unwrappedMessage
               withAttachments: attachments
                        atRoom: roomJid
-                isLiveMessage: NO];
+                isLiveMessage: NO
+                    isRunTime: NO];
 }
 
 - (void)handleHistoryResponse:(id<XmppIqProto>)element {

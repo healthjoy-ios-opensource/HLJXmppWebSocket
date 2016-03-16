@@ -90,6 +90,16 @@
                        to:(NSString*)roomJid;
 
 /**
+ @param roomJid One of values passed to the [HJXmppClient sendPresenseForRooms:] method. Should not contain any user id.
+ '070815_113113_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com'
+ */
+- (void)selectAutocompleteItemForID:(NSString*)itemID
+                               name:(NSString*)name
+                          messageID:(NSString*)messageID
+                                 to:(NSString*)roomJid;
+
+
+/**
  @param jid User id. Request for user/doctor/hcc avatar.
  hcc1.test+pha@xmpp-stage.healthjoy.com
  */
