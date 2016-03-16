@@ -409,6 +409,39 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     [self->_transport send: requestSelectAutocomplete];
 }
 
+- (void)sendPhoneNumber:(NSString*)phoneNumber
+           phoneInputID:(NSString*)phoneInputID
+                     to:(NSString*)roomJid {
+    
+    //    <message to='main_thread_staging_premium_13319@conf.xmpp-stage.healthjoy.com' type='groupchat' id='7240507:msg' from='user+13319@xmpp-stage.healthjoy.com/4430049771452506415898986'
+    //    xmlns='jabber:client'>
+    //    <x
+    //    xmlns='jabber:x:icr' type='submit' id='7634ea65a4'>
+    //    <chat-autocomplete-directive show_value='name' value='itemID'/>"
+    //    </x>
+    //    <body></body>
+    //    </message>
+    
+    NSString *requestPhoneInputItemFormat =
+    @"<message to='%@'"
+    @" type='groupchat'"
+    @" id='%@'"
+    @" xmlns='jabber:client'>"
+    @"<x xmlns='jabber:x:icr'"
+    @" type='submit'"
+    @" id='%@'>"
+    @"<chat-phone-input-directive value='%@'/>"
+    @"</x>"
+    @"<body></body>"
+    @"</message>";
+    
+    NSString* randomRequestId = [self->_randomizerForHistoryBuilder getRandomIdForStanza];
+    
+    NSString* requestSendPhoneInput = [NSString stringWithFormat: requestPhoneInputItemFormat, roomJid, randomRequestId, phoneInputID, phoneNumber];
+    
+    [self->_transport send: requestSendPhoneInput];
+}
+
 - (void)sendRequestAvatarForJid:(NSString *)jid {
     
     // <iq xmlns="jabber:client" id="-765685373:vCard" to="emma.watson@xmpp.healthjoy.com" type="get">
