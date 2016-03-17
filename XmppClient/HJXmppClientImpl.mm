@@ -417,7 +417,7 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     //    xmlns='jabber:client'>
     //    <x
     //    xmlns='jabber:x:icr' type='submit' id='7634ea65a4'>
-    //    <chat-phone-input-directive value='phoneInputID'/>"
+    //    <chat-phone-input-directive value='phoneNumber'/>"
     //    </x>
     //    <body></body>
     //    </message>
@@ -450,7 +450,7 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     //    xmlns='jabber:client'>
     //    <x
     //    xmlns='jabber:x:icr' type='submit' id='7634ea65a4'>
-    //    <chat-zip-input-directive value='zipInputID'/>"
+    //    <chat-zip-input-directive value='zip'/>"
     //    </x>
     //    <body></body>
     //    </message>
@@ -473,6 +473,39 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     NSString* requestSendZipInput = [NSString stringWithFormat: requestZipInputItemFormat, roomJid, randomRequestId, zipInputID, zip];
     
     [self->_transport send: requestSendZipInput];
+}
+
+- (void)sendDob:(NSString*)dob
+     dobInputID:(NSString*)dobInputID
+             to:(NSString*)roomJid {
+    
+    //    <message to='main_thread_staging_premium_13319@conf.xmpp-stage.healthjoy.com' type='groupchat' id='7240507:msg' from='user+13319@xmpp-stage.healthjoy.com/4430049771452506415898986'
+    //    xmlns='jabber:client'>
+    //    <x
+    //    xmlns='jabber:x:icr' type='submit' id='7634ea65a4'>
+    //    <chat-dob-input-directive value='dob'/>"
+    //    </x>
+    //    <body></body>
+    //    </message>
+    
+    NSString *requestDobInputItemFormat =
+    @"<message to='%@'"
+    @" type='groupchat'"
+    @" id='%@'"
+    @" xmlns='jabber:client'>"
+    @"<x xmlns='jabber:x:icr'"
+    @" type='submit'"
+    @" id='%@'>"
+    @"<chat-dob-input-directive value='%@'/>"
+    @"</x>"
+    @"<body></body>"
+    @"</message>";
+    
+    NSString* randomRequestId = [self->_randomizerForHistoryBuilder getRandomIdForStanza];
+    
+    NSString* requestSendDobInput = [NSString stringWithFormat: requestDobInputItemFormat, roomJid, randomRequestId, dobInputID, dob];
+    
+    [self->_transport send: requestSendDobInput];
 }
 
 - (void)sendRequestAvatarForJid:(NSString *)jid {
