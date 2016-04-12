@@ -77,9 +77,9 @@
  @param roomJid One of values passed to the [HJXmppClient sendPresenseForRooms:] method. Should not contain any user id.
  '070815_113113_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com'
  */
-- (void)selectOptionForID:(NSString*)optionID
-                    value:(NSString*)value
-                       to:(NSString*)roomJid;
+- (void)selectOptionDirectiveForID:(NSString*)optionID
+                             value:(NSString*)value
+                                to:(NSString*)roomJid;
 
 /**
  @param roomJid One of values passed to the [HJXmppClient sendPresenseForRooms:] method. Should not contain any user id.

@@ -308,9 +308,9 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
                                  errorHandler: [onAttachmentUploadError   copy]];
 }
 
-- (void)selectOptionForID:(NSString*)optionID
-                    value:(NSString*)value
-                       to:(NSString*)roomJid {
+- (void)selectOptionDirectiveForID:(NSString*)optionID
+                             value:(NSString*)value
+                                to:(NSString*)roomJid {
     
 //    <message to='main_thread_staging_premium_13319@conf.xmpp-stage.healthjoy.com' type='groupchat' id='7240507:msg' from='user+13319@xmpp-stage.healthjoy.com/4430049771452506415898986'
 //    xmlns='jabber:client'>
