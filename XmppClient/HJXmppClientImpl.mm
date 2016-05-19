@@ -508,6 +508,39 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     [self->_transport send: requestSendDobInput];
 }
 
+- (void)sendText:(NSString*)text
+     textInputID:(NSString*)textInputID
+              to:(NSString*)roomJid {
+    
+    //    <message to='main_thread_staging_premium_13319@conf.xmpp-stage.healthjoy.com' type='groupchat' id='7240507:msg' from='user+13319@xmpp-stage.healthjoy.com/4430049771452506415898986'
+    //    xmlns='jabber:client'>
+    //    <x
+    //    xmlns='jabber:x:icr' type='submit' id='7634ea65a4'>
+    //    <chat-simple-input-directive value='dob'/>"
+    //    </x>
+    //    <body></body>
+    //    </message>
+    
+    NSString *requestDobInputItemFormat =
+    @"<message to='%@'"
+    @" type='groupchat'"
+    @" id='%@'"
+    @" xmlns='jabber:client'>"
+    @"<x xmlns='jabber:x:icr'"
+    @" type='submit'"
+    @" id='%@'>"
+    @"<chat-simple-input-directive value='%@'/>"
+    @"</x>"
+    @"<body></body>"
+    @"</message>";
+    
+    NSString* randomRequestId = [self->_randomizerForHistoryBuilder getRandomIdForStanza];
+    
+    NSString* requestSendDobInput = [NSString stringWithFormat: requestDobInputItemFormat, roomJid, randomRequestId, textInputID, text];
+    
+    [self->_transport send: requestSendDobInput];
+}
+
 - (void)sendRequestAvatarForJid:(NSString *)jid {
     
     // <iq xmlns="jabber:client" id="-765685373:vCard" to="emma.watson@xmpp.healthjoy.com" type="get">
