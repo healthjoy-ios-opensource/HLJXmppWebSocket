@@ -336,7 +336,10 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     
     NSString* randomRequestId = [self->_randomizerForHistoryBuilder getRandomIdForStanza];
     
-    NSString* requestSelectOption = [NSString stringWithFormat: requestSelectOptionFormat, roomJid, randomRequestId, optionID, value];
+    NSXMLNode* tempNodeForEscaping = [NSXMLNode textWithStringValue: value];
+    NSString* escapedValue = [tempNodeForEscaping XMLString];
+    
+    NSString* requestSelectOption = [NSString stringWithFormat: requestSelectOptionFormat, roomJid, randomRequestId, optionID, escapedValue];
     
     [self->_transport send: requestSelectOption];
     
@@ -370,7 +373,10 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     
     NSString* randomRequestId = [self->_randomizerForHistoryBuilder getRandomIdForStanza];
     
-    NSString* requestSelectOption = [NSString stringWithFormat: requestSelectOptionFormat, roomJid, randomRequestId, optionID, value];
+    NSXMLNode* tempNodeForEscaping = [NSXMLNode textWithStringValue: value];
+    NSString* escapedValue = [tempNodeForEscaping XMLString];
+    
+    NSString* requestSelectOption = [NSString stringWithFormat: requestSelectOptionFormat, roomJid, randomRequestId, optionID, escapedValue];
     
     [self->_transport send: requestSelectOption];
 }
@@ -404,7 +410,10 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     
     NSString* randomRequestId = [self->_randomizerForHistoryBuilder getRandomIdForStanza];
     
-    NSString* requestSelectAutocomplete = [NSString stringWithFormat: requestAutocompleteItemFormat, roomJid, randomRequestId, messageID, name, itemID];
+    NSXMLNode* tempNodeForEscaping = [NSXMLNode textWithStringValue: name];
+    NSString* escapedName = [tempNodeForEscaping XMLString];
+    
+    NSString* requestSelectAutocomplete = [NSString stringWithFormat: requestAutocompleteItemFormat, roomJid, randomRequestId, messageID, escapedName, itemID];
     
     [self->_transport send: requestSelectAutocomplete];
 }
@@ -437,7 +446,10 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     
     NSString* randomRequestId = [self->_randomizerForHistoryBuilder getRandomIdForStanza];
     
-    NSString* requestSendPhoneInput = [NSString stringWithFormat: requestPhoneInputItemFormat, roomJid, randomRequestId, phoneInputID, phoneNumber];
+    NSXMLNode* tempNodeForEscaping = [NSXMLNode textWithStringValue: phoneNumber];
+    NSString* escapedPhoneNumber = [tempNodeForEscaping XMLString];
+    
+    NSString* requestSendPhoneInput = [NSString stringWithFormat: requestPhoneInputItemFormat, roomJid, randomRequestId, phoneInputID, escapedPhoneNumber];
     
     [self->_transport send: requestSendPhoneInput];
 }
@@ -470,7 +482,10 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     
     NSString* randomRequestId = [self->_randomizerForHistoryBuilder getRandomIdForStanza];
     
-    NSString* requestSendZipInput = [NSString stringWithFormat: requestZipInputItemFormat, roomJid, randomRequestId, zipInputID, zip];
+    NSXMLNode* tempNodeForEscaping = [NSXMLNode textWithStringValue: zip];
+    NSString* escapedZip = [tempNodeForEscaping XMLString];
+    
+    NSString* requestSendZipInput = [NSString stringWithFormat: requestZipInputItemFormat, roomJid, randomRequestId, zipInputID, escapedZip];
     
     [self->_transport send: requestSendZipInput];
 }
@@ -503,7 +518,10 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     
     NSString* randomRequestId = [self->_randomizerForHistoryBuilder getRandomIdForStanza];
     
-    NSString* requestSendDobInput = [NSString stringWithFormat: requestDobInputItemFormat, roomJid, randomRequestId, dobInputID, dob];
+    NSXMLNode* tempNodeForEscaping = [NSXMLNode textWithStringValue: dob];
+    NSString* escapedDob = [tempNodeForEscaping XMLString];
+    
+    NSString* requestSendDobInput = [NSString stringWithFormat: requestDobInputItemFormat, roomJid, randomRequestId, dobInputID, escapedDob];
     
     [self->_transport send: requestSendDobInput];
 }
@@ -536,7 +554,10 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     
     NSString* randomRequestId = [self->_randomizerForHistoryBuilder getRandomIdForStanza];
     
-    NSString* requestSendDobInput = [NSString stringWithFormat: requestDobInputItemFormat, roomJid, randomRequestId, textInputID, text];
+    NSXMLNode* tempNodeForEscaping = [NSXMLNode textWithStringValue: text];
+    NSString* escapedText = [tempNodeForEscaping XMLString];
+    
+    NSString* requestSendDobInput = [NSString stringWithFormat: requestDobInputItemFormat, roomJid, randomRequestId, textInputID, escapedText];
     
     [self->_transport send: requestSendDobInput];
 }
