@@ -1158,7 +1158,7 @@ didFailToReceiveMessageWithError:error];
 
 - (void)handleMessage:(id<XMPPMessageProto>)element {
 
-    BOOL isCloseChatMessage = [HJMessageDetector isCloseChatMessage: element];
+//    BOOL isCloseChatMessage = [HJMessageDetector isCloseChatMessage: element];
     BOOL isFinMessage       = [HJMessageDetector isFinMessage    :   element];
     BOOL isHistoryMessage   = [HJMessageDetector isHistoryMessage:   element];
     BOOL isLiveMessage   = [HJMessageDetector isLiveMessage:         element];
@@ -1171,10 +1171,10 @@ didFailToReceiveMessageWithError:error];
     {
         [self handleMessageFromHistory: element];
     }
-    else if (isCloseChatMessage)
-    {
-        [self handleCloseChatMessage: element];
-    }
+//    else if (isCloseChatMessage)
+//    {
+//        [self handleCloseChatMessage: element];
+//    }
     else if (isLiveMessage)
     {
         [self handleLiveMessage: element];
@@ -1224,11 +1224,11 @@ didFailToReceiveMessageWithError:error];
 
 - (void)handleCloseChatMessage:(id<XMPPMessageProto>)element
 {
-    id<HJXmppClientDelegate> strongDelegate = self.listenerDelegate;
-    NSString* roomJid = [self roomForMessage: element];
-    
-    [strongDelegate xmppClient: self
-                  didCloseRoom: roomJid];
+//    id<HJXmppClientDelegate> strongDelegate = self.listenerDelegate;
+//    NSString* roomJid = [self roomForMessage: element];
+//    
+//    [strongDelegate xmppClient: self
+//                  didCloseRoom: roomJid];
     
     // !!! DO NOT !!! call [self disconnect]
     // a client may be listening on other rooms

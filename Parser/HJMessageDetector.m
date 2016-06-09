@@ -68,16 +68,16 @@
     return (0 != [archivedNodes count]);
 }
 
-+ (BOOL)isCloseChatMessage:(id<XMPPMessageProto>)element
-{
-    NSString* bodyMessage = [element body];
-    static NSString* const CLOSE_CHAT_MESSAGE_ID = @"!close_chat";
-    
-    BOOL result = [bodyMessage isEqualToString: CLOSE_CHAT_MESSAGE_ID];
-    return result;
-    
+//+ (BOOL)isCloseChatMessage:(id<XMPPMessageProto>)element
+//{
+//    NSString* bodyMessage = [element body];
+//    static NSString* const CLOSE_CHAT_MESSAGE_ID = @"!close_chat";
+//    
+//    BOOL result = [bodyMessage isEqualToString: CLOSE_CHAT_MESSAGE_ID];
+//    return result;
+//    
 //    <message from="082015_144829_qatest_qatest_general_question@conf.xmpp.healthjoy.com/System Message" to="user+33254@xmpp.healthjoy.com/1039786960144082112156871" type="groupchat" xml:lang="en" id="_close" xmlns="jabber:client" xmlns:stream="http://etherx.jabber.org/streams" version="1.0"><archived by="082015_144829_qatest_qatest_general_question@conf.xmpp.healthjoy.com" xmlns="urn:xmpp:mam:tmp" id="1440082146068600"/></message>
-
-}
+//
+//}
 
 @end
