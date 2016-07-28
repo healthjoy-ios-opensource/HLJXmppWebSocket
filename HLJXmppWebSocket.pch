@@ -12,6 +12,9 @@
 
 #ifdef __OBJC__
 
+#if !DEBUG
+#define NSLog(...)
+#endif
 
     #import <XmppFrameworkParsers/XmppFrameworkParsers.h>
     #import <SocketRocket/SRWebSocket.h>

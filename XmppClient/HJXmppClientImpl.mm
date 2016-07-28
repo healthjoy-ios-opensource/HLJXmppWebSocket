@@ -35,9 +35,6 @@
 #import "HJXmppChatAttachment.h"
 #import "HJXmppAttachmentsParser.h"
 
-
-#define NSLog(...)
-
 typedef std::set< __strong id<XMPPParserProto> > XmppParsersSet;
 typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaRootForParserMap;
 

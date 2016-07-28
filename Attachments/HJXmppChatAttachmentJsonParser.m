@@ -18,9 +18,8 @@
     NSParameterAssert(nil != input);
     NSParameterAssert(nil != outError);
 
-    NSString* logInput = [[NSString alloc] initWithData: input
-                                               encoding: NSUTF8StringEncoding];
-    NSLog(@"%@", logInput);
+    NSLog(@"%@", [[NSString alloc] initWithData: input
+                                       encoding: NSUTF8StringEncoding]);
     
     id rawInput = [NSJSONSerialization JSONObjectWithData: input
                                                   options:(NSJSONReadingOptions)0
