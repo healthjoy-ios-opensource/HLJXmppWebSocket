@@ -183,6 +183,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		7DC5EF711D4F8EED00E6CFC9 /* HJLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HJLogger.h; path = Logger/HJLogger.h; sourceTree = "<group>"; };
 		7E00D3701B4D68720031D045 /* libHLJXmppWebSocket.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libHLJXmppWebSocket.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E00D37B1B4D68720031D045 /* HLJXmppWebSocketTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HLJXmppWebSocketTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E00D3811B4D68720031D045 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -291,6 +292,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7DC5EF701D4F8ED400E6CFC9 /* Logger */ = {
+			isa = PBXGroup;
+			children = (
+				7DC5EF711D4F8EED00E6CFC9 /* HJLogger.h */,
+			);
+			name = Logger;
+			sourceTree = "<group>";
+		};
 		7E00D3671B4D68720031D045 = {
 			isa = PBXGroup;
 			children = (
@@ -449,6 +458,7 @@
 			children = (
 				7E7B9A9E1B4D727200FB15F1 /* HLJXmppWebSocket.h */,
 				7E7720E71B4D78470082FA43 /* HLJXmppWebSocket.pch */,
+				7DC5EF701D4F8ED400E6CFC9 /* Logger */,
 				7E6F87D41B57ED430057B504 /* Attachments */,
 				7E19623A1B55993E00D4CD32 /* Parser */,
 				7EFDD7BF1B55513100430942 /* Error */,
@@ -913,6 +923,16 @@
 					"$(inherited)",
 					"/Users/dodikk/projects/WebSocketXmpp-Workspace",
 				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					..,
+					../KissXML,
+					"$(SDKROOT)/usr/include/libxml2",
+					"$(SRCROOT)/..",
+					../SocketRocket,
+					../../lib/HealthJoyChat,
+				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -925,6 +945,16 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"/Users/dodikk/projects/WebSocketXmpp-Workspace",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					..,
+					../KissXML,
+					"$(SDKROOT)/usr/include/libxml2",
+					"$(SRCROOT)/..",
+					../SocketRocket,
+					../../lib/HealthJoyChat,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -22,3 +22,5 @@
 #import <HLJXmppWebSocket/Error/HJInvalidAttachmentResponseError.h>
 #import <HLJXmppWebSocket/Error/HJValidButEmptyAttachmentResponseError.h>
 
+#import <HLJXmppWebSocket/Logger/HJLogger.h>
+

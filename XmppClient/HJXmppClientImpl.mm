@@ -35,6 +35,8 @@
 #import "HJXmppChatAttachment.h"
 #import "HJXmppAttachmentsParser.h"
 
+#import "HJLogger.h"
+
 typedef std::set< __strong id<XMPPParserProto> > XmppParsersSet;
 typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaRootForParserMap;
 
@@ -77,6 +79,8 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     HJRandomizerImpl           * _randomizerForHistoryBuilder;
 
     dispatch_queue_t _parserCallbackQueue;
+    
+    id<HJLogger> _logger;
 }
 
 - (void)dealloc {
@@ -100,11 +104,12 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
                 xmppParserFactory:(XmppParserBuilderBlock)xmppParserFactory
                              host:(NSString*)host
                       accessToken:(NSString*)accessToken
+                           logger:(id<HJLogger>)logger
 {
     NSParameterAssert(nil != transport);
     NSParameterAssert(nil != xmppParserFactory);
-    NSParameterAssert(nil != host);
     NSParameterAssert(nil != accessToken);
+    NSParameterAssert(nil != host);
     
     self = [super init];
     if (nil == self) {
@@ -137,6 +142,8 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     }
     
     self->_jidStringsForRooms = [NSArray array];
+    
+    _logger = logger;
     
     return self;
 }
@@ -208,11 +215,11 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     
     static NSString* const presenseRequestFormat =
         @"<presence"
-        @" from='%@'"
-        @" to='%@'"
-        @" xmlns='jabber:client'>"
-        @"<x xmlns='http://jabber.org/protocol/muc'>"
-        @"<history maxstanzas='0'/>"
+        @" from=\"%@\""
+        @" to=\"%@\""
+        @" xmlns=\"jabber:client\">"
+        @"<x xmlns=\"http://jabber.org/protocol/muc\">"
+        @"<history maxstanzas=\"0\"/>"
         @"</x>"
         @"</presence>";
 
@@ -249,12 +256,12 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     
     NSString* messageFormat =
         @"<message"
-        @" to='%@'"
-        @" type='groupchat'"
-        @" id='%@'"
-        @" xmlns='jabber:client'>"
+        @" to=\"%@\""
+        @" type=\"groupchat\""
+        @" id=\"%@\""
+        @" xmlns=\"jabber:client\">"
         @"<body>%@</body>"
-        @"<html xmlns='http://jabber.org/protocol/xhtml-im'>"
+        @"<html xmlns=\"http://jabber.org/protocol/xhtml-im\">"
         @"<body>"
         @"<p>%@</p>"
         @"</body>"
@@ -319,14 +326,14 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
 //    </message>
     
     NSString *requestSelectOptionFormat =
-    @"<message to='%@'"
-    @" type='groupchat'"
-    @" id='%@'"
-    @" xmlns='jabber:client'>"
-    @"<x xmlns='jabber:x:icr'"
-    @" type='submit'"
-    @" id='%@'>"
-    @"<chat-select-directive value='%@'/>"
+    @"<message to=\"%@\""
+    @" type=\"groupchat\""
+    @" id=\"%@\""
+    @" xmlns=\"jabber:client\">"
+    @"<x xmlns=\"jabber:x:icr\""
+    @" type=\"submit\""
+    @" id=\"%@\">"
+    @"<chat-select-directive value=\"%@\"/>"
     @"</x>"
     @"<body></body>"
     @"</message>";
@@ -356,14 +363,14 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     //    </message>
     
     NSString *requestSelectOptionFormat =
-    @"<message to='%@'"
+    @"<message to=\"%@\""
     @" type='groupchat'"
-    @" id='%@'"
-    @" xmlns='jabber:client'>"
-    @"<x xmlns='jabber:x:icr'"
-    @" type='submit'"
-    @" id='%@'>"
-    @"<chat-simple-select-directive value='%@'/>"
+    @" id=\"%@\""
+    @" xmlns=\"jabber:client\">"
+    @"<x xmlns=\"jabber:x:icr\""
+    @" type=\"submit\""
+    @" id=\"%@\">"
+    @"<chat-simple-select-directive value=\"%@\"/>"
     @"</x>"
     @"<body></body>"
     @"</message>";
@@ -393,14 +400,14 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     //    </message>
     
     NSString *requestAutocompleteItemFormat =
-    @"<message to='%@'"
-    @" type='groupchat'"
-    @" id='%@'"
-    @" xmlns='jabber:client'>"
-    @"<x xmlns='jabber:x:icr'"
-    @" type='submit'"
-    @" id='%@'>"
-    @"<chat-autocomplete-directive show_value='%@' value='%@'/>"
+    @"<message to=\"%@\""
+    @" type=\"groupchat\""
+    @" id=\"%@\""
+    @" xmlns=\"jabber:client\">"
+    @"<x xmlns=\"jabber:x:icr\""
+    @" type=\"submit\""
+    @" id=\"%@\">"
+    @"<chat-autocomplete-directive show_value=\"%@\" value=\"%@\"/>"
     @"</x>"
     @"<body></body>"
     @"</message>";
@@ -429,14 +436,14 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     //    </message>
     
     NSString *requestPhoneInputItemFormat =
-    @"<message to='%@'"
-    @" type='groupchat'"
-    @" id='%@'"
-    @" xmlns='jabber:client'>"
-    @"<x xmlns='jabber:x:icr'"
-    @" type='submit'"
-    @" id='%@'>"
-    @"<chat-phone-input-directive value='%@'/>"
+    @"<message to=\"%@\""
+    @" type=\"groupchat\""
+    @" id=\"%@\""
+    @" xmlns=\"jabber:client\">"
+    @"<x xmlns=\"jabber:x:icr\""
+    @" type=\"submit\""
+    @" id=\"%@\">"
+    @"<chat-phone-input-directive value=\"%@\"/>"
     @"</x>"
     @"<body></body>"
     @"</message>";
@@ -465,14 +472,14 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     //    </message>
     
     NSString *requestZipInputItemFormat =
-    @"<message to='%@'"
-    @" type='groupchat'"
-    @" id='%@'"
-    @" xmlns='jabber:client'>"
-    @"<x xmlns='jabber:x:icr'"
-    @" type='submit'"
-    @" id='%@'>"
-    @"<chat-zip-input-directive value='%@'/>"
+    @"<message to=\"%@\""
+    @" type=\"groupchat\""
+    @" id=\"%@\""
+    @" xmlns=\"jabber:client\">"
+    @"<x xmlns=\"jabber:x:icr\""
+    @" type=\"submit\""
+    @" id=\"%@\">"
+    @"<chat-zip-input-directive value=\"%@\"/>"
     @"</x>"
     @"<body></body>"
     @"</message>";
@@ -501,14 +508,14 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     //    </message>
     
     NSString *requestDobInputItemFormat =
-    @"<message to='%@'"
-    @" type='groupchat'"
-    @" id='%@'"
-    @" xmlns='jabber:client'>"
-    @"<x xmlns='jabber:x:icr'"
-    @" type='submit'"
-    @" id='%@'>"
-    @"<chat-dob-input-directive value='%@'/>"
+    @"<message to=\"%@\""
+    @" type=\"groupchat\""
+    @" id=\"%@\""
+    @" xmlns=\"jabber:client\">"
+    @"<x xmlns=\"jabber:x:icr\""
+    @" type=\"submit\""
+    @" id=\"%@\">"
+    @"<chat-dob-input-directive value=\"%@\"/>"
     @"</x>"
     @"<body></body>"
     @"</message>";
@@ -537,14 +544,14 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     //    </message>
     
     NSString *requestDobInputItemFormat =
-    @"<message to='%@'"
-    @" type='groupchat'"
-    @" id='%@'"
-    @" xmlns='jabber:client'>"
-    @"<x xmlns='jabber:x:icr'"
-    @" type='submit'"
-    @" id='%@'>"
-    @"<chat-simple-input-directive value='%@'/>"
+    @"<message to=\"%@\""
+    @" type=\"groupchat\""
+    @" id=\"%@\""
+    @" xmlns=\"jabber:client\">"
+    @"<x xmlns=\"jabber:x:icr\""
+    @" type=\"submit\""
+    @" id=\"%@\">"
+    @"<chat-simple-input-directive value=\"%@\"/>"
     @"</x>"
     @"<body></body>"
     @"</message>";
@@ -554,9 +561,9 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     NSXMLNode* tempNodeForEscaping = [NSXMLNode textWithStringValue: text];
     NSString* escapedText = [tempNodeForEscaping XMLString];
     
-    NSString* requestSendDobInput = [NSString stringWithFormat: requestDobInputItemFormat, roomJid, randomRequestId, textInputID, escapedText];
+    NSString* requestSendText = [NSString stringWithFormat: requestDobInputItemFormat, roomJid, randomRequestId, textInputID, escapedText];
     
-    [self->_transport send: requestSendDobInput];
+    [self->_transport send: requestSendText];
 }
 
 - (void)sendRequestAvatarForJid:(NSString *)jid {
@@ -566,11 +573,11 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     // </iq>
     
     NSString *requestAvatarFormat =
-    @"<iq xmlns='jabber:client'"
-    @" id='%@:vCard'"
-    @" to='%@'"
-    @" type='get'>"
-    @"<vCard xmlns='vcard-temp'/>"
+    @"<iq xmlns=\"jabber:client\""
+    @" id=\"%@:vCard\""
+    @" to=\"%@\""
+    @" type=\"get\">"
+    @"<vCard xmlns=\"vcard-temp\"/>"
     @"</iq>";
     
     NSString* randomRequestId = [self->_randomizerForHistoryBuilder getRandomIdForStanza];
@@ -595,9 +602,9 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
 //    </message>
     
     NSString *requestReadReceiptFormat =
-    @"<message type='groupchat' to='%@' id='%@:readReceipt'"
+    @"<message type=\"groupchat\" to=\"%@\" id=\"%@:readReceipt\""
     @" xmlns='jabber:client'>"
-    @"<received xmlns='urn:xmpp:receipts' id='%@'/>"
+    @"<received xmlns=\"urn:xmpp:receipts\" id=\"%@\"/>"
     @"</message>";
     
     NSString* randomRequestId = [self->_randomizerForHistoryBuilder getRandomIdForStanza];
@@ -623,8 +630,6 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     id<HJChatHistoryRequestProto> request = [self->_historyRequestBuilder buildRequestFrom:createdAt to:closedAt forRoomJID:roomJID];
     [self addHistoryRequestToPendingList: request
                                  forRoom: roomJID];
-    
-    NSLog(@"load history request: %@",[request dataToSend]);
 
     [self->_transport send: [request dataToSend]];
 }

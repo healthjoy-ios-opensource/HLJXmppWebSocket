@@ -11,6 +11,7 @@
 
 @protocol XMPPParserProto;
 @protocol HJAttachmentUploader;
+@protocol HJLogger;
 typedef id<XMPPParserProto>(^XmppParserBuilderBlock)();
 
 @interface HJXmppClientImpl : NSObject<HJXmppClient>
@@ -35,9 +36,10 @@ typedef id<XMPPParserProto>(^XmppParserBuilderBlock)();
                 xmppParserFactory:(XmppParserBuilderBlock)xmppParserFactory
                              host:(NSString*)xmppHost
                       accessToken:(NSString*)accessToken
+                           logger:(id<HJLogger>)logger
 NS_DESIGNATED_INITIALIZER
 NS_REQUIRES_SUPER
-__attribute__((nonnull));
+;
 
 @property (nonatomic, weak) id<HJXmppClientDelegate> listenerDelegate;
 
