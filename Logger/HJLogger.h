@@ -10,6 +10,6 @@
 
 @protocol HJLogger <NSObject>
 
-- (void)log:(NSString *)log;
+- (void)log:(NSString *)logStr;
 
 @end

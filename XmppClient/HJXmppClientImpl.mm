@@ -268,19 +268,17 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
         @"</html>"
         @"</message>";
     
-    NSString* randomMessageId = [self->_randomizerForHistoryBuilder getRandomIdForStanza];
-    
-    NSXMLNode* tempNodeForEscaping = [NSXMLNode textWithStringValue: messageFromUser];
-    NSString* escapedMessageFromUser = [tempNodeForEscaping XMLString];
+    NSString *randomMessageId = [self->_randomizerForHistoryBuilder getRandomIdForStanza];
+    NSString *escapedMessage = [messageFromUser stringByReplacingOccurrencesOfString:@"\"" withString:@"&quot;"];
     
     NSString* message =
         [NSString stringWithFormat: messageFormat,
             roomJid,
             randomMessageId,
-            escapedMessageFromUser,
-            escapedMessageFromUser];
+            escapedMessage,
+            escapedMessage];
     
-    [self->_transport send: message];
+    [self send:message];
 }
 
 - (void)sendAttachments:(NSArray*)attachments
@@ -339,14 +337,11 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     @"</message>";
     
     NSString* randomRequestId = [self->_randomizerForHistoryBuilder getRandomIdForStanza];
-    
-    NSXMLNode* tempNodeForEscaping = [NSXMLNode textWithStringValue: value];
-    NSString* escapedValue = [tempNodeForEscaping XMLString];
+    NSString *escapedValue= [value stringByReplacingOccurrencesOfString:@"\"" withString:@"&quot;"];
     
     NSString* requestSelectOption = [NSString stringWithFormat: requestSelectOptionFormat, roomJid, randomRequestId, optionID, escapedValue];
     
-    [self->_transport send: requestSelectOption];
-    
+    [self send:requestSelectOption];
 }
 
 - (void)selectSimpleOptionForID:(NSString*)optionID
@@ -376,17 +371,15 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     @"</message>";
     
     NSString* randomRequestId = [self->_randomizerForHistoryBuilder getRandomIdForStanza];
-    
-    NSXMLNode* tempNodeForEscaping = [NSXMLNode textWithStringValue: value];
-    NSString* escapedValue = [tempNodeForEscaping XMLString];
+    NSString *escapedValue= [value stringByReplacingOccurrencesOfString:@"\"" withString:@"&quot;"];
     
     NSString* requestSelectOption = [NSString stringWithFormat: requestSelectOptionFormat, roomJid, randomRequestId, optionID, escapedValue];
     
-    [self->_transport send: requestSelectOption];
+    [self send:requestSelectOption];
 }
 
 - (void)selectAutocompleteItemForID:(NSString*)itemID
-                              name:(NSString*)name
+                               name:(NSString*)name
                           messageID:(NSString*)messageID
                                  to:(NSString*)roomJid {
     
@@ -413,13 +406,11 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     @"</message>";
     
     NSString* randomRequestId = [self->_randomizerForHistoryBuilder getRandomIdForStanza];
-    
-    NSXMLNode* tempNodeForEscaping = [NSXMLNode textWithStringValue: name];
-    NSString* escapedName = [tempNodeForEscaping XMLString];
+    NSString *escapedName= [name stringByReplacingOccurrencesOfString:@"\"" withString:@"&quot;"];
     
     NSString* requestSelectAutocomplete = [NSString stringWithFormat: requestAutocompleteItemFormat, roomJid, randomRequestId, messageID, escapedName, itemID];
     
-    [self->_transport send: requestSelectAutocomplete];
+    [self send:requestSelectAutocomplete];
 }
 
 - (void)sendPhoneNumber:(NSString*)phoneNumber
@@ -449,13 +440,11 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     @"</message>";
     
     NSString* randomRequestId = [self->_randomizerForHistoryBuilder getRandomIdForStanza];
-    
-    NSXMLNode* tempNodeForEscaping = [NSXMLNode textWithStringValue: phoneNumber];
-    NSString* escapedPhoneNumber = [tempNodeForEscaping XMLString];
+    NSString *escapedPhoneNumber= [phoneNumber stringByReplacingOccurrencesOfString:@"\"" withString:@"&quot;"];
     
     NSString* requestSendPhoneInput = [NSString stringWithFormat: requestPhoneInputItemFormat, roomJid, randomRequestId, phoneInputID, escapedPhoneNumber];
     
-    [self->_transport send: requestSendPhoneInput];
+    [self send:requestSendPhoneInput];
 }
 
 - (void)sendZip:(NSString*)zip
@@ -485,13 +474,11 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     @"</message>";
     
     NSString* randomRequestId = [self->_randomizerForHistoryBuilder getRandomIdForStanza];
-    
-    NSXMLNode* tempNodeForEscaping = [NSXMLNode textWithStringValue: zip];
-    NSString* escapedZip = [tempNodeForEscaping XMLString];
-    
+    NSString *escapedZip= [zip stringByReplacingOccurrencesOfString:@"\"" withString:@"&quot;"];
+
     NSString* requestSendZipInput = [NSString stringWithFormat: requestZipInputItemFormat, roomJid, randomRequestId, zipInputID, escapedZip];
     
-    [self->_transport send: requestSendZipInput];
+    [self send:requestSendZipInput];
 }
 
 - (void)sendDob:(NSString*)dob
@@ -521,13 +508,11 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     @"</message>";
     
     NSString* randomRequestId = [self->_randomizerForHistoryBuilder getRandomIdForStanza];
-    
-    NSXMLNode* tempNodeForEscaping = [NSXMLNode textWithStringValue: dob];
-    NSString* escapedDob = [tempNodeForEscaping XMLString];
+    NSString *escapedDob= [dob stringByReplacingOccurrencesOfString:@"\"" withString:@"&quot;"];
     
     NSString* requestSendDobInput = [NSString stringWithFormat: requestDobInputItemFormat, roomJid, randomRequestId, dobInputID, escapedDob];
     
-    [self->_transport send: requestSendDobInput];
+    [self send:requestSendDobInput];
 }
 
 - (void)sendText:(NSString*)text
@@ -557,13 +542,11 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     @"</message>";
     
     NSString* randomRequestId = [self->_randomizerForHistoryBuilder getRandomIdForStanza];
-    
-    NSXMLNode* tempNodeForEscaping = [NSXMLNode textWithStringValue: text];
-    NSString* escapedText = [tempNodeForEscaping XMLString];
+    NSString *escapedText= [text stringByReplacingOccurrencesOfString:@"\"" withString:@"&quot;"];
     
     NSString* requestSendText = [NSString stringWithFormat: requestDobInputItemFormat, roomJid, randomRequestId, textInputID, escapedText];
     
-    [self->_transport send: requestSendText];
+    [self send:requestSendText];
 }
 
 - (void)sendRequestAvatarForJid:(NSString *)jid {
@@ -583,14 +566,13 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     NSString* randomRequestId = [self->_randomizerForHistoryBuilder getRandomIdForStanza];
     
     NSString* requestForAvatar = [NSString stringWithFormat: requestAvatarFormat, randomRequestId, jid];
-    
-    [self->_transport send: requestForAvatar];
+
+    [self send:requestForAvatar];
 }
 
 - (void)sendReadReceiptForID:(NSString *)identification
                           to:(NSString *)roomJid
 {
-    
     if(!roomJid)
     {
         return;
@@ -611,7 +593,15 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     
     NSString* requestReadReceipt = [NSString stringWithFormat: requestReadReceiptFormat, roomJid, randomRequestId, identification];
     
-    [self->_transport send: requestReadReceipt];
+    [self send:requestReadReceipt];
+}
+
+- (void)send:(NSString *)data {
+    
+    [self->_transport send:data];
+    
+    NSXMLElement* xmlElement = [[NSXMLElement alloc] initWithXMLString:data error:nil];
+    [_logger log:[NSString stringWithFormat:@"Send Message:%@", [xmlElement XMLStringWithOptions:DDXMLNodePrettyPrint]]];
 }
 
 - (void)loadHistoryFrom:(NSString *)createdAt to:(NSString *)closedAt forRoomJID:(NSString *)roomJID
@@ -758,16 +748,12 @@ didFailToReceiveMessageWithError:error];
 #pragma mark - XMPPParserDelegate
 - (void)xmppParser:(XMPPParser *)sender didReadRoot:(NSXMLElement *)root {
     
-    NSLog(@"xmppParser:didReadRoot - %@", root);
     self->_rootNodeForParser[sender] = root;
 }
 
 - (void)xmppParserDidEnd:(XMPPParser *)sender {
-    
-    NSLog(@"xmppParserDidEnd");
 
     NSXMLElement* stanzaRoot = self->_rootNodeForParser[sender];
-    NSLog(@"xmppParserDidEnd : %@", [stanzaRoot XMLString]);
 
     self->_rootNodeForParser.erase(sender);
     
@@ -776,15 +762,10 @@ didFailToReceiveMessageWithError:error];
         self->_parsers.erase(sender);
     }
     
-    NSLog(@"processStanza %@",stanzaRoot);
-    
     [self processStanza: stanzaRoot];
 }
 
 - (void)xmppParser:(XMPPParser *)sender didFail:(NSError *)error {
-    
-    NSLog(@"xmppParser:didFail - %@", error);
-    
     
     @synchronized (self)
     {
@@ -793,14 +774,11 @@ didFailToReceiveMessageWithError:error];
     }
 }
 - (void)xmppParserDidParseData:(XMPPParser *)sender {
-    
-    NSLog(@"xmppParserDidParseData:");
 }
 
 - (void)xmppParser:(id<XMPPParserProto>)sender
     didReadElement:(NSXMLElement *)element {
-    
-    NSLog(@"didReadElement : %@", element);
+
     NSXMLElement* stanzaRoot = self->_rootNodeForParser[sender];
     [stanzaRoot addChild: element];
 }
@@ -1102,7 +1080,7 @@ didFailToReceiveMessageWithError:error];
 #pragma mark - Messages
 - (void)handlePresenseOrMessageElement:(NSXMLElement *)element {
     
-    NSLog(@"handlePresenseOrMessageElement: %@", element);
+    [_logger log:[NSString stringWithFormat:@"Handle Message:%@", [element XMLStringWithOptions:DDXMLNodePrettyPrint]]];
     
     BOOL isPresense = [[element name] isEqualToString: @"presence"];
     BOOL isMessage  = [[element name] isEqualToString: @"message" ];

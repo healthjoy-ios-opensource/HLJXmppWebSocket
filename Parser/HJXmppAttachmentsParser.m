@@ -48,6 +48,7 @@
     
     BOOL isFileAttachment =
     ([fileName rangeOfString:@"jpg"].location == NSNotFound) &&
+    ([fileName rangeOfString:@"jpeg"].location == NSNotFound) &&
     ([fileName rangeOfString:@"png"].location == NSNotFound) &&
     ([fileName rangeOfString:@"gif"].location == NSNotFound);
     
