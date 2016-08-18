@@ -310,6 +310,47 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
                                  errorHandler: [onAttachmentUploadError   copy]];
 }
 
+- (void)uploadPhotos:(NSArray*)photos
+    photoDirectiveID:(NSString*)photoDirectiveID
+                  to:(NSString*)roomJid {
+    
+    NSParameterAssert(XMPP_PLAIN_AUTH__COMPLETED == self->_authStage);
+    
+    id<HJXmppClientDelegate> strongDelegate = self.listenerDelegate;
+    __weak HJXmppClientImpl* weakSelf = self;
+    
+    if(photos == nil)
+    {
+        HJXmppClientImpl* strongSelf = weakSelf;
+        [strongSelf sendPhotos:photos
+              photoDirectiveID:photoDirectiveID
+                            to:roomJid];
+    }
+    else
+    {
+        HJAttachmentUploadSuccessBlock onAttachmentUploadedBlock = ^void(NSArray* uploadedPhotos)
+        {
+            HJXmppClientImpl* strongSelf = weakSelf;
+            [strongSelf sendPhotos:uploadedPhotos
+                  photoDirectiveID:photoDirectiveID
+                                to:roomJid];
+        };
+        
+        HJAttachmentUploadErrorBlock onAttachmentUploadError = ^void(NSError* error)
+        {
+            HJXmppClientImpl* strongSelf = weakSelf;
+            
+            [strongDelegate xmppClent: strongSelf
+           didFailSendingAttachmentTo: roomJid
+                            withError: error];
+        };
+        
+        [self->_attachmentUpload uploadAtachments: photos
+                               withSuccessHandler: [onAttachmentUploadedBlock copy]
+                                     errorHandler: [onAttachmentUploadError   copy]];
+    }
+}
+
 - (void)selectOptionDirectiveForID:(NSString*)optionID
                              value:(NSString*)value
                                 to:(NSString*)roomJid {
@@ -523,12 +564,12 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     //    xmlns='jabber:client'>
     //    <x
     //    xmlns='jabber:x:icr' type='submit' id='7634ea65a4'>
-    //    <chat-simple-input-directive value='dob'/>"
+    //    <chat-simple-input-directive value='text'/>"
     //    </x>
     //    <body></body>
     //    </message>
     
-    NSString *requestDobInputItemFormat =
+    NSString *requestTextInputItemFormat =
     @"<message to=\"%@\""
     @" type=\"groupchat\""
     @" id=\"%@\""
@@ -544,10 +585,82 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     NSString* randomRequestId = [self->_randomizerForHistoryBuilder getRandomIdForStanza];
     NSString *escapedText= [text stringByReplacingOccurrencesOfString:@"\"" withString:@"&quot;"];
     
-    NSString* requestSendText = [NSString stringWithFormat: requestDobInputItemFormat, roomJid, randomRequestId, textInputID, escapedText];
+    NSString* requestSendText = [NSString stringWithFormat: requestTextInputItemFormat, roomJid, randomRequestId, textInputID, escapedText];
     
     [self send:requestSendText];
 }
+
+- (void)sendInputValue:(NSString*)inputValue
+           textInputID:(NSString*)textInputID
+                    to:(NSString*)roomJid {
+    
+    //    <message to='main_thread_staging_premium_13319@conf.xmpp-stage.healthjoy.com' type='groupchat' id='7240507:msg' from='user+13319@xmpp-stage.healthjoy.com/4430049771452506415898986'
+    //    xmlns='jabber:client'>
+    //    <x
+    //    xmlns='jabber:x:icr' type='submit' id='7634ea65a4'>
+    //    <chat-input-directive value='text'/>"
+    //    </x>
+    //    <body></body>
+    //    </message>
+    
+    NSString *requesInputValueItemFormat =
+    @"<message to=\"%@\""
+    @" type=\"groupchat\""
+    @" id=\"%@\""
+    @" xmlns=\"jabber:client\">"
+    @"<x xmlns=\"jabber:x:icr\""
+    @" type=\"submit\""
+    @" id=\"%@\">"
+    @"<chat-input-directive value=\"%@\"/>"
+    @"</x>"
+    @"<body></body>"
+    @"</message>";
+    
+    NSString* randomRequestId = [self->_randomizerForHistoryBuilder getRandomIdForStanza];
+    NSString *escapedText= [inputValue stringByReplacingOccurrencesOfString:@"\"" withString:@"&quot;"];
+    
+    NSString* requestSendText = [NSString stringWithFormat: requesInputValueItemFormat, roomJid, randomRequestId, textInputID, escapedText];
+    
+    [self send:requestSendText];
+}
+
+- (void)sendPhotos:(NSArray*)photos
+  photoDirectiveID:(NSString *)photoDirectiveID
+                to:(NSString*)roomJid {
+    
+    //    <message to='main_thread_staging_premium_13319@conf.xmpp-stage.healthjoy.com' type='groupchat' id='7240507:msg' from='user+13319@xmpp-stage.healthjoy.com/4430049771452506415898986'
+    //    xmlns='jabber:client'>
+    //    <x
+    //    xmlns='jabber:x:icr' type='submit' id='7634ea65a4'>
+    //    <chat-input-directive value='text'/>"
+    //    </x>
+    //    <body></body>
+    //    </message>
+    
+    NSString *requestPhotoItemFormat =
+    @"<message to=\"%@\""
+    @" type=\"groupchat\""
+    @" id=\"%@\""
+    @" xmlns=\"jabber:client\">"
+    @"<x xmlns=\"jabber:x:icr\""
+    @" type=\"submit\""
+    @" id=\"%@\">"
+    @"<chat-photo-directive value=\"%@\"/>"
+    @"</x>"
+    @"<body></body>"
+    @"</message>";
+    
+    NSString* randomRequestId = [self->_randomizerForHistoryBuilder getRandomIdForStanza];
+    
+    id<HJXmppChatAttachment> photo = [photos firstObject];
+    
+    NSString *escapedText= (photo != nil) ? [[photo fullSizeUrl] stringByReplacingOccurrencesOfString:@"\"" withString:@"&quot;"] : @"";
+    
+    NSString* requestSendPhoto = [NSString stringWithFormat: requestPhotoItemFormat, roomJid, randomRequestId, photoDirectiveID, escapedText];
+    
+    [self send:requestSendPhoto];
+}
+
 
 - (void)sendRequestAvatarForJid:(NSString *)jid {
     
@@ -1376,7 +1489,7 @@ didFailToReceiveMessageWithError:error];
                                 @"</html>"
                                 @"</message>"];
     
-    [self->_transport send: request];
+    [self send:request];
 }
 
 #pragma mark - Utils

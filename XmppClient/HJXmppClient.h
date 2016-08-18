@@ -72,6 +72,14 @@
 - (void)sendAttachments:(NSArray*)attachments
                     to:(NSString*)roomJid;
 
+/**
+ @param roomJid One of values passed to the [HJXmppClient sendPresenseForRooms:] method. Should not contain any user id.
+ '070815_113113_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com'
+ */
+- (void)uploadPhotos:(NSArray*)photos
+    photoDirectiveID:(NSString *)photoDirectiveID
+                  to:(NSString*)roomJid;
+
 
 /**
  @param roomJid One of values passed to the [HJXmppClient sendPresenseForRooms:] method. Should not contain any user id.
@@ -129,6 +137,14 @@
 - (void)sendText:(NSString*)text
      textInputID:(NSString*)textInputID
              to:(NSString*)roomJid;
+
+/**
+ @param roomJid One of values passed to the [HJXmppClient sendPresenseForRooms:] method. Should not contain any user id.
+ '070815_113113_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com'
+ */
+- (void)sendInputValue:(NSString*)inputValue
+           textInputID:(NSString*)textInputID
+                    to:(NSString*)roomJid;
 
 /**
  @param jid User id. Request for user/doctor/hcc avatar.
