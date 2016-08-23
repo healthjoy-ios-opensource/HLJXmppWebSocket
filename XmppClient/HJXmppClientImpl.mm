@@ -428,7 +428,7 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     //    xmlns='jabber:client'>
     //    <x
     //    xmlns='jabber:x:icr' type='submit' id='7634ea65a4'>
-    //    <chat-autocomplete-directive show_value='name' value='itemID'/>"
+    //    <chat-list-directive value='value'>"
     //    </x>
     //    <body></body>
     //    </message>
@@ -441,7 +441,7 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     @"<x xmlns=\"jabber:x:icr\""
     @" type=\"submit\""
     @" id=\"%@\">"
-    @"<chat-autocomplete-directive show_value=\"%@\" value=\"%@\"/>"
+    @"<chat-list-directive show_value=\"%@\" value=\"%@\"/>"
     @"</x>"
     @"<body></body>"
     @"</message>";
