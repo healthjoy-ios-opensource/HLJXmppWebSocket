@@ -428,7 +428,7 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     //    xmlns='jabber:client'>
     //    <x
     //    xmlns='jabber:x:icr' type='submit' id='7634ea65a4'>
-    //    <chat-list-directive value='value'>"
+    //    <chat-autocomplete-directive value='value'>"
     //    </x>
     //    <body></body>
     //    </message>
@@ -441,7 +441,7 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     @"<x xmlns=\"jabber:x:icr\""
     @" type=\"submit\""
     @" id=\"%@\">"
-    @"<chat-list-directive show_value=\"%@\" value=\"%@\"/>"
+    @"<chat-autocomplete-directive show_value=\"%@\" value=\"%@\"/>"
     @"</x>"
     @"<body></body>"
     @"</message>";
@@ -454,111 +454,9 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     [self send:requestSelectAutocomplete];
 }
 
-- (void)sendPhoneNumber:(NSString*)phoneNumber
-           phoneInputID:(NSString*)phoneInputID
-                     to:(NSString*)roomJid {
-    
-    //    <message to='main_thread_staging_premium_13319@conf.xmpp-stage.healthjoy.com' type='groupchat' id='7240507:msg' from='user+13319@xmpp-stage.healthjoy.com/4430049771452506415898986'
-    //    xmlns='jabber:client'>
-    //    <x
-    //    xmlns='jabber:x:icr' type='submit' id='7634ea65a4'>
-    //    <chat-phone-input-directive value='phoneNumber'/>"
-    //    </x>
-    //    <body></body>
-    //    </message>
-    
-    NSString *requestPhoneInputItemFormat =
-    @"<message to=\"%@\""
-    @" type=\"groupchat\""
-    @" id=\"%@\""
-    @" xmlns=\"jabber:client\">"
-    @"<x xmlns=\"jabber:x:icr\""
-    @" type=\"submit\""
-    @" id=\"%@\">"
-    @"<chat-phone-input-directive value=\"%@\"/>"
-    @"</x>"
-    @"<body></body>"
-    @"</message>";
-    
-    NSString* randomRequestId = [self->_randomizerForHistoryBuilder getRandomIdForStanza];
-    NSString *escapedPhoneNumber= [phoneNumber stringByReplacingOccurrencesOfString:@"\"" withString:@"&quot;"];
-    
-    NSString* requestSendPhoneInput = [NSString stringWithFormat: requestPhoneInputItemFormat, roomJid, randomRequestId, phoneInputID, escapedPhoneNumber];
-    
-    [self send:requestSendPhoneInput];
-}
-
-- (void)sendZip:(NSString*)zip
-     zipInputID:(NSString*)zipInputID
-             to:(NSString*)roomJid {
-    
-    //    <message to='main_thread_staging_premium_13319@conf.xmpp-stage.healthjoy.com' type='groupchat' id='7240507:msg' from='user+13319@xmpp-stage.healthjoy.com/4430049771452506415898986'
-    //    xmlns='jabber:client'>
-    //    <x
-    //    xmlns='jabber:x:icr' type='submit' id='7634ea65a4'>
-    //    <chat-zip-input-directive value='zip'/>"
-    //    </x>
-    //    <body></body>
-    //    </message>
-    
-    NSString *requestZipInputItemFormat =
-    @"<message to=\"%@\""
-    @" type=\"groupchat\""
-    @" id=\"%@\""
-    @" xmlns=\"jabber:client\">"
-    @"<x xmlns=\"jabber:x:icr\""
-    @" type=\"submit\""
-    @" id=\"%@\">"
-    @"<chat-zip-input-directive value=\"%@\"/>"
-    @"</x>"
-    @"<body></body>"
-    @"</message>";
-    
-    NSString* randomRequestId = [self->_randomizerForHistoryBuilder getRandomIdForStanza];
-    NSString *escapedZip= [zip stringByReplacingOccurrencesOfString:@"\"" withString:@"&quot;"];
-
-    NSString* requestSendZipInput = [NSString stringWithFormat: requestZipInputItemFormat, roomJid, randomRequestId, zipInputID, escapedZip];
-    
-    [self send:requestSendZipInput];
-}
-
-- (void)sendDob:(NSString*)dob
-     dobInputID:(NSString*)dobInputID
-             to:(NSString*)roomJid {
-    
-    //    <message to='main_thread_staging_premium_13319@conf.xmpp-stage.healthjoy.com' type='groupchat' id='7240507:msg' from='user+13319@xmpp-stage.healthjoy.com/4430049771452506415898986'
-    //    xmlns='jabber:client'>
-    //    <x
-    //    xmlns='jabber:x:icr' type='submit' id='7634ea65a4'>
-    //    <chat-dob-input-directive value='dob'/>"
-    //    </x>
-    //    <body></body>
-    //    </message>
-    
-    NSString *requestDobInputItemFormat =
-    @"<message to=\"%@\""
-    @" type=\"groupchat\""
-    @" id=\"%@\""
-    @" xmlns=\"jabber:client\">"
-    @"<x xmlns=\"jabber:x:icr\""
-    @" type=\"submit\""
-    @" id=\"%@\">"
-    @"<chat-dob-input-directive value=\"%@\"/>"
-    @"</x>"
-    @"<body></body>"
-    @"</message>";
-    
-    NSString* randomRequestId = [self->_randomizerForHistoryBuilder getRandomIdForStanza];
-    NSString *escapedDob= [dob stringByReplacingOccurrencesOfString:@"\"" withString:@"&quot;"];
-    
-    NSString* requestSendDobInput = [NSString stringWithFormat: requestDobInputItemFormat, roomJid, randomRequestId, dobInputID, escapedDob];
-    
-    [self send:requestSendDobInput];
-}
-
-- (void)sendText:(NSString*)text
-     textInputID:(NSString*)textInputID
-              to:(NSString*)roomJid {
+- (void)sendSimpleText:(NSString*)simpleText
+           textInputID:(NSString*)textInputID
+                    to:(NSString*)roomJid {
     
     //    <message to='main_thread_staging_premium_13319@conf.xmpp-stage.healthjoy.com' type='groupchat' id='7240507:msg' from='user+13319@xmpp-stage.healthjoy.com/4430049771452506415898986'
     //    xmlns='jabber:client'>
@@ -583,43 +481,9 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     @"</message>";
     
     NSString* randomRequestId = [self->_randomizerForHistoryBuilder getRandomIdForStanza];
-    NSString *escapedText= [text stringByReplacingOccurrencesOfString:@"\"" withString:@"&quot;"];
+    NSString *escapedText= [simpleText stringByReplacingOccurrencesOfString:@"\"" withString:@"&quot;"];
     
     NSString* requestSendText = [NSString stringWithFormat: requestTextInputItemFormat, roomJid, randomRequestId, textInputID, escapedText];
-    
-    [self send:requestSendText];
-}
-
-- (void)sendInputValue:(NSString*)inputValue
-           textInputID:(NSString*)textInputID
-                    to:(NSString*)roomJid {
-    
-    //    <message to='main_thread_staging_premium_13319@conf.xmpp-stage.healthjoy.com' type='groupchat' id='7240507:msg' from='user+13319@xmpp-stage.healthjoy.com/4430049771452506415898986'
-    //    xmlns='jabber:client'>
-    //    <x
-    //    xmlns='jabber:x:icr' type='submit' id='7634ea65a4'>
-    //    <chat-input-directive value='text'/>"
-    //    </x>
-    //    <body></body>
-    //    </message>
-    
-    NSString *requesInputValueItemFormat =
-    @"<message to=\"%@\""
-    @" type=\"groupchat\""
-    @" id=\"%@\""
-    @" xmlns=\"jabber:client\">"
-    @"<x xmlns=\"jabber:x:icr\""
-    @" type=\"submit\""
-    @" id=\"%@\">"
-    @"<chat-input-directive value=\"%@\"/>"
-    @"</x>"
-    @"<body></body>"
-    @"</message>";
-    
-    NSString* randomRequestId = [self->_randomizerForHistoryBuilder getRandomIdForStanza];
-    NSString *escapedText= [inputValue stringByReplacingOccurrencesOfString:@"\"" withString:@"&quot;"];
-    
-    NSString* requestSendText = [NSString stringWithFormat: requesInputValueItemFormat, roomJid, randomRequestId, textInputID, escapedText];
     
     [self send:requestSendText];
 }

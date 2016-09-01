@@ -110,39 +110,7 @@
  @param roomJid One of values passed to the [HJXmppClient sendPresenseForRooms:] method. Should not contain any user id.
  '070815_113113_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com'
  */
-- (void)sendPhoneNumber:(NSString*)phoneNumber
-           phoneInputID:(NSString*)phoneInputID
-                     to:(NSString*)roomJid;
-
-/**
- @param roomJid One of values passed to the [HJXmppClient sendPresenseForRooms:] method. Should not contain any user id.
- '070815_113113_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com'
- */
-- (void)sendZip:(NSString*)zip
-     zipInputID:(NSString*)zipInputID
-             to:(NSString*)roomJid;
-
-/**
- @param roomJid One of values passed to the [HJXmppClient sendPresenseForRooms:] method. Should not contain any user id.
- '070815_113113_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com'
- */
-- (void)sendDob:(NSString*)dob
-     dobInputID:(NSString*)dobInputID
-             to:(NSString*)roomJid;
-
-/**
- @param roomJid One of values passed to the [HJXmppClient sendPresenseForRooms:] method. Should not contain any user id.
- '070815_113113_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com'
- */
-- (void)sendText:(NSString*)text
-     textInputID:(NSString*)textInputID
-             to:(NSString*)roomJid;
-
-/**
- @param roomJid One of values passed to the [HJXmppClient sendPresenseForRooms:] method. Should not contain any user id.
- '070815_113113_qatest37_qatest37_general_question@conf.xmpp-dev.healthjoy.com'
- */
-- (void)sendInputValue:(NSString*)inputValue
+- (void)sendSimpleText:(NSString*)simpleText
            textInputID:(NSString*)textInputID
                     to:(NSString*)roomJid;
 
