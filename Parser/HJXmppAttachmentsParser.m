@@ -46,11 +46,7 @@
     NSString* fileSize     = [[castedRawAttachment attributeForName: @"file_size"] stringValue];
     NSString* rawImageSize = [[castedRawAttachment attributeForName: @"size"     ] stringValue];
     
-    BOOL isFileAttachment =
-    ([fileName rangeOfString:@"jpg"].location == NSNotFound) &&
-    ([fileName rangeOfString:@"jpeg"].location == NSNotFound) &&
-    ([fileName rangeOfString:@"png"].location == NSNotFound) &&
-    ([fileName rangeOfString:@"gif"].location == NSNotFound);
+    BOOL isFileAttachment = ([[castedRawAttachment attributeForName: @"thumb_url"] stringValue]) ? NO : YES;
     
     if(isFileAttachment)
     {
