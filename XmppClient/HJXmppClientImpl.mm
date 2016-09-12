@@ -1202,11 +1202,13 @@ didFailToReceiveMessageWithError:error];
     [self->_pendingHistoryRequests removeObject: iqId];
     [self->_iqIdForQueryId removeObjectForKey: queryId];
     [self->_queryIdForIqId removeObjectForKey: iqId];
-    
 
-    [strongDelegate xmppClent: self
-        didLoadHistoryForRoom: roomJid
-                        error: nil];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(200 * NSEC_PER_MSEC)),
+                   dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^ {
+        [strongDelegate xmppClent: self
+            didLoadHistoryForRoom: roomJid
+                            error: nil];
+    }); 
 }
 
 - (void)handleLiveMessage:(id<XMPPMessageProto>)element
