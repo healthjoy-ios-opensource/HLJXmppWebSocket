@@ -23,6 +23,8 @@ didReceiveMessage:(id)message;
 - (void)transport:(id<HJTransportForXmpp>)webSocket
 didFailToReceiveMessageWithError:(NSError*)error;
 
-- (void)transportDidCloseConnection:(id<HJTransportForXmpp>)webSocket;
+- (void)transportDidCloseConnection:(id<HJTransportForXmpp>)webSocket
+                               code:(NSInteger)code
+                             reason:(NSString *)reason;
 
 @end

@@ -94,7 +94,9 @@ didReceiveMessage:(id)message
          wasClean:(BOOL)wasClean
 {
     id<HJTransportForXmppDelegate> strongDelegate = self.delegate;
-    [strongDelegate transportDidCloseConnection: self];
+    [strongDelegate transportDidCloseConnection:self
+                                           code:code
+                                         reason:reason];
 }
 
 - (void)webSocket:(SRWebSocket *)webSocket

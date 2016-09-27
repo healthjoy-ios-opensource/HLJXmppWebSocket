@@ -65,7 +65,10 @@ didFailSubscribingToRoom:(NSString*)roomJid
 
 
 
-- (void)xmppClentDidCloseConnection:(id<HJXmppClient>)sender;
+- (void)xmppClentDidCloseConnection:(id<HJXmppClient>)sender
+                               code:(NSInteger)code
+                             reason:(NSString *)reason;
+
 - (void)xmppClentDidAuthenticate:(id<HJXmppClient>)sender;
 
 - (void)xmppClentDidFailToAuthenticate:(id<HJXmppClient>)sender

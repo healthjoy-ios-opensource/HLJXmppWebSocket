@@ -716,10 +716,14 @@ didFailToReceiveMessageWithError:error];
     
 }
 
-- (void)transportDidCloseConnection:(id<HJTransportForXmpp>)webSocket {
+- (void)transportDidCloseConnection:(id<HJTransportForXmpp>)webSocket
+                               code:(NSInteger)code
+                             reason:(NSString *)reason {
     
     id<HJXmppClientDelegate> strongDelegate = self.listenerDelegate;
-    [strongDelegate xmppClentDidCloseConnection: self];
+    [strongDelegate xmppClentDidCloseConnection: self
+                                           code:code
+                                         reason:reason];
 }
 
 #pragma mark - XMPPParserDelegate
