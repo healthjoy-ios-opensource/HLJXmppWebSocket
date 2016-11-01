@@ -497,6 +497,10 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     //    <x
     //    xmlns='jabber:x:icr' type='submit' id='7634ea65a4'>
     //    <chat-input-directive value='text'/>"
+    //    <attachment>url1</attachment>
+    //    <attachment>url2</attachment>
+    //    <attachment>url3</attachment>
+    //    </chat-photo-directive>
     //    </x>
     //    <body></body>
     //    </message>
@@ -509,18 +513,26 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     @"<x xmlns=\"jabber:x:icr\""
     @" type=\"submit\""
     @" id=\"%@\">"
-    @"<chat-photo-directive value=\"%@\"/>"
-    @"</x>"
-    @"<body></body>"
-    @"</message>";
+    @"<chat-photo-directive value=\"%@\">";
+    
+    for(id<HJXmppChatAttachment> photo in photos)
+    {
+        NSString *photoURL = (photo != nil) ? [[photo fullSizeUrl] stringByReplacingOccurrencesOfString:@"\"" withString:@"&quot;"] : nil;
+        if(photoURL)
+        {
+            NSString *attachmentTag = [NSString stringWithFormat:@"<attachment>%@</attachment>", photoURL];
+            requestPhotoItemFormat = [requestPhotoItemFormat stringByAppendingString:attachmentTag];
+        }
+    }
+    
+    requestPhotoItemFormat = [requestPhotoItemFormat stringByAppendingString:@"</chat-photo-directive>"
+                                                                             @"</x>"
+                                                                             @"<body></body>"
+                                                                             @"</message>"];
     
     NSString* randomRequestId = [self->_randomizerForHistoryBuilder getRandomIdForStanza];
-    
-    id<HJXmppChatAttachment> photo = [photos firstObject];
-    
-    NSString *escapedText= (photo != nil) ? [[photo fullSizeUrl] stringByReplacingOccurrencesOfString:@"\"" withString:@"&quot;"] : @"";
-    
-    NSString* requestSendPhoto = [NSString stringWithFormat: requestPhotoItemFormat, roomJid, randomRequestId, photoDirectiveID, escapedText];
+    NSString *value= (photos != nil) ? @"ok" : @"";
+    NSString* requestSendPhoto = [NSString stringWithFormat: requestPhotoItemFormat, roomJid, randomRequestId, photoDirectiveID, value];
     
     [self send:requestSendPhoto];
 }
