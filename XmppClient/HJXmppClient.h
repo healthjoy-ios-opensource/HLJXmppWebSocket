@@ -135,6 +135,9 @@
                forType:(NSString *)type
                     to:(NSString *)roomJid;
 
+- (void)sendLocation:(NSString *)location
+                  to:(NSString *)roomJid;
+
 - (void)disconnect;
 
 /**
