@@ -131,11 +131,26 @@
  @param jid User id.
  hcc1.test+pha@xmpp-stage.healthjoy.com
  */
-- (void)sendPermission:(BOOL)permission
-               forType:(NSString *)type
-                    to:(NSString *)roomJid;
+- (void)sendCheckPermission:(BOOL)permission
+                    forType:(NSString *)type
+                directiveID:(NSString *)directiveID
+                         to:(NSString *)roomJid;
 
+/**
+ @param jid User id.
+ hcc1.test+pha@xmpp-stage.healthjoy.com
+ */
+- (void)sendRequestPermission:(BOOL)permission
+                      forType:(NSString *)type
+                  directiveID:(NSString *)directiveID
+                           to:(NSString *)roomJid;
+
+/**
+ @param jid User id.
+ hcc1.test+pha@xmpp-stage.healthjoy.com
+ */
 - (void)sendLocation:(NSString *)location
+         directiveID:(NSString *)directiveID
                   to:(NSString *)roomJid;
 
 - (void)disconnect;

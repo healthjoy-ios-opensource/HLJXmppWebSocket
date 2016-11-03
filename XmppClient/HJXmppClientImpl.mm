@@ -537,8 +537,9 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     [self send:requestSendPhoto];
 }
 
-- (void)sendPermission:(BOOL)permission
+- (void)sendCheckPermission:(BOOL)permission
                forType:(NSString *)type
+           directiveID:(NSString *)directiveID
                     to:(NSString *)roomJid {
     
     //    <message to='main_thread_staging_premium_13319@conf.xmpp-stage.healthjoy.com' type='groupchat' id='7240507:msg' from='user+13319@xmpp-stage.healthjoy.com/4430049771452506415898986'
@@ -564,12 +565,50 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     @"</message>";
     
     NSString* randomRequestId = [self->_randomizerForHistoryBuilder getRandomIdForStanza];
-    NSString* sendPermissionItem = [NSString stringWithFormat: sendPermissionItemFormat, roomJid, randomRequestId, type, permission];
+    NSInteger permissionInt = @(permission).integerValue;
+    NSString *permissionStr = [NSString stringWithFormat: @"%ld", (long)permissionInt];
+    NSString* sendPermissionItem = [NSString stringWithFormat: sendPermissionItemFormat, roomJid, randomRequestId, directiveID, type, permissionStr];
+    
+    [self send:sendPermissionItem];
+}
+
+- (void)sendRequestPermission:(BOOL)permission
+                      forType:(NSString *)type
+                  directiveID:(NSString *)directiveID
+                           to:(NSString *)roomJid {
+    
+    //    <message to='main_thread_staging_premium_13319@conf.xmpp-stage.healthjoy.com' type='groupchat' id='7240507:msg' from='user+13319@xmpp-stage.healthjoy.com/4430049771452506415898986'
+    //    xmlns='jabber:client'>
+    //    <x
+    //    xmlns='jabber:x:icr' type='submit' id='7634ea65a4'>
+    //    <chat-request-permission-directive permission='location' value='1'>"
+    //    </x>
+    //    <body></body>
+    //    </message>
+    
+    NSString *sendPermissionItemFormat =
+    @"<message to=\"%@\""
+    @" type=\"groupchat\""
+    @" id=\"%@\""
+    @" xmlns=\"jabber:client\">"
+    @"<x xmlns=\"jabber:x:icr\""
+    @" type=\"submit\""
+    @" id=\"%@\">"
+    @"<chat-request-permission-directive permission=\"%@\" value=\"%@\"/>"
+    @"</x>"
+    @"<body></body>"
+    @"</message>";
+    
+    NSString* randomRequestId = [self->_randomizerForHistoryBuilder getRandomIdForStanza];
+    NSInteger permissionInt = @(permission).integerValue;
+    NSString *permissionStr = [NSString stringWithFormat: @"%ld", (long)permissionInt];
+    NSString* sendPermissionItem = [NSString stringWithFormat: sendPermissionItemFormat, roomJid, randomRequestId, directiveID, type, permissionStr];
     
     [self send:sendPermissionItem];
 }
 
 - (void)sendLocation:(NSString *)location
+         directiveID:(NSString *)directiveID
                   to:(NSString *)roomJid {
     
     //    <message to='main_thread_staging_premium_13319@conf.xmpp-stage.healthjoy.com' type='groupchat' id='7240507:msg' from='user+13319@xmpp-stage.healthjoy.com/4430049771452506415898986'
@@ -581,7 +620,7 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     //    <body></body>
     //    </message>
     
-    NSString *sendPermissionItemFormat =
+    NSString *sendLocationItemFormat =
     @"<message to=\"%@\""
     @" type=\"groupchat\""
     @" id=\"%@\""
@@ -595,9 +634,9 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     @"</message>";
     
     NSString* randomRequestId = [self->_randomizerForHistoryBuilder getRandomIdForStanza];
-    NSString* sendPermissionItem = [NSString stringWithFormat: sendPermissionItemFormat, roomJid, randomRequestId, location];
+    NSString* sendLocationItem = [NSString stringWithFormat: sendLocationItemFormat, roomJid, randomRequestId, directiveID, location];
     
-    [self send:sendPermissionItem];
+    [self send:sendLocationItem];
 }
 
 - (void)sendRequestAvatarForJid:(NSString *)jid {
