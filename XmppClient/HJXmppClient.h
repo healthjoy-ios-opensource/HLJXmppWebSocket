@@ -161,6 +161,14 @@
                  directiveID:(NSString *)directiveID
                     to:(NSString *)roomJid;
 
+/**
+ @param jid User id.
+ hcc1.test+pha@xmpp-stage.healthjoy.com
+ */
+- (void)sendStripePaymentCardID:(NSString *)cardID
+                    directiveID:(NSString *)directiveID
+                             to:(NSString *)roomJid;
+
 - (void)disconnect;
 
 /**

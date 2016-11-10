@@ -673,6 +673,38 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     [self send:sendDisclaimerItem];
 }
 
+- (void)sendStripePaymentCardID:(NSString *)cardID
+                    directiveID:(NSString *)directiveID
+                             to:(NSString *)roomJid {
+    
+    //    <message to='main_thread_staging_premium_13319@conf.xmpp-stage.healthjoy.com' type='groupchat' id='7240507:msg' from='user+13319@xmpp-stage.healthjoy.com/4430049771452506415898986'
+    //    xmlns='jabber:client'>
+    //    <x
+    //    xmlns='jabber:x:icr' type='submit' id='7634ea65a4'>
+    //    <chat-stripe-directive value=''>"
+    //    </x>
+    //    <body></body>
+    //    </message>
+    
+    NSString *sendStripeItemFormat =
+    @"<message to=\"%@\""
+    @" type=\"groupchat\""
+    @" id=\"%@\""
+    @" xmlns=\"jabber:client\">"
+    @"<x xmlns=\"jabber:x:icr\""
+    @" type=\"submit\""
+    @" id=\"%@\">"
+    @"<chat-stripe-directive value=\"%@\"/>"
+    @"</x>"
+    @"<body></body>"
+    @"</message>";
+    
+    NSString* randomRequestId = [self->_randomizerForHistoryBuilder getRandomIdForStanza];
+    NSString* sendStripeItem = [NSString stringWithFormat: sendStripeItemFormat, roomJid, randomRequestId, directiveID, cardID];
+    
+    [self send:sendStripeItem];
+}
+
 - (void)sendRequestAvatarForJid:(NSString *)jid {
     
     // <iq xmlns="jabber:client" id="-765685373:vCard" to="emma.watson@xmpp.healthjoy.com" type="get">
