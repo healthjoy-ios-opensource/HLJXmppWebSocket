@@ -166,6 +166,7 @@
  hcc1.test+pha@xmpp-stage.healthjoy.com
  */
 - (void)sendStripePaymentCardID:(NSString *)cardID
+                          token:(NSString *)token
                     directiveID:(NSString *)directiveID
                              to:(NSString *)roomJid;
 

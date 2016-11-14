@@ -674,6 +674,7 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
 }
 
 - (void)sendStripePaymentCardID:(NSString *)cardID
+                          token:(NSString *)token
                     directiveID:(NSString *)directiveID
                              to:(NSString *)roomJid {
     
@@ -681,7 +682,7 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     //    xmlns='jabber:client'>
     //    <x
     //    xmlns='jabber:x:icr' type='submit' id='7634ea65a4'>
-    //    <chat-stripe-directive value=''>"
+    //    <chat-stripe-directive value='' token=''>"
     //    </x>
     //    <body></body>
     //    </message>
@@ -694,13 +695,13 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     @"<x xmlns=\"jabber:x:icr\""
     @" type=\"submit\""
     @" id=\"%@\">"
-    @"<chat-stripe-directive value=\"%@\"/>"
+    @"<chat-stripe-directive value=\"%@\" token=\"%@\"/>"
     @"</x>"
     @"<body></body>"
     @"</message>";
     
     NSString* randomRequestId = [self->_randomizerForHistoryBuilder getRandomIdForStanza];
-    NSString* sendStripeItem = [NSString stringWithFormat: sendStripeItemFormat, roomJid, randomRequestId, directiveID, cardID];
+    NSString* sendStripeItem = [NSString stringWithFormat: sendStripeItemFormat, roomJid, randomRequestId, directiveID, cardID, token];
     
     [self send:sendStripeItem];
 }
