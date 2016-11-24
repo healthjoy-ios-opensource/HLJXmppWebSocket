@@ -531,7 +531,7 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
                                                                              @"</message>"];
     
     NSString* randomRequestId = [self->_randomizerForHistoryBuilder getRandomIdForStanza];
-    NSString *value= (photos != nil) ? @"ok" : @"";
+    NSString *value= (photos != nil) ? @"ok" : @"skip";
     NSString* requestSendPhoto = [NSString stringWithFormat: requestPhotoItemFormat, roomJid, randomRequestId, photoDirectiveID, value];
     
     [self send:requestSendPhoto];
