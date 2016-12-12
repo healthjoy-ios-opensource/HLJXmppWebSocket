@@ -1,1048 +1,2833 @@
-// !$*UTF8*$!
-{
-	archiveVersion = 1;
-	classes = {
-	};
-	objectVersion = 46;
-	objects = {
-
-/* Begin PBXBuildFile section */
-		7E00D37C1B4D68720031D045 /* libHLJXmppWebSocket.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E00D3701B4D68720031D045 /* libHLJXmppWebSocket.a */; };
-		7E1962451B55995E00D4CD32 /* HJBindResponseParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E1962441B55995E00D4CD32 /* HJBindResponseParser.m */; };
-		7E226F4E1B50060C00E9B35C /* libKissXML-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E45D2661B500525001F9ECC /* libKissXML-iOS.a */; };
-		7E226F4F1B50060C00E9B35C /* libSocketRocket.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E45D2711B500530001F9ECC /* libSocketRocket.a */; };
-		7E226F501B50060C00E9B35C /* libXmppFrameworkParsers.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E226F3F1B50057400E9B35C /* libXmppFrameworkParsers.a */; };
-		7E226F521B5008FB00E9B35C /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E226F511B5008FB00E9B35C /* libxml2.dylib */; };
-		7E226F541B50091100E9B35C /* libidn.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E226F531B50091100E9B35C /* libidn.a */; };
-		7E226F581B50095100E9B35C /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E226F571B50095100E9B35C /* libicucore.dylib */; };
-		7E226F671B500E6C00E9B35C /* libLinqToObjectiveC.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E226F601B500E5D00E9B35C /* libLinqToObjectiveC.a */; };
-		7E226F6B1B501BEF00E9B35C /* HLJWebSocketTransportForXmpp.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E226F6A1B501BEF00E9B35C /* HLJWebSocketTransportForXmpp.m */; };
-		7E26D5CF1B4EA94D0030F2DD /* HJXmppClientImpl.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7E26D5CE1B4EA94D0030F2DD /* HJXmppClientImpl.mm */; };
-		7E4398F51B5CF90B00FC6687 /* HJImageUploaderIntegrationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E4398F41B5CF90B00FC6687 /* HJImageUploaderIntegrationTest.m */; };
-		7E4596FA1B54087A001AD170 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E4596F91B54087A001AD170 /* libc++.dylib */; };
-		7E4596FC1B54217F001AD170 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E4596FB1B54217F001AD170 /* libiconv.dylib */; };
-		7E45D25E1B500388001F9ECC /* HLJWebSocketAuthIntegrationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E45D25D1B500388001F9ECC /* HLJWebSocketAuthIntegrationTest.m */; };
-		7E59C2F31B6829D5003DAD15 /* HJMockAttachmentUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E6F87E51B5800EA0057B504 /* HJMockAttachmentUploader.m */; };
-		7E59C2FC1B6829DB003DAD15 /* HJMockSuccessAttachmentUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EB0EE4A1B593A0500F319CC /* HJMockSuccessAttachmentUploader.m */; };
-		7E59C2FD1B6829DB003DAD15 /* HJMockErrorAttachmentUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E15409B1B599F01007771A8 /* HJMockErrorAttachmentUploader.m */; };
-		7E8768991B598D660080835A /* HJIncomingXmppMessagesIntegrationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E8768981B598D660080835A /* HJIncomingXmppMessagesIntegrationTest.m */; };
-		7EB0EE061B58FDD200F319CC /* HJXmppAttachmentsParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EB0EE051B58FDD200F319CC /* HJXmppAttachmentsParser.m */; };
-		7EB0EE451B59097800F319CC /* HJXmppChatAttachmentPOD.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EB0EE441B59097800F319CC /* HJXmppChatAttachmentPOD.m */; };
-		7EB0EE471B59368E00F319CC /* monkey-selfie.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7EB0EE461B59368E00F319CC /* monkey-selfie.jpg */; };
-		7EB0EE4E1B5945B900F319CC /* HJUrlSessionImageUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EB0EE4D1B5945B900F319CC /* HJUrlSessionImageUploader.m */; };
-		7EB9C4131B559C5200F94871 /* HJXmppBindParserError.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EB9C4121B559C5200F94871 /* HJXmppBindParserError.m */; };
-		7EB9C41E1B559E8100F94871 /* HJSessionResponseParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EB9C41D1B559E8100F94871 /* HJSessionResponseParser.m */; };
-		7EB9C4211B559FE700F94871 /* HJXmppSessionResponseError.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EB9C4201B559FE700F94871 /* HJXmppSessionResponseError.m */; };
-		7EB9C4241B55A24600F94871 /* HJHistoryFailParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EB9C4231B55A24600F94871 /* HJHistoryFailParser.m */; };
-		7EB9C4271B55A40D00F94871 /* HJMessageDetector.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EB9C4261B55A40D00F94871 /* HJMessageDetector.m */; };
-		7EB9C42A1B55A8F500F94871 /* HJFinMessageParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EB9C4291B55A8F500F94871 /* HJFinMessageParser.m */; };
-		7EB9C42D1B55A9DC00F94871 /* HJHistoryMessageParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EB9C42C1B55A9DC00F94871 /* HJHistoryMessageParser.m */; };
-		7EC77ABA1B622C260068A025 /* HJXmppAuthResponseError.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EC77AB91B622C260068A025 /* HJXmppAuthResponseError.m */; };
-		7ECD4DB41B5D0A0900FB2C54 /* HJXmppChatAttachmentJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ECD4DB31B5D0A0900FB2C54 /* HJXmppChatAttachmentJsonParser.m */; };
-		7ED5BD521B67C45D004F2BAF /* HJInvalidAttachmentResponseError.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ED5BD511B67C45D004F2BAF /* HJInvalidAttachmentResponseError.m */; };
-		7ED5BD5D1B67C4F7004F2BAF /* HJValidButEmptyAttachmentResponseError.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ED5BD5C1B67C4F7004F2BAF /* HJValidButEmptyAttachmentResponseError.m */; };
-		7EEDFFBA1B55335A0093DE7E /* HJChatHistoryRequestBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EEDFFB91B55335A0093DE7E /* HJChatHistoryRequestBuilder.m */; };
-		7EEDFFBE1B5537910093DE7E /* HJRandomizerImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EEDFFBD1B5537910093DE7E /* HJRandomizerImpl.m */; };
-		7EEE81C01B567C29003FC7FC /* HJChatHistoryRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EEE81BF1B567C29003FC7FC /* HJChatHistoryRequest.m */; };
-		7EFDD7CA1B55514400430942 /* HJXmppErrorBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EFDD7C91B55514400430942 /* HJXmppErrorBase.m */; };
-		7EFDD7CD1B55516200430942 /* HJXmppErrorForHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EFDD7CC1B55516200430942 /* HJXmppErrorForHistory.m */; };
-/* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		7E00D37D1B4D68720031D045 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7E00D3681B4D68720031D045 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 7E00D36F1B4D68720031D045;
-			remoteInfo = HLJXmppWebSocket;
-		};
-		7E226F3E1B50057400E9B35C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7E26D5BE1B4EA1E10030F2DD /* XmppFrameworkParsers.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 7E7721001B4D84130082FA43;
-			remoteInfo = XmppFrameworkParsers;
-		};
-		7E226F401B50057400E9B35C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7E26D5BE1B4EA1E10030F2DD /* XmppFrameworkParsers.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 7E77210B1B4D84130082FA43;
-			remoteInfo = XmppFrameworkParsersTests;
-		};
-		7E226F481B5005FB00E9B35C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7E45D2671B500530001F9ECC /* SocketRocket.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = F6B2082C1450F597009315AF;
-			remoteInfo = SocketRocket;
-		};
-		7E226F4A1B5005FB00E9B35C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7E4F126B1B4FCB75001F1769 /* KissXML-iOS.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 7E7720B71B4D75740082FA43;
-			remoteInfo = "KissXML-iOS";
-		};
-		7E226F4C1B5005FB00E9B35C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7E26D5BE1B4EA1E10030F2DD /* XmppFrameworkParsers.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 7E7720FF1B4D84130082FA43;
-			remoteInfo = XmppFrameworkParsers;
-		};
-		7E226F5F1B500E5D00E9B35C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7E226F591B500E5D00E9B35C /* LinqToObjectiveC.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 7E8F43811A8B92D5000F5D01;
-			remoteInfo = LinqToObjectiveC;
-		};
-		7E226F611B500E5D00E9B35C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7E226F591B500E5D00E9B35C /* LinqToObjectiveC.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 7EEE35A81AB4711000668C3E;
-			remoteInfo = "LinqToObjectiveC-iOS-dynamic";
-		};
-		7E226F631B500E5D00E9B35C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7E226F591B500E5D00E9B35C /* LinqToObjectiveC.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 7EEE35CB1AB4718500668C3E;
-			remoteInfo = "LinqToObjectiveC-iOS-static";
-		};
-		7E226F651B500E6600E9B35C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7E226F591B500E5D00E9B35C /* LinqToObjectiveC.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 7E8F43801A8B92D5000F5D01;
-			remoteInfo = LinqToObjectiveC;
-		};
-		7E45D2651B500525001F9ECC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7E4F126B1B4FCB75001F1769 /* KissXML-iOS.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 7E7720B81B4D75740082FA43;
-			remoteInfo = "KissXML-iOS";
-		};
-		7E45D2701B500530001F9ECC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7E45D2671B500530001F9ECC /* SocketRocket.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = F6B2082D1450F597009315AF;
-			remoteInfo = SocketRocket;
-		};
-		7E45D2721B500530001F9ECC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7E45D2671B500530001F9ECC /* SocketRocket.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = F668C880153E91210044DBAC;
-			remoteInfo = SocketRocketOSX;
-		};
-		7E45D2741B500530001F9ECC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7E45D2671B500530001F9ECC /* SocketRocket.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = F6BDA802145900D200FE3253;
-			remoteInfo = SRWebSocketTests;
-		};
-		7E45D2761B500530001F9ECC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7E45D2671B500530001F9ECC /* SocketRocket.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = F62417E314D52F3C003CE997;
-			remoteInfo = TestChat;
-		};
-		7E45D2781B500530001F9ECC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7E45D2671B500530001F9ECC /* SocketRocket.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 7EA7C00A1A9901FC00AFE63E;
-			remoteInfo = "SocketRocket-iOS";
-		};
-		7E45D27A1B500530001F9ECC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7E45D2671B500530001F9ECC /* SocketRocket.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 7EA7C0141A9901FD00AFE63E;
-			remoteInfo = "SocketRocket-iOSTests";
-		};
-/* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		7E00D36E1B4D68720031D045 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "include/$(PRODUCT_NAME)";
-			dstSubfolderSpec = 16;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
-/* Begin PBXFileReference section */
-		7DC5EF711D4F8EED00E6CFC9 /* HJLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HJLogger.h; path = Logger/HJLogger.h; sourceTree = "<group>"; };
-		7E00D3701B4D68720031D045 /* libHLJXmppWebSocket.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libHLJXmppWebSocket.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		7E00D37B1B4D68720031D045 /* HLJXmppWebSocketTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HLJXmppWebSocketTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		7E00D3811B4D68720031D045 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7E15409A1B599F01007771A8 /* HJMockErrorAttachmentUploader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJMockErrorAttachmentUploader.h; sourceTree = "<group>"; };
-		7E15409B1B599F01007771A8 /* HJMockErrorAttachmentUploader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJMockErrorAttachmentUploader.m; sourceTree = "<group>"; };
-		7E1962431B55995E00D4CD32 /* HJBindResponseParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJBindResponseParser.h; sourceTree = "<group>"; };
-		7E1962441B55995E00D4CD32 /* HJBindResponseParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJBindResponseParser.m; sourceTree = "<group>"; };
-		7E226F511B5008FB00E9B35C /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
-		7E226F531B50091100E9B35C /* libidn.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libidn.a; path = ../../libidn/libidn.a; sourceTree = "<group>"; };
-		7E226F571B50095100E9B35C /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
-		7E226F591B500E5D00E9B35C /* LinqToObjectiveC.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = LinqToObjectiveC.xcodeproj; path = ../../LinqToObjectiveC/LinqToObjectiveC/LinqToObjectiveC.xcodeproj; sourceTree = "<group>"; };
-		7E226F691B501BEF00E9B35C /* HLJWebSocketTransportForXmpp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HLJWebSocketTransportForXmpp.h; sourceTree = "<group>"; };
-		7E226F6A1B501BEF00E9B35C /* HLJWebSocketTransportForXmpp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HLJWebSocketTransportForXmpp.m; sourceTree = "<group>"; };
-		7E26D5BE1B4EA1E10030F2DD /* XmppFrameworkParsers.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = XmppFrameworkParsers.xcodeproj; path = ../../XmppFrameworkParsers/XmppFrameworkParsers.xcodeproj; sourceTree = "<group>"; };
-		7E26D5C71B4EA2260030F2DD /* HJTransportForXmpp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJTransportForXmpp.h; sourceTree = "<group>"; };
-		7E26D5CD1B4EA94D0030F2DD /* HJXmppClientImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJXmppClientImpl.h; sourceTree = "<group>"; };
-		7E26D5CE1B4EA94D0030F2DD /* HJXmppClientImpl.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = HJXmppClientImpl.mm; sourceTree = "<group>"; };
-		7E26D5DD1B4EC2390030F2DD /* HJAuthenticationStages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJAuthenticationStages.h; sourceTree = "<group>"; };
-		7E26D5DE1B4EC5780030F2DD /* HJTransportForXmppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJTransportForXmppDelegate.h; sourceTree = "<group>"; };
-		7E4398F41B5CF90B00FC6687 /* HJImageUploaderIntegrationTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJImageUploaderIntegrationTest.m; sourceTree = "<group>"; };
-		7E4596F91B54087A001AD170 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
-		7E4596FB1B54217F001AD170 /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
-		7E45D25D1B500388001F9ECC /* HLJWebSocketAuthIntegrationTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HLJWebSocketAuthIntegrationTest.m; sourceTree = "<group>"; };
-		7E45D2671B500530001F9ECC /* SocketRocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SocketRocket.xcodeproj; path = ../../SocketRocket/SocketRocket.xcodeproj; sourceTree = "<group>"; };
-		7E4F126B1B4FCB75001F1769 /* KissXML-iOS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "KissXML-iOS.xcodeproj"; path = "../../KissXML/KissXML-iOS.xcodeproj"; sourceTree = "<group>"; };
-		7E56BF981B4D8A8700D27597 /* HJXmppClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJXmppClient.h; sourceTree = "<group>"; };
-		7E56BF991B4D8A9D00D27597 /* HJXmppClientDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJXmppClientDelegate.h; sourceTree = "<group>"; };
-		7E6F87DD1B57ED580057B504 /* HJXmppChatAttachment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJXmppChatAttachment.h; sourceTree = "<group>"; };
-		7E6F87E31B57F3690057B504 /* HJAttachmentUploader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJAttachmentUploader.h; sourceTree = "<group>"; };
-		7E6F87E41B5800EA0057B504 /* HJMockAttachmentUploader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJMockAttachmentUploader.h; sourceTree = "<group>"; };
-		7E6F87E51B5800EA0057B504 /* HJMockAttachmentUploader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJMockAttachmentUploader.m; sourceTree = "<group>"; };
-		7E7720E71B4D78470082FA43 /* HLJXmppWebSocket.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLJXmppWebSocket.pch; sourceTree = "<group>"; };
-		7E7B9A9E1B4D727200FB15F1 /* HLJXmppWebSocket.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLJXmppWebSocket.h; sourceTree = "<group>"; };
-		7E8768981B598D660080835A /* HJIncomingXmppMessagesIntegrationTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJIncomingXmppMessagesIntegrationTest.m; sourceTree = "<group>"; };
-		7EB0EE041B58FDD200F319CC /* HJXmppAttachmentsParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJXmppAttachmentsParser.h; sourceTree = "<group>"; };
-		7EB0EE051B58FDD200F319CC /* HJXmppAttachmentsParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJXmppAttachmentsParser.m; sourceTree = "<group>"; };
-		7EB0EE431B59097800F319CC /* HJXmppChatAttachmentPOD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJXmppChatAttachmentPOD.h; sourceTree = "<group>"; };
-		7EB0EE441B59097800F319CC /* HJXmppChatAttachmentPOD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJXmppChatAttachmentPOD.m; sourceTree = "<group>"; };
-		7EB0EE461B59368E00F319CC /* monkey-selfie.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "monkey-selfie.jpg"; sourceTree = "<group>"; };
-		7EB0EE491B593A0500F319CC /* HJMockSuccessAttachmentUploader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJMockSuccessAttachmentUploader.h; sourceTree = "<group>"; };
-		7EB0EE4A1B593A0500F319CC /* HJMockSuccessAttachmentUploader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJMockSuccessAttachmentUploader.m; sourceTree = "<group>"; };
-		7EB0EE4C1B5945B900F319CC /* HJUrlSessionImageUploader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJUrlSessionImageUploader.h; sourceTree = "<group>"; };
-		7EB0EE4D1B5945B900F319CC /* HJUrlSessionImageUploader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJUrlSessionImageUploader.m; sourceTree = "<group>"; };
-		7EB9C4111B559C5200F94871 /* HJXmppBindParserError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJXmppBindParserError.h; sourceTree = "<group>"; };
-		7EB9C4121B559C5200F94871 /* HJXmppBindParserError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJXmppBindParserError.m; sourceTree = "<group>"; };
-		7EB9C41C1B559E8100F94871 /* HJSessionResponseParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJSessionResponseParser.h; sourceTree = "<group>"; };
-		7EB9C41D1B559E8100F94871 /* HJSessionResponseParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJSessionResponseParser.m; sourceTree = "<group>"; };
-		7EB9C41F1B559FE700F94871 /* HJXmppSessionResponseError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJXmppSessionResponseError.h; sourceTree = "<group>"; };
-		7EB9C4201B559FE700F94871 /* HJXmppSessionResponseError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJXmppSessionResponseError.m; sourceTree = "<group>"; };
-		7EB9C4221B55A24600F94871 /* HJHistoryFailParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJHistoryFailParser.h; sourceTree = "<group>"; };
-		7EB9C4231B55A24600F94871 /* HJHistoryFailParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJHistoryFailParser.m; sourceTree = "<group>"; };
-		7EB9C4251B55A40D00F94871 /* HJMessageDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJMessageDetector.h; sourceTree = "<group>"; };
-		7EB9C4261B55A40D00F94871 /* HJMessageDetector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJMessageDetector.m; sourceTree = "<group>"; };
-		7EB9C4281B55A8F500F94871 /* HJFinMessageParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJFinMessageParser.h; sourceTree = "<group>"; };
-		7EB9C4291B55A8F500F94871 /* HJFinMessageParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJFinMessageParser.m; sourceTree = "<group>"; };
-		7EB9C42B1B55A9DC00F94871 /* HJHistoryMessageParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJHistoryMessageParser.h; sourceTree = "<group>"; };
-		7EB9C42C1B55A9DC00F94871 /* HJHistoryMessageParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJHistoryMessageParser.m; sourceTree = "<group>"; };
-		7EC77AB81B622C260068A025 /* HJXmppAuthResponseError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJXmppAuthResponseError.h; sourceTree = "<group>"; };
-		7EC77AB91B622C260068A025 /* HJXmppAuthResponseError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJXmppAuthResponseError.m; sourceTree = "<group>"; };
-		7ECD4DB21B5D0A0900FB2C54 /* HJXmppChatAttachmentJsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJXmppChatAttachmentJsonParser.h; sourceTree = "<group>"; };
-		7ECD4DB31B5D0A0900FB2C54 /* HJXmppChatAttachmentJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJXmppChatAttachmentJsonParser.m; sourceTree = "<group>"; };
-		7ED5BD501B67C45D004F2BAF /* HJInvalidAttachmentResponseError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJInvalidAttachmentResponseError.h; sourceTree = "<group>"; };
-		7ED5BD511B67C45D004F2BAF /* HJInvalidAttachmentResponseError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJInvalidAttachmentResponseError.m; sourceTree = "<group>"; };
-		7ED5BD5B1B67C4F7004F2BAF /* HJValidButEmptyAttachmentResponseError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJValidButEmptyAttachmentResponseError.h; sourceTree = "<group>"; };
-		7ED5BD5C1B67C4F7004F2BAF /* HJValidButEmptyAttachmentResponseError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJValidButEmptyAttachmentResponseError.m; sourceTree = "<group>"; };
-		7EEDFFB81B55335A0093DE7E /* HJChatHistoryRequestBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJChatHistoryRequestBuilder.h; sourceTree = "<group>"; };
-		7EEDFFB91B55335A0093DE7E /* HJChatHistoryRequestBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJChatHistoryRequestBuilder.m; sourceTree = "<group>"; };
-		7EEDFFBB1B5537510093DE7E /* HJRandomizerForXmpp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJRandomizerForXmpp.h; sourceTree = "<group>"; };
-		7EEDFFBC1B5537910093DE7E /* HJRandomizerImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJRandomizerImpl.h; sourceTree = "<group>"; };
-		7EEDFFBD1B5537910093DE7E /* HJRandomizerImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJRandomizerImpl.m; sourceTree = "<group>"; };
-		7EEE81BE1B567C29003FC7FC /* HJChatHistoryRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJChatHistoryRequest.h; sourceTree = "<group>"; };
-		7EEE81BF1B567C29003FC7FC /* HJChatHistoryRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJChatHistoryRequest.m; sourceTree = "<group>"; };
-		7EEE81CC1B567C58003FC7FC /* HJChatHistoryRequestProto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJChatHistoryRequestProto.h; sourceTree = "<group>"; };
-		7EEE81CD1B56BDE8003FC7FC /* HJXmppClientImpl+UnitTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HJXmppClientImpl+UnitTest.h"; sourceTree = "<group>"; };
-		7EFDD7C81B55514400430942 /* HJXmppErrorBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJXmppErrorBase.h; sourceTree = "<group>"; };
-		7EFDD7C91B55514400430942 /* HJXmppErrorBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJXmppErrorBase.m; sourceTree = "<group>"; };
-		7EFDD7CB1B55516200430942 /* HJXmppErrorForHistory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJXmppErrorForHistory.h; sourceTree = "<group>"; };
-		7EFDD7CC1B55516200430942 /* HJXmppErrorForHistory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJXmppErrorForHistory.m; sourceTree = "<group>"; };
-/* End PBXFileReference section */
-
-/* Begin PBXFrameworksBuildPhase section */
-		7E00D36D1B4D68720031D045 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7E00D3781B4D68720031D045 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				7E4596FC1B54217F001AD170 /* libiconv.dylib in Frameworks */,
-				7E4596FA1B54087A001AD170 /* libc++.dylib in Frameworks */,
-				7E226F671B500E6C00E9B35C /* libLinqToObjectiveC.a in Frameworks */,
-				7E226F581B50095100E9B35C /* libicucore.dylib in Frameworks */,
-				7E226F521B5008FB00E9B35C /* libxml2.dylib in Frameworks */,
-				7E226F4E1B50060C00E9B35C /* libKissXML-iOS.a in Frameworks */,
-				7E226F4F1B50060C00E9B35C /* libSocketRocket.a in Frameworks */,
-				7E226F541B50091100E9B35C /* libidn.a in Frameworks */,
-				7E226F501B50060C00E9B35C /* libXmppFrameworkParsers.a in Frameworks */,
-				7E00D37C1B4D68720031D045 /* libHLJXmppWebSocket.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXFrameworksBuildPhase section */
-
-/* Begin PBXGroup section */
-		7DC5EF701D4F8ED400E6CFC9 /* Logger */ = {
-			isa = PBXGroup;
-			children = (
-				7DC5EF711D4F8EED00E6CFC9 /* HJLogger.h */,
-			);
-			name = Logger;
-			sourceTree = "<group>";
-		};
-		7E00D3671B4D68720031D045 = {
-			isa = PBXGroup;
-			children = (
-				7E7B9A9D1B4D726300FB15F1 /* Sources */,
-				7E00D37F1B4D68720031D045 /* HLJXmppWebSocketTests */,
-				7E00D3711B4D68720031D045 /* Products */,
-			);
-			sourceTree = "<group>";
-		};
-		7E00D3711B4D68720031D045 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				7E00D3701B4D68720031D045 /* libHLJXmppWebSocket.a */,
-				7E00D37B1B4D68720031D045 /* HLJXmppWebSocketTests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		7E00D37F1B4D68720031D045 /* HLJXmppWebSocketTests */ = {
-			isa = PBXGroup;
-			children = (
-				7EB0EE461B59368E00F319CC /* monkey-selfie.jpg */,
-				7E4596FB1B54217F001AD170 /* libiconv.dylib */,
-				7E4596F91B54087A001AD170 /* libc++.dylib */,
-				7E226F571B50095100E9B35C /* libicucore.dylib */,
-				7E226F511B5008FB00E9B35C /* libxml2.dylib */,
-				7E226F531B50091100E9B35C /* libidn.a */,
-				7E226F591B500E5D00E9B35C /* LinqToObjectiveC.xcodeproj */,
-				7E45D2671B500530001F9ECC /* SocketRocket.xcodeproj */,
-				7E4F126B1B4FCB75001F1769 /* KissXML-iOS.xcodeproj */,
-				7E26D5BE1B4EA1E10030F2DD /* XmppFrameworkParsers.xcodeproj */,
-				7E00D3801B4D68720031D045 /* Supporting Files */,
-				7E45D25D1B500388001F9ECC /* HLJWebSocketAuthIntegrationTest.m */,
-				7E8768981B598D660080835A /* HJIncomingXmppMessagesIntegrationTest.m */,
-				7E4398F41B5CF90B00FC6687 /* HJImageUploaderIntegrationTest.m */,
-			);
-			path = HLJXmppWebSocketTests;
-			sourceTree = "<group>";
-		};
-		7E00D3801B4D68720031D045 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				7E00D3811B4D68720031D045 /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		7E19623A1B55993E00D4CD32 /* Parser */ = {
-			isa = PBXGroup;
-			children = (
-				7E1962431B55995E00D4CD32 /* HJBindResponseParser.h */,
-				7E1962441B55995E00D4CD32 /* HJBindResponseParser.m */,
-				7EB9C41C1B559E8100F94871 /* HJSessionResponseParser.h */,
-				7EB9C41D1B559E8100F94871 /* HJSessionResponseParser.m */,
-				7EB9C4221B55A24600F94871 /* HJHistoryFailParser.h */,
-				7EB9C4231B55A24600F94871 /* HJHistoryFailParser.m */,
-				7EB9C4251B55A40D00F94871 /* HJMessageDetector.h */,
-				7EB9C4261B55A40D00F94871 /* HJMessageDetector.m */,
-				7EB9C4281B55A8F500F94871 /* HJFinMessageParser.h */,
-				7EB9C4291B55A8F500F94871 /* HJFinMessageParser.m */,
-				7EB9C42B1B55A9DC00F94871 /* HJHistoryMessageParser.h */,
-				7EB9C42C1B55A9DC00F94871 /* HJHistoryMessageParser.m */,
-				7EB0EE041B58FDD200F319CC /* HJXmppAttachmentsParser.h */,
-				7EB0EE051B58FDD200F319CC /* HJXmppAttachmentsParser.m */,
-			);
-			path = Parser;
-			sourceTree = "<group>";
-		};
-		7E226F331B50057400E9B35C /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				7E226F3F1B50057400E9B35C /* libXmppFrameworkParsers.a */,
-				7E226F411B50057400E9B35C /* XmppFrameworkParsersTests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		7E226F5A1B500E5D00E9B35C /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				7E226F601B500E5D00E9B35C /* libLinqToObjectiveC.a */,
-				7E226F621B500E5D00E9B35C /* LinqToObjectiveC.framework */,
-				7E226F641B500E5D00E9B35C /* LinqToObjectiveC.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		7E226F681B501BD800E9B35C /* WebSocket */ = {
-			isa = PBXGroup;
-			children = (
-				7E226F691B501BEF00E9B35C /* HLJWebSocketTransportForXmpp.h */,
-				7E226F6A1B501BEF00E9B35C /* HLJWebSocketTransportForXmpp.m */,
-			);
-			path = WebSocket;
-			sourceTree = "<group>";
-		};
-		7E45D2621B500525001F9ECC /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				7E45D2661B500525001F9ECC /* libKissXML-iOS.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		7E45D2681B500530001F9ECC /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				7E45D2711B500530001F9ECC /* libSocketRocket.a */,
-				7E45D2731B500530001F9ECC /* SocketRocket.framework */,
-				7E45D2751B500530001F9ECC /* SRWebSocketTests.octest */,
-				7E45D2771B500530001F9ECC /* TestChat.app */,
-				7E45D2791B500530001F9ECC /* SocketRocket.framework */,
-				7E45D27B1B500530001F9ECC /* SocketRocket-iOSTests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		7E56BF971B4D8A7400D27597 /* XmppClient */ = {
-			isa = PBXGroup;
-			children = (
-				7E56BF981B4D8A8700D27597 /* HJXmppClient.h */,
-				7E56BF991B4D8A9D00D27597 /* HJXmppClientDelegate.h */,
-				7E26D5C71B4EA2260030F2DD /* HJTransportForXmpp.h */,
-				7E26D5CD1B4EA94D0030F2DD /* HJXmppClientImpl.h */,
-				7E26D5CE1B4EA94D0030F2DD /* HJXmppClientImpl.mm */,
-				7EEE81CD1B56BDE8003FC7FC /* HJXmppClientImpl+UnitTest.h */,
-				7E26D5DD1B4EC2390030F2DD /* HJAuthenticationStages.h */,
-				7E26D5DE1B4EC5780030F2DD /* HJTransportForXmppDelegate.h */,
-			);
-			path = XmppClient;
-			sourceTree = "<group>";
-		};
-		7E6F87D41B57ED430057B504 /* Attachments */ = {
-			isa = PBXGroup;
-			children = (
-				7E6F87DD1B57ED580057B504 /* HJXmppChatAttachment.h */,
-				7E6F87E31B57F3690057B504 /* HJAttachmentUploader.h */,
-				7EB0EE431B59097800F319CC /* HJXmppChatAttachmentPOD.h */,
-				7EB0EE441B59097800F319CC /* HJXmppChatAttachmentPOD.m */,
-				7E6F87E41B5800EA0057B504 /* HJMockAttachmentUploader.h */,
-				7E6F87E51B5800EA0057B504 /* HJMockAttachmentUploader.m */,
-				7EB0EE491B593A0500F319CC /* HJMockSuccessAttachmentUploader.h */,
-				7EB0EE4A1B593A0500F319CC /* HJMockSuccessAttachmentUploader.m */,
-				7E15409A1B599F01007771A8 /* HJMockErrorAttachmentUploader.h */,
-				7E15409B1B599F01007771A8 /* HJMockErrorAttachmentUploader.m */,
-				7EB0EE4C1B5945B900F319CC /* HJUrlSessionImageUploader.h */,
-				7EB0EE4D1B5945B900F319CC /* HJUrlSessionImageUploader.m */,
-				7ECD4DB21B5D0A0900FB2C54 /* HJXmppChatAttachmentJsonParser.h */,
-				7ECD4DB31B5D0A0900FB2C54 /* HJXmppChatAttachmentJsonParser.m */,
-			);
-			path = Attachments;
-			sourceTree = "<group>";
-		};
-		7E7B9A9D1B4D726300FB15F1 /* Sources */ = {
-			isa = PBXGroup;
-			children = (
-				7E7B9A9E1B4D727200FB15F1 /* HLJXmppWebSocket.h */,
-				7E7720E71B4D78470082FA43 /* HLJXmppWebSocket.pch */,
-				7DC5EF701D4F8ED400E6CFC9 /* Logger */,
-				7E6F87D41B57ED430057B504 /* Attachments */,
-				7E19623A1B55993E00D4CD32 /* Parser */,
-				7EFDD7BF1B55513100430942 /* Error */,
-				7EEDFFAF1B5533460093DE7E /* PacketBuilder */,
-				7E226F681B501BD800E9B35C /* WebSocket */,
-				7E56BF971B4D8A7400D27597 /* XmppClient */,
-			);
-			name = Sources;
-			sourceTree = "<group>";
-		};
-		7EEDFFAF1B5533460093DE7E /* PacketBuilder */ = {
-			isa = PBXGroup;
-			children = (
-				7EEE81CC1B567C58003FC7FC /* HJChatHistoryRequestProto.h */,
-				7EEE81BE1B567C29003FC7FC /* HJChatHistoryRequest.h */,
-				7EEE81BF1B567C29003FC7FC /* HJChatHistoryRequest.m */,
-				7EEDFFB81B55335A0093DE7E /* HJChatHistoryRequestBuilder.h */,
-				7EEDFFB91B55335A0093DE7E /* HJChatHistoryRequestBuilder.m */,
-				7EEDFFBB1B5537510093DE7E /* HJRandomizerForXmpp.h */,
-				7EEDFFBC1B5537910093DE7E /* HJRandomizerImpl.h */,
-				7EEDFFBD1B5537910093DE7E /* HJRandomizerImpl.m */,
-			);
-			path = PacketBuilder;
-			sourceTree = "<group>";
-		};
-		7EFDD7BF1B55513100430942 /* Error */ = {
-			isa = PBXGroup;
-			children = (
-				7EFDD7C81B55514400430942 /* HJXmppErrorBase.h */,
-				7EFDD7C91B55514400430942 /* HJXmppErrorBase.m */,
-				7EFDD7CB1B55516200430942 /* HJXmppErrorForHistory.h */,
-				7EFDD7CC1B55516200430942 /* HJXmppErrorForHistory.m */,
-				7EB9C4111B559C5200F94871 /* HJXmppBindParserError.h */,
-				7EB9C4121B559C5200F94871 /* HJXmppBindParserError.m */,
-				7EB9C41F1B559FE700F94871 /* HJXmppSessionResponseError.h */,
-				7EB9C4201B559FE700F94871 /* HJXmppSessionResponseError.m */,
-				7EC77AB81B622C260068A025 /* HJXmppAuthResponseError.h */,
-				7EC77AB91B622C260068A025 /* HJXmppAuthResponseError.m */,
-				7ED5BD501B67C45D004F2BAF /* HJInvalidAttachmentResponseError.h */,
-				7ED5BD511B67C45D004F2BAF /* HJInvalidAttachmentResponseError.m */,
-				7ED5BD5B1B67C4F7004F2BAF /* HJValidButEmptyAttachmentResponseError.h */,
-				7ED5BD5C1B67C4F7004F2BAF /* HJValidButEmptyAttachmentResponseError.m */,
-			);
-			path = Error;
-			sourceTree = "<group>";
-		};
-/* End PBXGroup section */
-
-/* Begin PBXNativeTarget section */
-		7E00D36F1B4D68720031D045 /* HLJXmppWebSocket */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 7E00D3841B4D68720031D045 /* Build configuration list for PBXNativeTarget "HLJXmppWebSocket" */;
-			buildPhases = (
-				7E00D36C1B4D68720031D045 /* Sources */,
-				7E00D36D1B4D68720031D045 /* Frameworks */,
-				7E00D36E1B4D68720031D045 /* CopyFiles */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = HLJXmppWebSocket;
-			productName = HLJXmppWebSocket;
-			productReference = 7E00D3701B4D68720031D045 /* libHLJXmppWebSocket.a */;
-			productType = "com.apple.product-type.library.static";
-		};
-		7E00D37A1B4D68720031D045 /* HLJXmppWebSocketTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 7E00D3871B4D68720031D045 /* Build configuration list for PBXNativeTarget "HLJXmppWebSocketTests" */;
-			buildPhases = (
-				7E00D3771B4D68720031D045 /* Sources */,
-				7E00D3781B4D68720031D045 /* Frameworks */,
-				7E00D3791B4D68720031D045 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				7E226F661B500E6600E9B35C /* PBXTargetDependency */,
-				7E226F491B5005FB00E9B35C /* PBXTargetDependency */,
-				7E226F4B1B5005FB00E9B35C /* PBXTargetDependency */,
-				7E226F4D1B5005FB00E9B35C /* PBXTargetDependency */,
-				7E00D37E1B4D68720031D045 /* PBXTargetDependency */,
-			);
-			name = HLJXmppWebSocketTests;
-			productName = HLJXmppWebSocketTests;
-			productReference = 7E00D37B1B4D68720031D045 /* HLJXmppWebSocketTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-/* End PBXNativeTarget section */
-
-/* Begin PBXProject section */
-		7E00D3681B4D68720031D045 /* Project object */ = {
-			isa = PBXProject;
-			attributes = {
-				LastUpgradeCheck = 0640;
-				ORGANIZATIONNAME = healthjoy;
-				TargetAttributes = {
-					7E00D36F1B4D68720031D045 = {
-						CreatedOnToolsVersion = 6.4;
-					};
-					7E00D37A1B4D68720031D045 = {
-						CreatedOnToolsVersion = 6.4;
-					};
-				};
-			};
-			buildConfigurationList = 7E00D36B1B4D68720031D045 /* Build configuration list for PBXProject "HLJXmppWebSocket" */;
-			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
-			hasScannedForEncodings = 0;
-			knownRegions = (
-				en,
-			);
-			mainGroup = 7E00D3671B4D68720031D045;
-			productRefGroup = 7E00D3711B4D68720031D045 /* Products */;
-			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 7E45D2621B500525001F9ECC /* Products */;
-					ProjectRef = 7E4F126B1B4FCB75001F1769 /* KissXML-iOS.xcodeproj */;
-				},
-				{
-					ProductGroup = 7E226F5A1B500E5D00E9B35C /* Products */;
-					ProjectRef = 7E226F591B500E5D00E9B35C /* LinqToObjectiveC.xcodeproj */;
-				},
-				{
-					ProductGroup = 7E45D2681B500530001F9ECC /* Products */;
-					ProjectRef = 7E45D2671B500530001F9ECC /* SocketRocket.xcodeproj */;
-				},
-				{
-					ProductGroup = 7E226F331B50057400E9B35C /* Products */;
-					ProjectRef = 7E26D5BE1B4EA1E10030F2DD /* XmppFrameworkParsers.xcodeproj */;
-				},
-			);
-			projectRoot = "";
-			targets = (
-				7E00D36F1B4D68720031D045 /* HLJXmppWebSocket */,
-				7E00D37A1B4D68720031D045 /* HLJXmppWebSocketTests */,
-			);
-		};
-/* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		7E226F3F1B50057400E9B35C /* libXmppFrameworkParsers.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libXmppFrameworkParsers.a;
-			remoteRef = 7E226F3E1B50057400E9B35C /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7E226F411B50057400E9B35C /* XmppFrameworkParsersTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = XmppFrameworkParsersTests.xctest;
-			remoteRef = 7E226F401B50057400E9B35C /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7E226F601B500E5D00E9B35C /* libLinqToObjectiveC.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libLinqToObjectiveC.a;
-			remoteRef = 7E226F5F1B500E5D00E9B35C /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7E226F621B500E5D00E9B35C /* LinqToObjectiveC.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = LinqToObjectiveC.framework;
-			remoteRef = 7E226F611B500E5D00E9B35C /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7E226F641B500E5D00E9B35C /* LinqToObjectiveC.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = LinqToObjectiveC.framework;
-			remoteRef = 7E226F631B500E5D00E9B35C /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7E45D2661B500525001F9ECC /* libKissXML-iOS.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = "libKissXML-iOS.a";
-			remoteRef = 7E45D2651B500525001F9ECC /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7E45D2711B500530001F9ECC /* libSocketRocket.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libSocketRocket.a;
-			remoteRef = 7E45D2701B500530001F9ECC /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7E45D2731B500530001F9ECC /* SocketRocket.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = SocketRocket.framework;
-			remoteRef = 7E45D2721B500530001F9ECC /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7E45D2751B500530001F9ECC /* SRWebSocketTests.octest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = SRWebSocketTests.octest;
-			remoteRef = 7E45D2741B500530001F9ECC /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7E45D2771B500530001F9ECC /* TestChat.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = TestChat.app;
-			remoteRef = 7E45D2761B500530001F9ECC /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7E45D2791B500530001F9ECC /* SocketRocket.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = SocketRocket.framework;
-			remoteRef = 7E45D2781B500530001F9ECC /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7E45D27B1B500530001F9ECC /* SocketRocket-iOSTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "SocketRocket-iOSTests.xctest";
-			remoteRef = 7E45D27A1B500530001F9ECC /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
-
-/* Begin PBXResourcesBuildPhase section */
-		7E00D3791B4D68720031D045 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				7EB0EE471B59368E00F319CC /* monkey-selfie.jpg in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXResourcesBuildPhase section */
-
-/* Begin PBXSourcesBuildPhase section */
-		7E00D36C1B4D68720031D045 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				7EB9C41E1B559E8100F94871 /* HJSessionResponseParser.m in Sources */,
-				7E59C2FD1B6829DB003DAD15 /* HJMockErrorAttachmentUploader.m in Sources */,
-				7ED5BD521B67C45D004F2BAF /* HJInvalidAttachmentResponseError.m in Sources */,
-				7E59C2FC1B6829DB003DAD15 /* HJMockSuccessAttachmentUploader.m in Sources */,
-				7E59C2F31B6829D5003DAD15 /* HJMockAttachmentUploader.m in Sources */,
-				7EB9C4211B559FE700F94871 /* HJXmppSessionResponseError.m in Sources */,
-				7EC77ABA1B622C260068A025 /* HJXmppAuthResponseError.m in Sources */,
-				7EEDFFBE1B5537910093DE7E /* HJRandomizerImpl.m in Sources */,
-				7EB9C4241B55A24600F94871 /* HJHistoryFailParser.m in Sources */,
-				7EB0EE4E1B5945B900F319CC /* HJUrlSessionImageUploader.m in Sources */,
-				7E1962451B55995E00D4CD32 /* HJBindResponseParser.m in Sources */,
-				7EB9C42D1B55A9DC00F94871 /* HJHistoryMessageParser.m in Sources */,
-				7ECD4DB41B5D0A0900FB2C54 /* HJXmppChatAttachmentJsonParser.m in Sources */,
-				7E26D5CF1B4EA94D0030F2DD /* HJXmppClientImpl.mm in Sources */,
-				7EFDD7CD1B55516200430942 /* HJXmppErrorForHistory.m in Sources */,
-				7EFDD7CA1B55514400430942 /* HJXmppErrorBase.m in Sources */,
-				7EB0EE451B59097800F319CC /* HJXmppChatAttachmentPOD.m in Sources */,
-				7EB9C4131B559C5200F94871 /* HJXmppBindParserError.m in Sources */,
-				7EB0EE061B58FDD200F319CC /* HJXmppAttachmentsParser.m in Sources */,
-				7EEDFFBA1B55335A0093DE7E /* HJChatHistoryRequestBuilder.m in Sources */,
-				7ED5BD5D1B67C4F7004F2BAF /* HJValidButEmptyAttachmentResponseError.m in Sources */,
-				7EB9C42A1B55A8F500F94871 /* HJFinMessageParser.m in Sources */,
-				7E226F6B1B501BEF00E9B35C /* HLJWebSocketTransportForXmpp.m in Sources */,
-				7EEE81C01B567C29003FC7FC /* HJChatHistoryRequest.m in Sources */,
-				7EB9C4271B55A40D00F94871 /* HJMessageDetector.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7E00D3771B4D68720031D045 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				7E4398F51B5CF90B00FC6687 /* HJImageUploaderIntegrationTest.m in Sources */,
-				7E8768991B598D660080835A /* HJIncomingXmppMessagesIntegrationTest.m in Sources */,
-				7E45D25E1B500388001F9ECC /* HLJWebSocketAuthIntegrationTest.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		7E00D37E1B4D68720031D045 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 7E00D36F1B4D68720031D045 /* HLJXmppWebSocket */;
-			targetProxy = 7E00D37D1B4D68720031D045 /* PBXContainerItemProxy */;
-		};
-		7E226F491B5005FB00E9B35C /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = SocketRocket;
-			targetProxy = 7E226F481B5005FB00E9B35C /* PBXContainerItemProxy */;
-		};
-		7E226F4B1B5005FB00E9B35C /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "KissXML-iOS";
-			targetProxy = 7E226F4A1B5005FB00E9B35C /* PBXContainerItemProxy */;
-		};
-		7E226F4D1B5005FB00E9B35C /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = XmppFrameworkParsers;
-			targetProxy = 7E226F4C1B5005FB00E9B35C /* PBXContainerItemProxy */;
-		};
-		7E226F661B500E6600E9B35C /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = LinqToObjectiveC;
-			targetProxy = 7E226F651B500E6600E9B35C /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
-/* Begin XCBuildConfiguration section */
-		7E00D3821B4D68720031D045 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_SECURITY_FLOATLOOPCOUNTER = YES;
-				CLANG_ANALYZER_SECURITY_INSECUREAPI_RAND = YES;
-				CLANG_ANALYZER_SECURITY_INSECUREAPI_STRCPY = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_ASSIGN_ENUM = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_CXX0X_EXTENSIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_IMPLICIT_SIGN_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_ATOMIC_PROPERTIES = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_RECEIVER_WEAK = YES;
-				CLANG_WARN_OBJC_REPEATED_USE_OF_WEAK = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = YES;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = HLJXmppWebSocket.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_FOUR_CHARACTER_CONSTANTS = YES;
-				GCC_WARN_NON_VIRTUAL_DESTRUCTOR = YES;
-				GCC_WARN_PEDANTIC = YES;
-				GCC_WARN_SIGN_COMPARE = YES;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					..,
-					../KissXML,
-					"$(SDKROOT)/usr/include/libxml2",
-					"$(SRCROOT)/..",
-					../SocketRocket,
-				);
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				ONLY_ACTIVE_ARCH = YES;
-				OTHER_LDFLAGS = "-all_load";
-				SDKROOT = iphoneos;
-				WARNING_CFLAGS = (
-					"-Wno-dollar-in-identifier-extension",
-					"-Wno-pointer-arith",
-				);
-			};
-			name = Debug;
-		};
-		7E00D3831B4D68720031D045 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_SECURITY_FLOATLOOPCOUNTER = YES;
-				CLANG_ANALYZER_SECURITY_INSECUREAPI_RAND = YES;
-				CLANG_ANALYZER_SECURITY_INSECUREAPI_STRCPY = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_ASSIGN_ENUM = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_CXX0X_EXTENSIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_IMPLICIT_SIGN_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_ATOMIC_PROPERTIES = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_RECEIVER_WEAK = YES;
-				CLANG_WARN_OBJC_REPEATED_USE_OF_WEAK = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = YES;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = HLJXmppWebSocket.pch;
-				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_FOUR_CHARACTER_CONSTANTS = YES;
-				GCC_WARN_NON_VIRTUAL_DESTRUCTOR = YES;
-				GCC_WARN_PEDANTIC = YES;
-				GCC_WARN_SIGN_COMPARE = YES;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					..,
-					../KissXML,
-					"$(SDKROOT)/usr/include/libxml2",
-					"$(SRCROOT)/..",
-					../SocketRocket,
-				);
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "-all_load";
-				SDKROOT = iphoneos;
-				VALIDATE_PRODUCT = YES;
-				WARNING_CFLAGS = (
-					"-Wno-dollar-in-identifier-extension",
-					"-Wno-pointer-arith",
-				);
-			};
-			name = Release;
-		};
-		7E00D3851B4D68720031D045 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"/Users/dodikk/projects/WebSocketXmpp-Workspace",
-				);
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					..,
-					../KissXML,
-					"$(SDKROOT)/usr/include/libxml2",
-					"$(SRCROOT)/..",
-					../SocketRocket,
-					../../lib/HealthJoyChat,
-				);
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		7E00D3861B4D68720031D045 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"/Users/dodikk/projects/WebSocketXmpp-Workspace",
-				);
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					..,
-					../KissXML,
-					"$(SDKROOT)/usr/include/libxml2",
-					"$(SRCROOT)/..",
-					../SocketRocket,
-					../../lib/HealthJoyChat,
-				);
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
-		7E00D3881B4D68720031D045 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = HLJXmppWebSocketTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					../libidn,
-				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				WARNING_CFLAGS = (
-					"-Wno-dollar-in-identifier-extension",
-					"-Wno-pointer-arith",
-					"-Wno-gnu",
-				);
-			};
-			name = Debug;
-		};
-		7E00D3891B4D68720031D045 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = HLJXmppWebSocketTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					../libidn,
-				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				WARNING_CFLAGS = (
-					"-Wno-dollar-in-identifier-extension",
-					"-Wno-pointer-arith",
-					"-Wno-gnu",
-				);
-			};
-			name = Release;
-		};
-/* End XCBuildConfiguration section */
-
-/* Begin XCConfigurationList section */
-		7E00D36B1B4D68720031D045 /* Build configuration list for PBXProject "HLJXmppWebSocket" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				7E00D3821B4D68720031D045 /* Debug */,
-				7E00D3831B4D68720031D045 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		7E00D3841B4D68720031D045 /* Build configuration list for PBXNativeTarget "HLJXmppWebSocket" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				7E00D3851B4D68720031D045 /* Debug */,
-				7E00D3861B4D68720031D045 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		7E00D3871B4D68720031D045 /* Build configuration list for PBXNativeTarget "HLJXmppWebSocketTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				7E00D3881B4D68720031D045 /* Debug */,
-				7E00D3891B4D68720031D045 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-/* End XCConfigurationList section */
-	};
-	rootObject = 7E00D3681B4D68720031D045 /* Project object */;
-}
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>archiveVersion</key>
+	<string>1</string>
+	<key>classes</key>
+	<dict/>
+	<key>objectVersion</key>
+	<string>46</string>
+	<key>objects</key>
+	<dict>
+		<key>05F9F6BCD3CAF5CAF470B13B</key>
+		<dict>
+			<key>explicitFileType</key>
+			<string>archive.ar</string>
+			<key>includeInIndex</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>libPods-HLJXmppWebSocket.a</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
+		</dict>
+		<key>26D2B64CDDBCC769733A88BF</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>A02369FE81B35869079C7B87</string>
+				<string>F29129BF06345B8F2668ED5C</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Pods</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>2B687CBDD1CE1D098906BCE1</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array/>
+			<key>inputPaths</key>
+			<array/>
+			<key>isa</key>
+			<string>PBXShellScriptBuildPhase</string>
+			<key>name</key>
+			<string>&#128230; Check Pods Manifest.lock</string>
+			<key>outputPaths</key>
+			<array/>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+			<key>shellPath</key>
+			<string>/bin/sh</string>
+			<key>shellScript</key>
+			<string>diff "${PODS_ROOT}/../Podfile.lock" "${PODS_ROOT}/Manifest.lock" &gt; /dev/null
+if [[ $? != 0 ]] ; then
+    cat &lt;&lt; EOM
+error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.
+EOM
+    exit 1
+fi
+</string>
+			<key>showEnvVarsInLog</key>
+			<string>0</string>
+		</dict>
+		<key>3F1BCEF2352B2FD223DD92F8</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array/>
+			<key>inputPaths</key>
+			<array/>
+			<key>isa</key>
+			<string>PBXShellScriptBuildPhase</string>
+			<key>name</key>
+			<string>&#128230; Copy Pods Resources</string>
+			<key>outputPaths</key>
+			<array/>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+			<key>shellPath</key>
+			<string>/bin/sh</string>
+			<key>shellScript</key>
+			<string>"${SRCROOT}/../../app/HealthJoy/Pods/Target Support Files/Pods-HLJXmppWebSocket/Pods-HLJXmppWebSocket-resources.sh"
+</string>
+			<key>showEnvVarsInLog</key>
+			<string>0</string>
+		</dict>
+		<key>7DACE6451DFEF131000EFAED</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>SRWebSocketProtocol.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7DACE64E1DFEF132000EFAED</key>
+		<dict>
+			<key>containerPortal</key>
+			<string>7E45D2671B500530001F9ECC</string>
+			<key>isa</key>
+			<string>PBXContainerItemProxy</string>
+			<key>proxyType</key>
+			<string>2</string>
+			<key>remoteGlobalIDString</key>
+			<string>2D4227621BB4358C000C1A6C</string>
+			<key>remoteInfo</key>
+			<string>SocketRocket-iOS-Dynamic</string>
+		</dict>
+		<key>7DACE64F1DFEF132000EFAED</key>
+		<dict>
+			<key>fileType</key>
+			<string>wrapper.framework</string>
+			<key>isa</key>
+			<string>PBXReferenceProxy</string>
+			<key>path</key>
+			<string>SocketRocket.framework</string>
+			<key>remoteRef</key>
+			<string>7DACE64E1DFEF132000EFAED</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
+		</dict>
+		<key>7DACE6501DFEF132000EFAED</key>
+		<dict>
+			<key>containerPortal</key>
+			<string>7E45D2671B500530001F9ECC</string>
+			<key>isa</key>
+			<string>PBXContainerItemProxy</string>
+			<key>proxyType</key>
+			<string>2</string>
+			<key>remoteGlobalIDString</key>
+			<string>3345DC901C52ACD70083CCB8</string>
+			<key>remoteInfo</key>
+			<string>SocketRocket-tvOS</string>
+		</dict>
+		<key>7DACE6511DFEF132000EFAED</key>
+		<dict>
+			<key>fileType</key>
+			<string>wrapper.framework</string>
+			<key>isa</key>
+			<string>PBXReferenceProxy</string>
+			<key>path</key>
+			<string>SocketRocket.framework</string>
+			<key>remoteRef</key>
+			<string>7DACE6501DFEF132000EFAED</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
+		</dict>
+		<key>7DC5EF701D4F8ED400E6CFC9</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>7DC5EF711D4F8EED00E6CFC9</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Logger</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7DC5EF711D4F8EED00E6CFC9</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>HJLogger.h</string>
+			<key>path</key>
+			<string>Logger/HJLogger.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7E00D3671B4D68720031D045</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>7E7B9A9D1B4D726300FB15F1</string>
+				<string>7E00D37F1B4D68720031D045</string>
+				<string>7E00D3711B4D68720031D045</string>
+				<string>26D2B64CDDBCC769733A88BF</string>
+				<string>FE6A32A71B9D1C164E2DCD12</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7E00D3681B4D68720031D045</key>
+		<dict>
+			<key>attributes</key>
+			<dict>
+				<key>LastUpgradeCheck</key>
+				<string>0640</string>
+				<key>ORGANIZATIONNAME</key>
+				<string>healthjoy</string>
+				<key>TargetAttributes</key>
+				<dict>
+					<key>7E00D36F1B4D68720031D045</key>
+					<dict>
+						<key>CreatedOnToolsVersion</key>
+						<string>6.4</string>
+					</dict>
+					<key>7E00D37A1B4D68720031D045</key>
+					<dict>
+						<key>CreatedOnToolsVersion</key>
+						<string>6.4</string>
+					</dict>
+				</dict>
+			</dict>
+			<key>buildConfigurationList</key>
+			<string>7E00D36B1B4D68720031D045</string>
+			<key>compatibilityVersion</key>
+			<string>Xcode 3.2</string>
+			<key>developmentRegion</key>
+			<string>English</string>
+			<key>hasScannedForEncodings</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXProject</string>
+			<key>knownRegions</key>
+			<array>
+				<string>en</string>
+			</array>
+			<key>mainGroup</key>
+			<string>7E00D3671B4D68720031D045</string>
+			<key>productRefGroup</key>
+			<string>7E00D3711B4D68720031D045</string>
+			<key>projectDirPath</key>
+			<string></string>
+			<key>projectReferences</key>
+			<array>
+				<dict>
+					<key>ProductGroup</key>
+					<string>7E45D2621B500525001F9ECC</string>
+					<key>ProjectRef</key>
+					<string>7E4F126B1B4FCB75001F1769</string>
+				</dict>
+				<dict>
+					<key>ProductGroup</key>
+					<string>7E226F5A1B500E5D00E9B35C</string>
+					<key>ProjectRef</key>
+					<string>7E226F591B500E5D00E9B35C</string>
+				</dict>
+				<dict>
+					<key>ProductGroup</key>
+					<string>7E45D2681B500530001F9ECC</string>
+					<key>ProjectRef</key>
+					<string>7E45D2671B500530001F9ECC</string>
+				</dict>
+				<dict>
+					<key>ProductGroup</key>
+					<string>7E226F331B50057400E9B35C</string>
+					<key>ProjectRef</key>
+					<string>7E26D5BE1B4EA1E10030F2DD</string>
+				</dict>
+			</array>
+			<key>projectRoot</key>
+			<string></string>
+			<key>targets</key>
+			<array>
+				<string>7E00D36F1B4D68720031D045</string>
+				<string>7E00D37A1B4D68720031D045</string>
+			</array>
+		</dict>
+		<key>7E00D36B1B4D68720031D045</key>
+		<dict>
+			<key>buildConfigurations</key>
+			<array>
+				<string>7E00D3821B4D68720031D045</string>
+				<string>7E00D3831B4D68720031D045</string>
+			</array>
+			<key>defaultConfigurationIsVisible</key>
+			<string>0</string>
+			<key>defaultConfigurationName</key>
+			<string>Release</string>
+			<key>isa</key>
+			<string>XCConfigurationList</string>
+		</dict>
+		<key>7E00D36C1B4D68720031D045</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>7EB9C41E1B559E8100F94871</string>
+				<string>7E59C2FD1B6829DB003DAD15</string>
+				<string>7ED5BD521B67C45D004F2BAF</string>
+				<string>7E59C2FC1B6829DB003DAD15</string>
+				<string>7E59C2F31B6829D5003DAD15</string>
+				<string>7EB9C4211B559FE700F94871</string>
+				<string>7EC77ABA1B622C260068A025</string>
+				<string>7EEDFFBE1B5537910093DE7E</string>
+				<string>7EB9C4241B55A24600F94871</string>
+				<string>7EB0EE4E1B5945B900F319CC</string>
+				<string>7E1962451B55995E00D4CD32</string>
+				<string>7EB9C42D1B55A9DC00F94871</string>
+				<string>7ECD4DB41B5D0A0900FB2C54</string>
+				<string>7E26D5CF1B4EA94D0030F2DD</string>
+				<string>7EFDD7CD1B55516200430942</string>
+				<string>7EFDD7CA1B55514400430942</string>
+				<string>7EB0EE451B59097800F319CC</string>
+				<string>7EB9C4131B559C5200F94871</string>
+				<string>7EB0EE061B58FDD200F319CC</string>
+				<string>7EEDFFBA1B55335A0093DE7E</string>
+				<string>7ED5BD5D1B67C4F7004F2BAF</string>
+				<string>7EB9C42A1B55A8F500F94871</string>
+				<string>7E226F6B1B501BEF00E9B35C</string>
+				<string>7EEE81C01B567C29003FC7FC</string>
+				<string>7EB9C4271B55A40D00F94871</string>
+			</array>
+			<key>isa</key>
+			<string>PBXSourcesBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>7E00D36D1B4D68720031D045</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>DE17CF539653B721139C41BD</string>
+			</array>
+			<key>isa</key>
+			<string>PBXFrameworksBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>7E00D36E1B4D68720031D045</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>dstPath</key>
+			<string>include/$(PRODUCT_NAME)</string>
+			<key>dstSubfolderSpec</key>
+			<string>16</string>
+			<key>files</key>
+			<array/>
+			<key>isa</key>
+			<string>PBXCopyFilesBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>7E00D36F1B4D68720031D045</key>
+		<dict>
+			<key>buildConfigurationList</key>
+			<string>7E00D3841B4D68720031D045</string>
+			<key>buildPhases</key>
+			<array>
+				<string>2B687CBDD1CE1D098906BCE1</string>
+				<string>7E00D36C1B4D68720031D045</string>
+				<string>7E00D36D1B4D68720031D045</string>
+				<string>7E00D36E1B4D68720031D045</string>
+				<string>3F1BCEF2352B2FD223DD92F8</string>
+			</array>
+			<key>buildRules</key>
+			<array/>
+			<key>dependencies</key>
+			<array/>
+			<key>isa</key>
+			<string>PBXNativeTarget</string>
+			<key>name</key>
+			<string>HLJXmppWebSocket</string>
+			<key>productName</key>
+			<string>HLJXmppWebSocket</string>
+			<key>productReference</key>
+			<string>7E00D3701B4D68720031D045</string>
+			<key>productType</key>
+			<string>com.apple.product-type.library.static</string>
+		</dict>
+		<key>7E00D3701B4D68720031D045</key>
+		<dict>
+			<key>explicitFileType</key>
+			<string>archive.ar</string>
+			<key>includeInIndex</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>libHLJXmppWebSocket.a</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
+		</dict>
+		<key>7E00D3711B4D68720031D045</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>7E00D3701B4D68720031D045</string>
+				<string>7E00D37B1B4D68720031D045</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Products</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7E00D3771B4D68720031D045</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>7E4398F51B5CF90B00FC6687</string>
+				<string>7E8768991B598D660080835A</string>
+				<string>7E45D25E1B500388001F9ECC</string>
+			</array>
+			<key>isa</key>
+			<string>PBXSourcesBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>7E00D3781B4D68720031D045</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>7E4596FC1B54217F001AD170</string>
+				<string>7E4596FA1B54087A001AD170</string>
+				<string>7E226F671B500E6C00E9B35C</string>
+				<string>7E226F581B50095100E9B35C</string>
+				<string>7E226F521B5008FB00E9B35C</string>
+				<string>7E226F4E1B50060C00E9B35C</string>
+				<string>7E226F541B50091100E9B35C</string>
+				<string>7E226F501B50060C00E9B35C</string>
+				<string>7E00D37C1B4D68720031D045</string>
+			</array>
+			<key>isa</key>
+			<string>PBXFrameworksBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>7E00D3791B4D68720031D045</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>7EB0EE471B59368E00F319CC</string>
+			</array>
+			<key>isa</key>
+			<string>PBXResourcesBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>7E00D37A1B4D68720031D045</key>
+		<dict>
+			<key>buildConfigurationList</key>
+			<string>7E00D3871B4D68720031D045</string>
+			<key>buildPhases</key>
+			<array>
+				<string>7E00D3771B4D68720031D045</string>
+				<string>7E00D3781B4D68720031D045</string>
+				<string>7E00D3791B4D68720031D045</string>
+			</array>
+			<key>buildRules</key>
+			<array/>
+			<key>dependencies</key>
+			<array>
+				<string>7E226F661B500E6600E9B35C</string>
+				<string>7E226F4B1B5005FB00E9B35C</string>
+				<string>7E226F4D1B5005FB00E9B35C</string>
+				<string>7E00D37E1B4D68720031D045</string>
+			</array>
+			<key>isa</key>
+			<string>PBXNativeTarget</string>
+			<key>name</key>
+			<string>HLJXmppWebSocketTests</string>
+			<key>productName</key>
+			<string>HLJXmppWebSocketTests</string>
+			<key>productReference</key>
+			<string>7E00D37B1B4D68720031D045</string>
+			<key>productType</key>
+			<string>com.apple.product-type.bundle.unit-test</string>
+		</dict>
+		<key>7E00D37B1B4D68720031D045</key>
+		<dict>
+			<key>explicitFileType</key>
+			<string>wrapper.cfbundle</string>
+			<key>includeInIndex</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>HLJXmppWebSocketTests.xctest</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
+		</dict>
+		<key>7E00D37C1B4D68720031D045</key>
+		<dict>
+			<key>fileRef</key>
+			<string>7E00D3701B4D68720031D045</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7E00D37D1B4D68720031D045</key>
+		<dict>
+			<key>containerPortal</key>
+			<string>7E00D3681B4D68720031D045</string>
+			<key>isa</key>
+			<string>PBXContainerItemProxy</string>
+			<key>proxyType</key>
+			<string>1</string>
+			<key>remoteGlobalIDString</key>
+			<string>7E00D36F1B4D68720031D045</string>
+			<key>remoteInfo</key>
+			<string>HLJXmppWebSocket</string>
+		</dict>
+		<key>7E00D37E1B4D68720031D045</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXTargetDependency</string>
+			<key>target</key>
+			<string>7E00D36F1B4D68720031D045</string>
+			<key>targetProxy</key>
+			<string>7E00D37D1B4D68720031D045</string>
+		</dict>
+		<key>7E00D37F1B4D68720031D045</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>7EB0EE461B59368E00F319CC</string>
+				<string>7E4596FB1B54217F001AD170</string>
+				<string>7E4596F91B54087A001AD170</string>
+				<string>7E226F571B50095100E9B35C</string>
+				<string>7E226F511B5008FB00E9B35C</string>
+				<string>7E226F531B50091100E9B35C</string>
+				<string>7E226F591B500E5D00E9B35C</string>
+				<string>7E45D2671B500530001F9ECC</string>
+				<string>7E4F126B1B4FCB75001F1769</string>
+				<string>7E26D5BE1B4EA1E10030F2DD</string>
+				<string>7E00D3801B4D68720031D045</string>
+				<string>7E45D25D1B500388001F9ECC</string>
+				<string>7E8768981B598D660080835A</string>
+				<string>7E4398F41B5CF90B00FC6687</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>path</key>
+			<string>HLJXmppWebSocketTests</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7E00D3801B4D68720031D045</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>7E00D3811B4D68720031D045</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Supporting Files</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7E00D3811B4D68720031D045</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.plist.xml</string>
+			<key>path</key>
+			<string>Info.plist</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7E00D3821B4D68720031D045</key>
+		<dict>
+			<key>buildSettings</key>
+			<dict>
+				<key>ALWAYS_SEARCH_USER_PATHS</key>
+				<string>NO</string>
+				<key>CLANG_ANALYZER_SECURITY_FLOATLOOPCOUNTER</key>
+				<string>YES</string>
+				<key>CLANG_ANALYZER_SECURITY_INSECUREAPI_RAND</key>
+				<string>YES</string>
+				<key>CLANG_ANALYZER_SECURITY_INSECUREAPI_STRCPY</key>
+				<string>YES</string>
+				<key>CLANG_CXX_LANGUAGE_STANDARD</key>
+				<string>gnu++0x</string>
+				<key>CLANG_CXX_LIBRARY</key>
+				<string>libc++</string>
+				<key>CLANG_ENABLE_MODULES</key>
+				<string>YES</string>
+				<key>CLANG_ENABLE_OBJC_ARC</key>
+				<string>YES</string>
+				<key>CLANG_WARN_ASSIGN_ENUM</key>
+				<string>YES</string>
+				<key>CLANG_WARN_BOOL_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_CONSTANT_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_CXX0X_EXTENSIONS</key>
+				<string>YES</string>
+				<key>CLANG_WARN_DIRECT_OBJC_ISA_USAGE</key>
+				<string>YES_ERROR</string>
+				<key>CLANG_WARN_EMPTY_BODY</key>
+				<string>YES</string>
+				<key>CLANG_WARN_ENUM_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_IMPLICIT_SIGN_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_INT_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_OBJC_IMPLICIT_ATOMIC_PROPERTIES</key>
+				<string>YES</string>
+				<key>CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF</key>
+				<string>YES</string>
+				<key>CLANG_WARN_OBJC_RECEIVER_WEAK</key>
+				<string>YES</string>
+				<key>CLANG_WARN_OBJC_REPEATED_USE_OF_WEAK</key>
+				<string>YES</string>
+				<key>CLANG_WARN_OBJC_ROOT_CLASS</key>
+				<string>YES_ERROR</string>
+				<key>CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_UNREACHABLE_CODE</key>
+				<string>YES</string>
+				<key>CLANG_WARN__DUPLICATE_METHOD_MATCH</key>
+				<string>YES</string>
+				<key>COPY_PHASE_STRIP</key>
+				<string>NO</string>
+				<key>DEBUG_INFORMATION_FORMAT</key>
+				<string>dwarf-with-dsym</string>
+				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
+				<string>YES</string>
+				<key>GCC_C_LANGUAGE_STANDARD</key>
+				<string>gnu99</string>
+				<key>GCC_DYNAMIC_NO_PIC</key>
+				<string>NO</string>
+				<key>GCC_INCREASE_PRECOMPILED_HEADER_SHARING</key>
+				<string>YES</string>
+				<key>GCC_NO_COMMON_BLOCKS</key>
+				<string>YES</string>
+				<key>GCC_OPTIMIZATION_LEVEL</key>
+				<string>0</string>
+				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
+				<string>YES</string>
+				<key>GCC_PREFIX_HEADER</key>
+				<string>HLJXmppWebSocket.pch</string>
+				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
+				<array>
+					<string>DEBUG=1</string>
+					<string>$(inherited)</string>
+				</array>
+				<key>GCC_SYMBOLS_PRIVATE_EXTERN</key>
+				<string>NO</string>
+				<key>GCC_TREAT_WARNINGS_AS_ERRORS</key>
+				<string>YES</string>
+				<key>GCC_WARN_64_TO_32_BIT_CONVERSION</key>
+				<string>YES</string>
+				<key>GCC_WARN_ABOUT_RETURN_TYPE</key>
+				<string>YES_ERROR</string>
+				<key>GCC_WARN_FOUR_CHARACTER_CONSTANTS</key>
+				<string>YES</string>
+				<key>GCC_WARN_NON_VIRTUAL_DESTRUCTOR</key>
+				<string>YES</string>
+				<key>GCC_WARN_PEDANTIC</key>
+				<string>YES</string>
+				<key>GCC_WARN_SIGN_COMPARE</key>
+				<string>YES</string>
+				<key>GCC_WARN_UNDECLARED_SELECTOR</key>
+				<string>YES</string>
+				<key>GCC_WARN_UNINITIALIZED_AUTOS</key>
+				<string>YES_AGGRESSIVE</string>
+				<key>GCC_WARN_UNUSED_FUNCTION</key>
+				<string>YES</string>
+				<key>GCC_WARN_UNUSED_VARIABLE</key>
+				<string>YES</string>
+				<key>HEADER_SEARCH_PATHS</key>
+				<array>
+					<string>$(inherited)</string>
+					<string>/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include</string>
+					<string>..</string>
+					<string>../KissXML</string>
+					<string>$(SDKROOT)/usr/include/libxml2</string>
+					<string>$(SRCROOT)/..</string>
+					<string>../SocketRocket</string>
+				</array>
+				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+				<string>7.0</string>
+				<key>MTL_ENABLE_DEBUG_INFO</key>
+				<string>YES</string>
+				<key>ONLY_ACTIVE_ARCH</key>
+				<string>YES</string>
+				<key>OTHER_LDFLAGS</key>
+				<string>-all_load</string>
+				<key>SDKROOT</key>
+				<string>iphoneos</string>
+				<key>WARNING_CFLAGS</key>
+				<array>
+					<string>-Wno-dollar-in-identifier-extension</string>
+					<string>-Wno-pointer-arith</string>
+				</array>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Debug</string>
+		</dict>
+		<key>7E00D3831B4D68720031D045</key>
+		<dict>
+			<key>buildSettings</key>
+			<dict>
+				<key>ALWAYS_SEARCH_USER_PATHS</key>
+				<string>NO</string>
+				<key>CLANG_ANALYZER_SECURITY_FLOATLOOPCOUNTER</key>
+				<string>YES</string>
+				<key>CLANG_ANALYZER_SECURITY_INSECUREAPI_RAND</key>
+				<string>YES</string>
+				<key>CLANG_ANALYZER_SECURITY_INSECUREAPI_STRCPY</key>
+				<string>YES</string>
+				<key>CLANG_CXX_LANGUAGE_STANDARD</key>
+				<string>gnu++0x</string>
+				<key>CLANG_CXX_LIBRARY</key>
+				<string>libc++</string>
+				<key>CLANG_ENABLE_MODULES</key>
+				<string>YES</string>
+				<key>CLANG_ENABLE_OBJC_ARC</key>
+				<string>YES</string>
+				<key>CLANG_WARN_ASSIGN_ENUM</key>
+				<string>YES</string>
+				<key>CLANG_WARN_BOOL_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_CONSTANT_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_CXX0X_EXTENSIONS</key>
+				<string>YES</string>
+				<key>CLANG_WARN_DIRECT_OBJC_ISA_USAGE</key>
+				<string>YES_ERROR</string>
+				<key>CLANG_WARN_EMPTY_BODY</key>
+				<string>YES</string>
+				<key>CLANG_WARN_ENUM_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_IMPLICIT_SIGN_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_INT_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_OBJC_IMPLICIT_ATOMIC_PROPERTIES</key>
+				<string>YES</string>
+				<key>CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF</key>
+				<string>YES</string>
+				<key>CLANG_WARN_OBJC_RECEIVER_WEAK</key>
+				<string>YES</string>
+				<key>CLANG_WARN_OBJC_REPEATED_USE_OF_WEAK</key>
+				<string>YES</string>
+				<key>CLANG_WARN_OBJC_ROOT_CLASS</key>
+				<string>YES_ERROR</string>
+				<key>CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_UNREACHABLE_CODE</key>
+				<string>YES</string>
+				<key>CLANG_WARN__DUPLICATE_METHOD_MATCH</key>
+				<string>YES</string>
+				<key>COPY_PHASE_STRIP</key>
+				<string>NO</string>
+				<key>DEBUG_INFORMATION_FORMAT</key>
+				<string>dwarf-with-dsym</string>
+				<key>ENABLE_NS_ASSERTIONS</key>
+				<string>NO</string>
+				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
+				<string>YES</string>
+				<key>GCC_C_LANGUAGE_STANDARD</key>
+				<string>gnu99</string>
+				<key>GCC_INCREASE_PRECOMPILED_HEADER_SHARING</key>
+				<string>YES</string>
+				<key>GCC_NO_COMMON_BLOCKS</key>
+				<string>YES</string>
+				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
+				<string>YES</string>
+				<key>GCC_PREFIX_HEADER</key>
+				<string>HLJXmppWebSocket.pch</string>
+				<key>GCC_TREAT_WARNINGS_AS_ERRORS</key>
+				<string>YES</string>
+				<key>GCC_WARN_64_TO_32_BIT_CONVERSION</key>
+				<string>YES</string>
+				<key>GCC_WARN_ABOUT_RETURN_TYPE</key>
+				<string>YES_ERROR</string>
+				<key>GCC_WARN_FOUR_CHARACTER_CONSTANTS</key>
+				<string>YES</string>
+				<key>GCC_WARN_NON_VIRTUAL_DESTRUCTOR</key>
+				<string>YES</string>
+				<key>GCC_WARN_PEDANTIC</key>
+				<string>YES</string>
+				<key>GCC_WARN_SIGN_COMPARE</key>
+				<string>YES</string>
+				<key>GCC_WARN_UNDECLARED_SELECTOR</key>
+				<string>YES</string>
+				<key>GCC_WARN_UNINITIALIZED_AUTOS</key>
+				<string>YES_AGGRESSIVE</string>
+				<key>GCC_WARN_UNUSED_FUNCTION</key>
+				<string>YES</string>
+				<key>GCC_WARN_UNUSED_VARIABLE</key>
+				<string>YES</string>
+				<key>HEADER_SEARCH_PATHS</key>
+				<array>
+					<string>$(inherited)</string>
+					<string>/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include</string>
+					<string>..</string>
+					<string>../KissXML</string>
+					<string>$(SDKROOT)/usr/include/libxml2</string>
+					<string>$(SRCROOT)/..</string>
+					<string>../SocketRocket</string>
+				</array>
+				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+				<string>7.0</string>
+				<key>MTL_ENABLE_DEBUG_INFO</key>
+				<string>NO</string>
+				<key>OTHER_LDFLAGS</key>
+				<string>-all_load</string>
+				<key>SDKROOT</key>
+				<string>iphoneos</string>
+				<key>VALIDATE_PRODUCT</key>
+				<string>YES</string>
+				<key>WARNING_CFLAGS</key>
+				<array>
+					<string>-Wno-dollar-in-identifier-extension</string>
+					<string>-Wno-pointer-arith</string>
+				</array>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Release</string>
+		</dict>
+		<key>7E00D3841B4D68720031D045</key>
+		<dict>
+			<key>buildConfigurations</key>
+			<array>
+				<string>7E00D3851B4D68720031D045</string>
+				<string>7E00D3861B4D68720031D045</string>
+			</array>
+			<key>defaultConfigurationIsVisible</key>
+			<string>0</string>
+			<key>defaultConfigurationName</key>
+			<string>Release</string>
+			<key>isa</key>
+			<string>XCConfigurationList</string>
+		</dict>
+		<key>7E00D3851B4D68720031D045</key>
+		<dict>
+			<key>baseConfigurationReference</key>
+			<string>A02369FE81B35869079C7B87</string>
+			<key>buildSettings</key>
+			<dict>
+				<key>FRAMEWORK_SEARCH_PATHS</key>
+				<array>
+					<string>$(inherited)</string>
+					<string>/Users/dodikk/projects/WebSocketXmpp-Workspace</string>
+				</array>
+				<key>HEADER_SEARCH_PATHS</key>
+				<array>
+					<string>$(inherited)</string>
+					<string>/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include</string>
+					<string>..</string>
+					<string>../KissXML</string>
+					<string>$(SDKROOT)/usr/include/libxml2</string>
+					<string>$(SRCROOT)/..</string>
+					<string>../SocketRocket</string>
+					<string>../../lib/HealthJoyChat</string>
+				</array>
+				<key>OTHER_LDFLAGS</key>
+				<string>-ObjC</string>
+				<key>PRODUCT_NAME</key>
+				<string>$(TARGET_NAME)</string>
+				<key>SKIP_INSTALL</key>
+				<string>YES</string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Debug</string>
+		</dict>
+		<key>7E00D3861B4D68720031D045</key>
+		<dict>
+			<key>baseConfigurationReference</key>
+			<string>F29129BF06345B8F2668ED5C</string>
+			<key>buildSettings</key>
+			<dict>
+				<key>FRAMEWORK_SEARCH_PATHS</key>
+				<array>
+					<string>$(inherited)</string>
+					<string>/Users/dodikk/projects/WebSocketXmpp-Workspace</string>
+				</array>
+				<key>HEADER_SEARCH_PATHS</key>
+				<array>
+					<string>$(inherited)</string>
+					<string>/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include</string>
+					<string>..</string>
+					<string>../KissXML</string>
+					<string>$(SDKROOT)/usr/include/libxml2</string>
+					<string>$(SRCROOT)/..</string>
+					<string>../SocketRocket</string>
+					<string>../../lib/HealthJoyChat</string>
+				</array>
+				<key>OTHER_LDFLAGS</key>
+				<string>-ObjC</string>
+				<key>PRODUCT_NAME</key>
+				<string>$(TARGET_NAME)</string>
+				<key>SKIP_INSTALL</key>
+				<string>YES</string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Release</string>
+		</dict>
+		<key>7E00D3871B4D68720031D045</key>
+		<dict>
+			<key>buildConfigurations</key>
+			<array>
+				<string>7E00D3881B4D68720031D045</string>
+				<string>7E00D3891B4D68720031D045</string>
+			</array>
+			<key>defaultConfigurationIsVisible</key>
+			<string>0</string>
+			<key>defaultConfigurationName</key>
+			<string>Release</string>
+			<key>isa</key>
+			<string>XCConfigurationList</string>
+		</dict>
+		<key>7E00D3881B4D68720031D045</key>
+		<dict>
+			<key>buildSettings</key>
+			<dict>
+				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
+				<string>iPhone Developer</string>
+				<key>FRAMEWORK_SEARCH_PATHS</key>
+				<array>
+					<string>$(SDKROOT)/Developer/Library/Frameworks</string>
+					<string>$(inherited)</string>
+				</array>
+				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
+				<array>
+					<string>DEBUG=1</string>
+					<string>$(inherited)</string>
+				</array>
+				<key>INFOPLIST_FILE</key>
+				<string>HLJXmppWebSocketTests/Info.plist</string>
+				<key>LD_RUNPATH_SEARCH_PATHS</key>
+				<string>$(inherited) @executable_path/Frameworks @loader_path/Frameworks</string>
+				<key>LIBRARY_SEARCH_PATHS</key>
+				<array>
+					<string>$(inherited)</string>
+					<string>../libidn</string>
+				</array>
+				<key>PRODUCT_NAME</key>
+				<string>$(TARGET_NAME)</string>
+				<key>WARNING_CFLAGS</key>
+				<array>
+					<string>-Wno-dollar-in-identifier-extension</string>
+					<string>-Wno-pointer-arith</string>
+					<string>-Wno-gnu</string>
+				</array>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Debug</string>
+		</dict>
+		<key>7E00D3891B4D68720031D045</key>
+		<dict>
+			<key>buildSettings</key>
+			<dict>
+				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
+				<string>iPhone Developer</string>
+				<key>FRAMEWORK_SEARCH_PATHS</key>
+				<array>
+					<string>$(SDKROOT)/Developer/Library/Frameworks</string>
+					<string>$(inherited)</string>
+				</array>
+				<key>INFOPLIST_FILE</key>
+				<string>HLJXmppWebSocketTests/Info.plist</string>
+				<key>LD_RUNPATH_SEARCH_PATHS</key>
+				<string>$(inherited) @executable_path/Frameworks @loader_path/Frameworks</string>
+				<key>LIBRARY_SEARCH_PATHS</key>
+				<array>
+					<string>$(inherited)</string>
+					<string>../libidn</string>
+				</array>
+				<key>PRODUCT_NAME</key>
+				<string>$(TARGET_NAME)</string>
+				<key>WARNING_CFLAGS</key>
+				<array>
+					<string>-Wno-dollar-in-identifier-extension</string>
+					<string>-Wno-pointer-arith</string>
+					<string>-Wno-gnu</string>
+				</array>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Release</string>
+		</dict>
+		<key>7E15409A1B599F01007771A8</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>HJMockErrorAttachmentUploader.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7E15409B1B599F01007771A8</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>HJMockErrorAttachmentUploader.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7E19623A1B55993E00D4CD32</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>7E1962431B55995E00D4CD32</string>
+				<string>7E1962441B55995E00D4CD32</string>
+				<string>7EB9C41C1B559E8100F94871</string>
+				<string>7EB9C41D1B559E8100F94871</string>
+				<string>7EB9C4221B55A24600F94871</string>
+				<string>7EB9C4231B55A24600F94871</string>
+				<string>7EB9C4251B55A40D00F94871</string>
+				<string>7EB9C4261B55A40D00F94871</string>
+				<string>7EB9C4281B55A8F500F94871</string>
+				<string>7EB9C4291B55A8F500F94871</string>
+				<string>7EB9C42B1B55A9DC00F94871</string>
+				<string>7EB9C42C1B55A9DC00F94871</string>
+				<string>7EB0EE041B58FDD200F319CC</string>
+				<string>7EB0EE051B58FDD200F319CC</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>path</key>
+			<string>Parser</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7E1962431B55995E00D4CD32</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>HJBindResponseParser.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7E1962441B55995E00D4CD32</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>HJBindResponseParser.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7E1962451B55995E00D4CD32</key>
+		<dict>
+			<key>fileRef</key>
+			<string>7E1962441B55995E00D4CD32</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7E226F331B50057400E9B35C</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>7E226F3F1B50057400E9B35C</string>
+				<string>7E226F411B50057400E9B35C</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Products</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7E226F3E1B50057400E9B35C</key>
+		<dict>
+			<key>containerPortal</key>
+			<string>7E26D5BE1B4EA1E10030F2DD</string>
+			<key>isa</key>
+			<string>PBXContainerItemProxy</string>
+			<key>proxyType</key>
+			<string>2</string>
+			<key>remoteGlobalIDString</key>
+			<string>7E7721001B4D84130082FA43</string>
+			<key>remoteInfo</key>
+			<string>XmppFrameworkParsers</string>
+		</dict>
+		<key>7E226F3F1B50057400E9B35C</key>
+		<dict>
+			<key>fileType</key>
+			<string>archive.ar</string>
+			<key>isa</key>
+			<string>PBXReferenceProxy</string>
+			<key>path</key>
+			<string>libXmppFrameworkParsers.a</string>
+			<key>remoteRef</key>
+			<string>7E226F3E1B50057400E9B35C</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
+		</dict>
+		<key>7E226F401B50057400E9B35C</key>
+		<dict>
+			<key>containerPortal</key>
+			<string>7E26D5BE1B4EA1E10030F2DD</string>
+			<key>isa</key>
+			<string>PBXContainerItemProxy</string>
+			<key>proxyType</key>
+			<string>2</string>
+			<key>remoteGlobalIDString</key>
+			<string>7E77210B1B4D84130082FA43</string>
+			<key>remoteInfo</key>
+			<string>XmppFrameworkParsersTests</string>
+		</dict>
+		<key>7E226F411B50057400E9B35C</key>
+		<dict>
+			<key>fileType</key>
+			<string>wrapper.cfbundle</string>
+			<key>isa</key>
+			<string>PBXReferenceProxy</string>
+			<key>path</key>
+			<string>XmppFrameworkParsersTests.xctest</string>
+			<key>remoteRef</key>
+			<string>7E226F401B50057400E9B35C</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
+		</dict>
+		<key>7E226F4A1B5005FB00E9B35C</key>
+		<dict>
+			<key>containerPortal</key>
+			<string>7E4F126B1B4FCB75001F1769</string>
+			<key>isa</key>
+			<string>PBXContainerItemProxy</string>
+			<key>proxyType</key>
+			<string>1</string>
+			<key>remoteGlobalIDString</key>
+			<string>7E7720B71B4D75740082FA43</string>
+			<key>remoteInfo</key>
+			<string>KissXML-iOS</string>
+		</dict>
+		<key>7E226F4B1B5005FB00E9B35C</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXTargetDependency</string>
+			<key>name</key>
+			<string>KissXML-iOS</string>
+			<key>targetProxy</key>
+			<string>7E226F4A1B5005FB00E9B35C</string>
+		</dict>
+		<key>7E226F4C1B5005FB00E9B35C</key>
+		<dict>
+			<key>containerPortal</key>
+			<string>7E26D5BE1B4EA1E10030F2DD</string>
+			<key>isa</key>
+			<string>PBXContainerItemProxy</string>
+			<key>proxyType</key>
+			<string>1</string>
+			<key>remoteGlobalIDString</key>
+			<string>7E7720FF1B4D84130082FA43</string>
+			<key>remoteInfo</key>
+			<string>XmppFrameworkParsers</string>
+		</dict>
+		<key>7E226F4D1B5005FB00E9B35C</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXTargetDependency</string>
+			<key>name</key>
+			<string>XmppFrameworkParsers</string>
+			<key>targetProxy</key>
+			<string>7E226F4C1B5005FB00E9B35C</string>
+		</dict>
+		<key>7E226F4E1B50060C00E9B35C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>7E45D2661B500525001F9ECC</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7E226F501B50060C00E9B35C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>7E226F3F1B50057400E9B35C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7E226F511B5008FB00E9B35C</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>compiled.mach-o.dylib</string>
+			<key>name</key>
+			<string>libxml2.dylib</string>
+			<key>path</key>
+			<string>usr/lib/libxml2.dylib</string>
+			<key>sourceTree</key>
+			<string>SDKROOT</string>
+		</dict>
+		<key>7E226F521B5008FB00E9B35C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>7E226F511B5008FB00E9B35C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7E226F531B50091100E9B35C</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>archive.ar</string>
+			<key>name</key>
+			<string>libidn.a</string>
+			<key>path</key>
+			<string>../../libidn/libidn.a</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7E226F541B50091100E9B35C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>7E226F531B50091100E9B35C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7E226F571B50095100E9B35C</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>compiled.mach-o.dylib</string>
+			<key>name</key>
+			<string>libicucore.dylib</string>
+			<key>path</key>
+			<string>usr/lib/libicucore.dylib</string>
+			<key>sourceTree</key>
+			<string>SDKROOT</string>
+		</dict>
+		<key>7E226F581B50095100E9B35C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>7E226F571B50095100E9B35C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7E226F591B500E5D00E9B35C</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>wrapper.pb-project</string>
+			<key>name</key>
+			<string>LinqToObjectiveC.xcodeproj</string>
+			<key>path</key>
+			<string>../../LinqToObjectiveC/LinqToObjectiveC/LinqToObjectiveC.xcodeproj</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7E226F5A1B500E5D00E9B35C</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>7E226F601B500E5D00E9B35C</string>
+				<string>7E226F621B500E5D00E9B35C</string>
+				<string>7E226F641B500E5D00E9B35C</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Products</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7E226F5F1B500E5D00E9B35C</key>
+		<dict>
+			<key>containerPortal</key>
+			<string>7E226F591B500E5D00E9B35C</string>
+			<key>isa</key>
+			<string>PBXContainerItemProxy</string>
+			<key>proxyType</key>
+			<string>2</string>
+			<key>remoteGlobalIDString</key>
+			<string>7E8F43811A8B92D5000F5D01</string>
+			<key>remoteInfo</key>
+			<string>LinqToObjectiveC</string>
+		</dict>
+		<key>7E226F601B500E5D00E9B35C</key>
+		<dict>
+			<key>fileType</key>
+			<string>archive.ar</string>
+			<key>isa</key>
+			<string>PBXReferenceProxy</string>
+			<key>path</key>
+			<string>libLinqToObjectiveC.a</string>
+			<key>remoteRef</key>
+			<string>7E226F5F1B500E5D00E9B35C</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
+		</dict>
+		<key>7E226F611B500E5D00E9B35C</key>
+		<dict>
+			<key>containerPortal</key>
+			<string>7E226F591B500E5D00E9B35C</string>
+			<key>isa</key>
+			<string>PBXContainerItemProxy</string>
+			<key>proxyType</key>
+			<string>2</string>
+			<key>remoteGlobalIDString</key>
+			<string>7EEE35A81AB4711000668C3E</string>
+			<key>remoteInfo</key>
+			<string>LinqToObjectiveC-iOS-dynamic</string>
+		</dict>
+		<key>7E226F621B500E5D00E9B35C</key>
+		<dict>
+			<key>fileType</key>
+			<string>wrapper.framework</string>
+			<key>isa</key>
+			<string>PBXReferenceProxy</string>
+			<key>path</key>
+			<string>LinqToObjectiveC.framework</string>
+			<key>remoteRef</key>
+			<string>7E226F611B500E5D00E9B35C</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
+		</dict>
+		<key>7E226F631B500E5D00E9B35C</key>
+		<dict>
+			<key>containerPortal</key>
+			<string>7E226F591B500E5D00E9B35C</string>
+			<key>isa</key>
+			<string>PBXContainerItemProxy</string>
+			<key>proxyType</key>
+			<string>2</string>
+			<key>remoteGlobalIDString</key>
+			<string>7EEE35CB1AB4718500668C3E</string>
+			<key>remoteInfo</key>
+			<string>LinqToObjectiveC-iOS-static</string>
+		</dict>
+		<key>7E226F641B500E5D00E9B35C</key>
+		<dict>
+			<key>fileType</key>
+			<string>wrapper.framework</string>
+			<key>isa</key>
+			<string>PBXReferenceProxy</string>
+			<key>path</key>
+			<string>LinqToObjectiveC.framework</string>
+			<key>remoteRef</key>
+			<string>7E226F631B500E5D00E9B35C</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
+		</dict>
+		<key>7E226F651B500E6600E9B35C</key>
+		<dict>
+			<key>containerPortal</key>
+			<string>7E226F591B500E5D00E9B35C</string>
+			<key>isa</key>
+			<string>PBXContainerItemProxy</string>
+			<key>proxyType</key>
+			<string>1</string>
+			<key>remoteGlobalIDString</key>
+			<string>7E8F43801A8B92D5000F5D01</string>
+			<key>remoteInfo</key>
+			<string>LinqToObjectiveC</string>
+		</dict>
+		<key>7E226F661B500E6600E9B35C</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXTargetDependency</string>
+			<key>name</key>
+			<string>LinqToObjectiveC</string>
+			<key>targetProxy</key>
+			<string>7E226F651B500E6600E9B35C</string>
+		</dict>
+		<key>7E226F671B500E6C00E9B35C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>7E226F601B500E5D00E9B35C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7E226F681B501BD800E9B35C</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>7DACE6451DFEF131000EFAED</string>
+				<string>7E226F691B501BEF00E9B35C</string>
+				<string>7E226F6A1B501BEF00E9B35C</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>path</key>
+			<string>WebSocket</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7E226F691B501BEF00E9B35C</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>HLJWebSocketTransportForXmpp.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7E226F6A1B501BEF00E9B35C</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>HLJWebSocketTransportForXmpp.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7E226F6B1B501BEF00E9B35C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>7E226F6A1B501BEF00E9B35C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7E26D5BE1B4EA1E10030F2DD</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>wrapper.pb-project</string>
+			<key>name</key>
+			<string>XmppFrameworkParsers.xcodeproj</string>
+			<key>path</key>
+			<string>../../XmppFrameworkParsers/XmppFrameworkParsers.xcodeproj</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7E26D5C71B4EA2260030F2DD</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>HJTransportForXmpp.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7E26D5CD1B4EA94D0030F2DD</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>HJXmppClientImpl.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7E26D5CE1B4EA94D0030F2DD</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.cpp.objcpp</string>
+			<key>path</key>
+			<string>HJXmppClientImpl.mm</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7E26D5CF1B4EA94D0030F2DD</key>
+		<dict>
+			<key>fileRef</key>
+			<string>7E26D5CE1B4EA94D0030F2DD</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7E26D5DD1B4EC2390030F2DD</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>HJAuthenticationStages.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7E26D5DE1B4EC5780030F2DD</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>HJTransportForXmppDelegate.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7E4398F41B5CF90B00FC6687</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>HJImageUploaderIntegrationTest.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7E4398F51B5CF90B00FC6687</key>
+		<dict>
+			<key>fileRef</key>
+			<string>7E4398F41B5CF90B00FC6687</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7E4596F91B54087A001AD170</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>compiled.mach-o.dylib</string>
+			<key>name</key>
+			<string>libc++.dylib</string>
+			<key>path</key>
+			<string>usr/lib/libc++.dylib</string>
+			<key>sourceTree</key>
+			<string>SDKROOT</string>
+		</dict>
+		<key>7E4596FA1B54087A001AD170</key>
+		<dict>
+			<key>fileRef</key>
+			<string>7E4596F91B54087A001AD170</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7E4596FB1B54217F001AD170</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>compiled.mach-o.dylib</string>
+			<key>name</key>
+			<string>libiconv.dylib</string>
+			<key>path</key>
+			<string>usr/lib/libiconv.dylib</string>
+			<key>sourceTree</key>
+			<string>SDKROOT</string>
+		</dict>
+		<key>7E4596FC1B54217F001AD170</key>
+		<dict>
+			<key>fileRef</key>
+			<string>7E4596FB1B54217F001AD170</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7E45D25D1B500388001F9ECC</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>HLJWebSocketAuthIntegrationTest.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7E45D25E1B500388001F9ECC</key>
+		<dict>
+			<key>fileRef</key>
+			<string>7E45D25D1B500388001F9ECC</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7E45D2621B500525001F9ECC</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>7E45D2661B500525001F9ECC</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Products</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7E45D2651B500525001F9ECC</key>
+		<dict>
+			<key>containerPortal</key>
+			<string>7E4F126B1B4FCB75001F1769</string>
+			<key>isa</key>
+			<string>PBXContainerItemProxy</string>
+			<key>proxyType</key>
+			<string>2</string>
+			<key>remoteGlobalIDString</key>
+			<string>7E7720B81B4D75740082FA43</string>
+			<key>remoteInfo</key>
+			<string>KissXML-iOS</string>
+		</dict>
+		<key>7E45D2661B500525001F9ECC</key>
+		<dict>
+			<key>fileType</key>
+			<string>archive.ar</string>
+			<key>isa</key>
+			<string>PBXReferenceProxy</string>
+			<key>path</key>
+			<string>libKissXML-iOS.a</string>
+			<key>remoteRef</key>
+			<string>7E45D2651B500525001F9ECC</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
+		</dict>
+		<key>7E45D2671B500530001F9ECC</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>wrapper.pb-project</string>
+			<key>name</key>
+			<string>SocketRocket.xcodeproj</string>
+			<key>path</key>
+			<string>../../SocketRocket/SocketRocket.xcodeproj</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7E45D2681B500530001F9ECC</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>7E45D2791B500530001F9ECC</string>
+				<string>7DACE64F1DFEF132000EFAED</string>
+				<string>7E45D2731B500530001F9ECC</string>
+				<string>7DACE6511DFEF132000EFAED</string>
+				<string>7E45D2751B500530001F9ECC</string>
+				<string>7E45D2771B500530001F9ECC</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Products</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7E45D2721B500530001F9ECC</key>
+		<dict>
+			<key>containerPortal</key>
+			<string>7E45D2671B500530001F9ECC</string>
+			<key>isa</key>
+			<string>PBXContainerItemProxy</string>
+			<key>proxyType</key>
+			<string>2</string>
+			<key>remoteGlobalIDString</key>
+			<string>F668C880153E91210044DBAC</string>
+			<key>remoteInfo</key>
+			<string>SocketRocketOSX</string>
+		</dict>
+		<key>7E45D2731B500530001F9ECC</key>
+		<dict>
+			<key>fileType</key>
+			<string>wrapper.framework</string>
+			<key>isa</key>
+			<string>PBXReferenceProxy</string>
+			<key>path</key>
+			<string>SocketRocket.framework</string>
+			<key>remoteRef</key>
+			<string>7E45D2721B500530001F9ECC</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
+		</dict>
+		<key>7E45D2741B500530001F9ECC</key>
+		<dict>
+			<key>containerPortal</key>
+			<string>7E45D2671B500530001F9ECC</string>
+			<key>isa</key>
+			<string>PBXContainerItemProxy</string>
+			<key>proxyType</key>
+			<string>2</string>
+			<key>remoteGlobalIDString</key>
+			<string>F6BDA802145900D200FE3253</string>
+			<key>remoteInfo</key>
+			<string>SRWebSocketTests</string>
+		</dict>
+		<key>7E45D2751B500530001F9ECC</key>
+		<dict>
+			<key>fileType</key>
+			<string>wrapper.cfbundle</string>
+			<key>isa</key>
+			<string>PBXReferenceProxy</string>
+			<key>path</key>
+			<string>SocketRocketTests-iOS.xctest</string>
+			<key>remoteRef</key>
+			<string>7E45D2741B500530001F9ECC</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
+		</dict>
+		<key>7E45D2761B500530001F9ECC</key>
+		<dict>
+			<key>containerPortal</key>
+			<string>7E45D2671B500530001F9ECC</string>
+			<key>isa</key>
+			<string>PBXContainerItemProxy</string>
+			<key>proxyType</key>
+			<string>2</string>
+			<key>remoteGlobalIDString</key>
+			<string>F62417E314D52F3C003CE997</string>
+			<key>remoteInfo</key>
+			<string>TestChat</string>
+		</dict>
+		<key>7E45D2771B500530001F9ECC</key>
+		<dict>
+			<key>fileType</key>
+			<string>wrapper.application</string>
+			<key>isa</key>
+			<string>PBXReferenceProxy</string>
+			<key>path</key>
+			<string>TestChat.app</string>
+			<key>remoteRef</key>
+			<string>7E45D2761B500530001F9ECC</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
+		</dict>
+		<key>7E45D2781B500530001F9ECC</key>
+		<dict>
+			<key>containerPortal</key>
+			<string>7E45D2671B500530001F9ECC</string>
+			<key>isa</key>
+			<string>PBXContainerItemProxy</string>
+			<key>proxyType</key>
+			<string>2</string>
+			<key>remoteGlobalIDString</key>
+			<string>7EA7C00A1A9901FC00AFE63E</string>
+			<key>remoteInfo</key>
+			<string>SocketRocket-iOS</string>
+		</dict>
+		<key>7E45D2791B500530001F9ECC</key>
+		<dict>
+			<key>fileType</key>
+			<string>wrapper.framework</string>
+			<key>isa</key>
+			<string>PBXReferenceProxy</string>
+			<key>path</key>
+			<string>SocketRocket.framework</string>
+			<key>remoteRef</key>
+			<string>7E45D2781B500530001F9ECC</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
+		</dict>
+		<key>7E4F126B1B4FCB75001F1769</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>wrapper.pb-project</string>
+			<key>name</key>
+			<string>KissXML-iOS.xcodeproj</string>
+			<key>path</key>
+			<string>../../KissXML/KissXML-iOS.xcodeproj</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7E56BF971B4D8A7400D27597</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>7E56BF981B4D8A8700D27597</string>
+				<string>7E56BF991B4D8A9D00D27597</string>
+				<string>7E26D5C71B4EA2260030F2DD</string>
+				<string>7E26D5CD1B4EA94D0030F2DD</string>
+				<string>7E26D5CE1B4EA94D0030F2DD</string>
+				<string>7EEE81CD1B56BDE8003FC7FC</string>
+				<string>7E26D5DD1B4EC2390030F2DD</string>
+				<string>7E26D5DE1B4EC5780030F2DD</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>path</key>
+			<string>XmppClient</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7E56BF981B4D8A8700D27597</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>HJXmppClient.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7E56BF991B4D8A9D00D27597</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>HJXmppClientDelegate.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7E59C2F31B6829D5003DAD15</key>
+		<dict>
+			<key>fileRef</key>
+			<string>7E6F87E51B5800EA0057B504</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7E59C2FC1B6829DB003DAD15</key>
+		<dict>
+			<key>fileRef</key>
+			<string>7EB0EE4A1B593A0500F319CC</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7E59C2FD1B6829DB003DAD15</key>
+		<dict>
+			<key>fileRef</key>
+			<string>7E15409B1B599F01007771A8</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7E6F87D41B57ED430057B504</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>7E6F87DD1B57ED580057B504</string>
+				<string>7E6F87E31B57F3690057B504</string>
+				<string>7EB0EE431B59097800F319CC</string>
+				<string>7EB0EE441B59097800F319CC</string>
+				<string>7E6F87E41B5800EA0057B504</string>
+				<string>7E6F87E51B5800EA0057B504</string>
+				<string>7EB0EE491B593A0500F319CC</string>
+				<string>7EB0EE4A1B593A0500F319CC</string>
+				<string>7E15409A1B599F01007771A8</string>
+				<string>7E15409B1B599F01007771A8</string>
+				<string>7EB0EE4C1B5945B900F319CC</string>
+				<string>7EB0EE4D1B5945B900F319CC</string>
+				<string>7ECD4DB21B5D0A0900FB2C54</string>
+				<string>7ECD4DB31B5D0A0900FB2C54</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>path</key>
+			<string>Attachments</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7E6F87DD1B57ED580057B504</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>HJXmppChatAttachment.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7E6F87E31B57F3690057B504</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>HJAttachmentUploader.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7E6F87E41B5800EA0057B504</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>HJMockAttachmentUploader.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7E6F87E51B5800EA0057B504</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>HJMockAttachmentUploader.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7E7720E71B4D78470082FA43</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>HLJXmppWebSocket.pch</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7E7B9A9D1B4D726300FB15F1</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>7E7B9A9E1B4D727200FB15F1</string>
+				<string>7E7720E71B4D78470082FA43</string>
+				<string>7DC5EF701D4F8ED400E6CFC9</string>
+				<string>7E6F87D41B57ED430057B504</string>
+				<string>7E19623A1B55993E00D4CD32</string>
+				<string>7EFDD7BF1B55513100430942</string>
+				<string>7EEDFFAF1B5533460093DE7E</string>
+				<string>7E226F681B501BD800E9B35C</string>
+				<string>7E56BF971B4D8A7400D27597</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Sources</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7E7B9A9E1B4D727200FB15F1</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>HLJXmppWebSocket.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7E8768981B598D660080835A</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>HJIncomingXmppMessagesIntegrationTest.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7E8768991B598D660080835A</key>
+		<dict>
+			<key>fileRef</key>
+			<string>7E8768981B598D660080835A</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7EB0EE041B58FDD200F319CC</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>HJXmppAttachmentsParser.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7EB0EE051B58FDD200F319CC</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>HJXmppAttachmentsParser.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7EB0EE061B58FDD200F319CC</key>
+		<dict>
+			<key>fileRef</key>
+			<string>7EB0EE051B58FDD200F319CC</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7EB0EE431B59097800F319CC</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>HJXmppChatAttachmentPOD.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7EB0EE441B59097800F319CC</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>HJXmppChatAttachmentPOD.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7EB0EE451B59097800F319CC</key>
+		<dict>
+			<key>fileRef</key>
+			<string>7EB0EE441B59097800F319CC</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7EB0EE461B59368E00F319CC</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>image.jpeg</string>
+			<key>path</key>
+			<string>monkey-selfie.jpg</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7EB0EE471B59368E00F319CC</key>
+		<dict>
+			<key>fileRef</key>
+			<string>7EB0EE461B59368E00F319CC</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7EB0EE491B593A0500F319CC</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>HJMockSuccessAttachmentUploader.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7EB0EE4A1B593A0500F319CC</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>HJMockSuccessAttachmentUploader.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7EB0EE4C1B5945B900F319CC</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>HJUrlSessionImageUploader.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7EB0EE4D1B5945B900F319CC</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>HJUrlSessionImageUploader.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7EB0EE4E1B5945B900F319CC</key>
+		<dict>
+			<key>fileRef</key>
+			<string>7EB0EE4D1B5945B900F319CC</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7EB9C4111B559C5200F94871</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>HJXmppBindParserError.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7EB9C4121B559C5200F94871</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>HJXmppBindParserError.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7EB9C4131B559C5200F94871</key>
+		<dict>
+			<key>fileRef</key>
+			<string>7EB9C4121B559C5200F94871</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7EB9C41C1B559E8100F94871</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>HJSessionResponseParser.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7EB9C41D1B559E8100F94871</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>HJSessionResponseParser.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7EB9C41E1B559E8100F94871</key>
+		<dict>
+			<key>fileRef</key>
+			<string>7EB9C41D1B559E8100F94871</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7EB9C41F1B559FE700F94871</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>HJXmppSessionResponseError.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7EB9C4201B559FE700F94871</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>HJXmppSessionResponseError.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7EB9C4211B559FE700F94871</key>
+		<dict>
+			<key>fileRef</key>
+			<string>7EB9C4201B559FE700F94871</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7EB9C4221B55A24600F94871</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>HJHistoryFailParser.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7EB9C4231B55A24600F94871</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>HJHistoryFailParser.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7EB9C4241B55A24600F94871</key>
+		<dict>
+			<key>fileRef</key>
+			<string>7EB9C4231B55A24600F94871</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7EB9C4251B55A40D00F94871</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>HJMessageDetector.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7EB9C4261B55A40D00F94871</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>HJMessageDetector.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7EB9C4271B55A40D00F94871</key>
+		<dict>
+			<key>fileRef</key>
+			<string>7EB9C4261B55A40D00F94871</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7EB9C4281B55A8F500F94871</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>HJFinMessageParser.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7EB9C4291B55A8F500F94871</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>HJFinMessageParser.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7EB9C42A1B55A8F500F94871</key>
+		<dict>
+			<key>fileRef</key>
+			<string>7EB9C4291B55A8F500F94871</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7EB9C42B1B55A9DC00F94871</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>HJHistoryMessageParser.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7EB9C42C1B55A9DC00F94871</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>HJHistoryMessageParser.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7EB9C42D1B55A9DC00F94871</key>
+		<dict>
+			<key>fileRef</key>
+			<string>7EB9C42C1B55A9DC00F94871</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7EC77AB81B622C260068A025</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>HJXmppAuthResponseError.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7EC77AB91B622C260068A025</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>HJXmppAuthResponseError.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7EC77ABA1B622C260068A025</key>
+		<dict>
+			<key>fileRef</key>
+			<string>7EC77AB91B622C260068A025</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7ECD4DB21B5D0A0900FB2C54</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>HJXmppChatAttachmentJsonParser.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7ECD4DB31B5D0A0900FB2C54</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>HJXmppChatAttachmentJsonParser.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7ECD4DB41B5D0A0900FB2C54</key>
+		<dict>
+			<key>fileRef</key>
+			<string>7ECD4DB31B5D0A0900FB2C54</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7ED5BD501B67C45D004F2BAF</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>HJInvalidAttachmentResponseError.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7ED5BD511B67C45D004F2BAF</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>HJInvalidAttachmentResponseError.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7ED5BD521B67C45D004F2BAF</key>
+		<dict>
+			<key>fileRef</key>
+			<string>7ED5BD511B67C45D004F2BAF</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7ED5BD5B1B67C4F7004F2BAF</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>HJValidButEmptyAttachmentResponseError.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7ED5BD5C1B67C4F7004F2BAF</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>HJValidButEmptyAttachmentResponseError.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7ED5BD5D1B67C4F7004F2BAF</key>
+		<dict>
+			<key>fileRef</key>
+			<string>7ED5BD5C1B67C4F7004F2BAF</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7EEDFFAF1B5533460093DE7E</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>7EEE81CC1B567C58003FC7FC</string>
+				<string>7EEE81BE1B567C29003FC7FC</string>
+				<string>7EEE81BF1B567C29003FC7FC</string>
+				<string>7EEDFFB81B55335A0093DE7E</string>
+				<string>7EEDFFB91B55335A0093DE7E</string>
+				<string>7EEDFFBB1B5537510093DE7E</string>
+				<string>7EEDFFBC1B5537910093DE7E</string>
+				<string>7EEDFFBD1B5537910093DE7E</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>path</key>
+			<string>PacketBuilder</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7EEDFFB81B55335A0093DE7E</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>HJChatHistoryRequestBuilder.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7EEDFFB91B55335A0093DE7E</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>HJChatHistoryRequestBuilder.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7EEDFFBA1B55335A0093DE7E</key>
+		<dict>
+			<key>fileRef</key>
+			<string>7EEDFFB91B55335A0093DE7E</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7EEDFFBB1B5537510093DE7E</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>HJRandomizerForXmpp.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7EEDFFBC1B5537910093DE7E</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>HJRandomizerImpl.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7EEDFFBD1B5537910093DE7E</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>HJRandomizerImpl.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7EEDFFBE1B5537910093DE7E</key>
+		<dict>
+			<key>fileRef</key>
+			<string>7EEDFFBD1B5537910093DE7E</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7EEE81BE1B567C29003FC7FC</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>HJChatHistoryRequest.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7EEE81BF1B567C29003FC7FC</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>HJChatHistoryRequest.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7EEE81C01B567C29003FC7FC</key>
+		<dict>
+			<key>fileRef</key>
+			<string>7EEE81BF1B567C29003FC7FC</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7EEE81CC1B567C58003FC7FC</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>HJChatHistoryRequestProto.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7EEE81CD1B56BDE8003FC7FC</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>HJXmppClientImpl+UnitTest.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7EFDD7BF1B55513100430942</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>7EFDD7C81B55514400430942</string>
+				<string>7EFDD7C91B55514400430942</string>
+				<string>7EFDD7CB1B55516200430942</string>
+				<string>7EFDD7CC1B55516200430942</string>
+				<string>7EB9C4111B559C5200F94871</string>
+				<string>7EB9C4121B559C5200F94871</string>
+				<string>7EB9C41F1B559FE700F94871</string>
+				<string>7EB9C4201B559FE700F94871</string>
+				<string>7EC77AB81B622C260068A025</string>
+				<string>7EC77AB91B622C260068A025</string>
+				<string>7ED5BD501B67C45D004F2BAF</string>
+				<string>7ED5BD511B67C45D004F2BAF</string>
+				<string>7ED5BD5B1B67C4F7004F2BAF</string>
+				<string>7ED5BD5C1B67C4F7004F2BAF</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>path</key>
+			<string>Error</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7EFDD7C81B55514400430942</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>HJXmppErrorBase.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7EFDD7C91B55514400430942</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>HJXmppErrorBase.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7EFDD7CA1B55514400430942</key>
+		<dict>
+			<key>fileRef</key>
+			<string>7EFDD7C91B55514400430942</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7EFDD7CB1B55516200430942</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>HJXmppErrorForHistory.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7EFDD7CC1B55516200430942</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>HJXmppErrorForHistory.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7EFDD7CD1B55516200430942</key>
+		<dict>
+			<key>fileRef</key>
+			<string>7EFDD7CC1B55516200430942</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>A02369FE81B35869079C7B87</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.xcconfig</string>
+			<key>name</key>
+			<string>Pods-HLJXmppWebSocket.debug.xcconfig</string>
+			<key>path</key>
+			<string>../../app/HealthJoy/Pods/Target Support Files/Pods-HLJXmppWebSocket/Pods-HLJXmppWebSocket.debug.xcconfig</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>DE17CF539653B721139C41BD</key>
+		<dict>
+			<key>fileRef</key>
+			<string>05F9F6BCD3CAF5CAF470B13B</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>F29129BF06345B8F2668ED5C</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.xcconfig</string>
+			<key>name</key>
+			<string>Pods-HLJXmppWebSocket.release.xcconfig</string>
+			<key>path</key>
+			<string>../../app/HealthJoy/Pods/Target Support Files/Pods-HLJXmppWebSocket/Pods-HLJXmppWebSocket.release.xcconfig</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>FE6A32A71B9D1C164E2DCD12</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>05F9F6BCD3CAF5CAF470B13B</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Frameworks</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+	</dict>
+	<key>rootObject</key>
+	<string>7E00D3681B4D68720031D045</string>
+</dict>
+</plist>

@@ -10,6 +10,7 @@
 
 #import <HLJXmppWebSocket/XmppClient/HJXmppClientImpl.h>
 #import <HLJXmppWebSocket/WebSocket/HLJWebSocketTransportForXmpp.h>
+#import <HLJXmppWebSocket/WebSocket/SRWebSocketProtocol.h>
 
 
 #import <HLJXmppWebSocket/Error/HJXmppErrorBase.h>

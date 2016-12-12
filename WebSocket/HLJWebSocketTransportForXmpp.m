@@ -7,7 +7,7 @@
 //
 
 #import "HLJWebSocketTransportForXmpp.h"
-
+#import "SRWebSocketProtocol.h"
 #import "HJTransportForXmppDelegate.h"
 
 
