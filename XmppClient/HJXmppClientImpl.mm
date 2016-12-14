@@ -1387,7 +1387,7 @@ didFailToReceiveMessageWithError:error];
     [self->_iqIdForQueryId removeObjectForKey: queryId];
     [self->_queryIdForIqId removeObjectForKey: iqId];
 
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(200 * NSEC_PER_MSEC)),
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(300 * NSEC_PER_MSEC)),
                    dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^ {
         [strongDelegate xmppClent: self
             didLoadHistoryForRoom: roomJid
