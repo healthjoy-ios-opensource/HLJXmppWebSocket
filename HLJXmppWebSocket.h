@@ -25,3 +25,5 @@
 
 #import <HLJXmppWebSocket/Logger/HJLogger.h>
 
+#import <HLJXmppWebSocket/Helpers/XML/NSString+HTML.h>
+
