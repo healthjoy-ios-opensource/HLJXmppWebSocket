@@ -1242,7 +1242,7 @@ didFailToReceiveMessageWithError:error];
 #pragma mark - Messages
 - (void)handlePresenseOrMessageElement:(NSXMLElement *)element {
     
-    [_logger log:[NSString stringWithFormat:@"Handle Message:%@", [element XMLStringWithOptions:DDXMLNodePrettyPrint]]];
+    [_logger log:[NSString stringWithFormat:@"[XMPP] Handle Message:%@", [element XMLStringWithOptions:DDXMLNodePrettyPrint]]];
     
     BOOL isPresense = [[element name] isEqualToString: @"presence"];
     BOOL isMessage  = [[element name] isEqualToString: @"message" ];
