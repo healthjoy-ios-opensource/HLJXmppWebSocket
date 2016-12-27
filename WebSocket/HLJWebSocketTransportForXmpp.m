@@ -68,7 +68,6 @@
 - (void)webSocket:(SRWebSocket *)webSocket
 didReceiveMessage:(id)message
 {
-    NSLog(@"[TEST] Raw Message:%@", message);
     id<HJTransportForXmppDelegate> strongDelegate = self.delegate;
     [strongDelegate transport: self
             didReceiveMessage: message];

@@ -33,7 +33,6 @@ typedef id<XMPPParserProto>(^XmppParserBuilderBlock)();
  */
 - (instancetype)initWithTransport:(id<HJTransportForXmpp>)transport
                 attachmentsUpload:(id<HJAttachmentUploader>)attachmentUpload
-                xmppParserFactory:(XmppParserBuilderBlock)xmppParserFactory
                              host:(NSString*)xmppHost
                       accessToken:(NSString*)accessToken
                            logger:(id<HJLogger>)logger

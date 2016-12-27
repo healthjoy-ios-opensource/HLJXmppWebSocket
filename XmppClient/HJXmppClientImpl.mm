@@ -80,6 +80,7 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     HJRandomizerImpl           * _randomizerForHistoryBuilder;
 
     dispatch_queue_t _parserCallbackQueue;
+    dispatch_queue_t _parserQueue;
     
     id<HJLogger> _logger;
 }
@@ -97,18 +98,28 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
 
 - (dispatch_queue_t)parserCallbacksQueue {
     
-    return self->_parserCallbackQueue;
+    return _parserCallbackQueue;
+}
+
+- (dispatch_queue_t)parserQueue {
+    
+    return _parserQueue;
+}
+
+- (XMPPParser *)xmppParsersFactory {
+    
+    return [[XMPPParser alloc] initWithDelegate: self
+                                  delegateQueue:_parserCallbackQueue
+                                    parserQueue:_parserQueue];
 }
 
 - (instancetype)initWithTransport:(id<HJTransportForXmpp>)transport
                 attachmentsUpload:(id<HJAttachmentUploader>)attachmentUpload
-                xmppParserFactory:(XmppParserBuilderBlock)xmppParserFactory
                              host:(NSString*)host
                       accessToken:(NSString*)accessToken
                            logger:(id<HJLogger>)logger
 {
     NSParameterAssert(nil != transport);
-    NSParameterAssert(nil != xmppParserFactory);
     NSParameterAssert(nil != accessToken);
     NSParameterAssert(nil != host);
     
@@ -118,7 +129,8 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
         return nil;
     }
     
-    self->_parserCallbackQueue = dispatch_queue_create("com.healthjoy.chat.xmpp.client", DISPATCH_QUEUE_SERIAL);
+    _parserCallbackQueue = dispatch_queue_create("com.healthjoy.chat.xmpp.client", DISPATCH_QUEUE_SERIAL);
+    _parserQueue = dispatch_queue_create("com.healthjoy.chat.xmpp.parser", DISPATCH_QUEUE_SERIAL);
     
     self->_authStage = XMPP_PLAIN_AUTH__NOT_STARTED;
     
@@ -126,11 +138,9 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     [self->_transport setDelegate: self];
     
     self->_attachmentUpload = attachmentUpload;
-    self->_xmppParserFactory = [xmppParserFactory copy];
     
     self->_xmppHost              = host       ;
     self->_accessToken           = accessToken;
-    
     
     {
         self->_randomizerForHistoryBuilder = [HJRandomizerImpl new];
@@ -859,11 +869,7 @@ didReceiveMessage:(id)rawMessage
     
     // "parseData:" is NOT reenterable
     // https://github.com/robbiehanson/XMPPFramework/issues/560
-    dispatch_queue_t parserCallbacksQueue = [self parserCallbacksQueue];
-
-    id<XMPPParserProto> parser = self->_xmppParserFactory();
-    [parser setDelegate: self
-          delegateQueue: parserCallbacksQueue];
+    id<XMPPParserProto> parser = [self xmppParsersFactory];
     
     @synchronized (self)
     {
@@ -992,7 +998,6 @@ didFailToReceiveMessageWithError:error];
         }
     }
 }
-
 
 - (void)sendStreamRequest
 {
