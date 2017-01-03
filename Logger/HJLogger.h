@@ -8,8 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
+@class NSManagedObjectContext;
+
 @protocol HJLogger <NSObject>
 
+- (void)setDebugFlag:(NSManagedObjectContext *)context;
 - (void)log:(NSString *)logStr;
 
 @end
