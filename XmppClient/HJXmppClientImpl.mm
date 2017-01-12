@@ -280,7 +280,7 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
         @"</message>";
     
     NSString *randomMessageId = [self->_randomizerForHistoryBuilder getRandomIdForStanza];
-    NSString *escapedMessage = [messageFromUser stringByEncodingHTMLEntities];
+    NSString *escapedMessage = [self prepareValueOrBody:messageFromUser];
     
     NSString* message =
         [NSString stringWithFormat: messageFormat,
@@ -389,7 +389,7 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     @"</message>";
     
     NSString* randomRequestId = [self->_randomizerForHistoryBuilder getRandomIdForStanza];
-    NSString *escapedValue = [value stringByEncodingHTMLEntities];
+    NSString *escapedValue = [self prepareValueOrBody:value];
     
     NSString* requestSelectOption = [NSString stringWithFormat: requestSelectOptionFormat, roomJid, randomRequestId, optionID, escapedValue];
     
@@ -423,7 +423,7 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     @"</message>";
     
     NSString* randomRequestId = [self->_randomizerForHistoryBuilder getRandomIdForStanza];
-    NSString *escapedValue= [value stringByEncodingHTMLEntities];
+    NSString *escapedValue= [self prepareValueOrBody:value];
     
     NSString* requestSelectOption = [NSString stringWithFormat: requestSelectOptionFormat, roomJid, randomRequestId, optionID, escapedValue];
     
@@ -458,7 +458,7 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     @"</message>";
     
     NSString* randomRequestId = [self->_randomizerForHistoryBuilder getRandomIdForStanza];
-    NSString *escapedName= [name stringByEncodingHTMLEntities];
+    NSString *escapedName= [self prepareValueOrBody:name];
     
     NSString* requestSelectAutocomplete = [NSString stringWithFormat: requestAutocompleteItemFormat, roomJid, randomRequestId, messageID, escapedName, itemID];
     
@@ -492,7 +492,7 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     @"</message>";
     
     NSString* randomRequestId = [self->_randomizerForHistoryBuilder getRandomIdForStanza];
-    NSString *escapedText= [simpleText stringByEncodingHTMLEntities];
+    NSString *escapedText= [self prepareValueOrBody:simpleText];
     
     NSString* requestSendText = [NSString stringWithFormat: requestTextInputItemFormat, roomJid, randomRequestId, textInputID, escapedText];
     
@@ -528,7 +528,7 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     
     for(id<HJXmppChatAttachment> photo in photos)
     {
-        NSString *photoURL = (photo != nil) ? [photo.fullSizeUrl stringByEncodingHTMLEntities] : nil;
+        NSString *photoURL = (photo != nil) ? [self prepareValueOrBody:photo.fullSizeUrl] : nil;
         if(photoURL)
         {
             NSString *attachmentTag = [NSString stringWithFormat:@"<attachment>%@</attachment>", photoURL];
@@ -1549,6 +1549,17 @@ didFailToReceiveMessageWithError:error];
 }
 
 #pragma mark - Utils
+
+- (NSString *)prepareValueOrBody:(NSString *)text {
+    
+    text = [text stringByReplacingOccurrencesOfString:@"&" withString:@"&amp;"];
+    text = [text stringByReplacingOccurrencesOfString:@"'" withString:@"&apos;"];
+    text = [text stringByReplacingOccurrencesOfString:@"\"" withString:@"&quot;"];
+    text = [text stringByReplacingOccurrencesOfString:@"<" withString:@"&lt;"];
+    text = [text stringByReplacingOccurrencesOfString:@">" withString:@"&gt;"];
+    return text;
+}
+
 - (BOOL)isMessageIncoming:(id<XMPPMessageProto>)element
 {
     NSString* messageSender = [element fromStr];
