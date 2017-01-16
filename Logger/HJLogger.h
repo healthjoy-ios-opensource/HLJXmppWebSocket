@@ -12,7 +12,7 @@
 
 @protocol HJLogger <NSObject>
 
-- (void)setDebugFlag:(NSManagedObjectContext *)context;
+- (void)setDebugFlag:(BOOL)isDebug;
 - (void)log:(NSString *)logStr;
 
 @end
