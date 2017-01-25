@@ -253,10 +253,7 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     self->_pendingRooms = [NSMutableSet setWithArray: jidStringsForRooms];
     for (NSString* singlePresenseRequest in presenseRequests)
     {
-        [self->_transport send: singlePresenseRequest];
-        
-////        // For debugging purpose
-//        return;
+        [self send:singlePresenseRequest];
     }
 }
 
@@ -789,7 +786,7 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     [self addHistoryRequestToPendingList: request
                                  forRoom: roomJID];
 
-    [self->_transport send: [request dataToSend]];
+    [self send: [request dataToSend]];
 }
 
 - (void)loadHistoryForRoom:(NSString*)roomJid
