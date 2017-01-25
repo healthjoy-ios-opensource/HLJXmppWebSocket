@@ -1298,6 +1298,20 @@ didFailToReceiveMessageWithError:error];
         [strongDelegate xmppClent:self
                    didPresenseJid:elementJid];
     }
+    
+    /*<presence xmlns="jabber:client" xmlns:stream="http://etherx.jabber.org/streams" from="main_thread_test_test_77997@conf.xmpp-stage.healthjoy.com/Test Test (id 77997)" to="user+77997@xmpp-stage.healthjoy.com/25526519231485341093113151" type="unavailable" version="1.0">
+    <x xmlns="http://jabber.org/protocol/muc#user">
+    <item affiliation="none" role="none">
+    <reason>You are being removed from the room because of a system shutdown</reason>
+    </item>
+    <status code="332"/>
+    </x>
+    </presence>*/
+    if(element.statusCode == 332)
+    {
+        // WARNING!! We kicked from room, need full reconnect
+        [self disconnect];
+    }
 }
 
 - (void)handleMessage:(id<XMPPMessageProto>)element {
