@@ -504,7 +504,7 @@ typedef std::map< __strong id<XMPPParserProto>, __strong NSXMLElement* > StanzaR
     //    xmlns='jabber:client'>
     //    <x
     //    xmlns='jabber:x:icr' type='submit' id='7634ea65a4'>
-    //    <chat-input-directive value='text'/>"
+    //    <chat-photo-directive value='text'/>"
     //    <attachment>url1</attachment>
     //    <attachment>url2</attachment>
     //    <attachment>url3</attachment>
