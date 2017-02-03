@@ -11,25 +11,13 @@
 		7D31FFF11E042E86002634A2 /* NSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D31FFEF1E042E86002634A2 /* NSString+HTML.m */; settings = {COMPILER_FLAGS = "-w"; }; };
 		7E00D37C1B4D68720031D045 /* libHLJXmppWebSocket.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E00D3701B4D68720031D045 /* libHLJXmppWebSocket.a */; };
 		7E1962451B55995E00D4CD32 /* HJBindResponseParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E1962441B55995E00D4CD32 /* HJBindResponseParser.m */; };
-		7E226F4E1B50060C00E9B35C /* libKissXML-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E45D2661B500525001F9ECC /* libKissXML-iOS.a */; };
-		7E226F501B50060C00E9B35C /* libXmppFrameworkParsers.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E226F3F1B50057400E9B35C /* libXmppFrameworkParsers.a */; };
-		7E226F521B5008FB00E9B35C /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E226F511B5008FB00E9B35C /* libxml2.dylib */; };
-		7E226F541B50091100E9B35C /* libidn.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E226F531B50091100E9B35C /* libidn.a */; };
-		7E226F581B50095100E9B35C /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E226F571B50095100E9B35C /* libicucore.dylib */; };
-		7E226F671B500E6C00E9B35C /* libLinqToObjectiveC.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E226F601B500E5D00E9B35C /* libLinqToObjectiveC.a */; };
 		7E226F6B1B501BEF00E9B35C /* HLJWebSocketTransportForXmpp.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E226F6A1B501BEF00E9B35C /* HLJWebSocketTransportForXmpp.m */; };
 		7E26D5CF1B4EA94D0030F2DD /* HJXmppClientImpl.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7E26D5CE1B4EA94D0030F2DD /* HJXmppClientImpl.mm */; };
-		7E4398F51B5CF90B00FC6687 /* HJImageUploaderIntegrationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E4398F41B5CF90B00FC6687 /* HJImageUploaderIntegrationTest.m */; };
-		7E4596FA1B54087A001AD170 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E4596F91B54087A001AD170 /* libc++.dylib */; };
-		7E4596FC1B54217F001AD170 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E4596FB1B54217F001AD170 /* libiconv.dylib */; };
-		7E45D25E1B500388001F9ECC /* HLJWebSocketAuthIntegrationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E45D25D1B500388001F9ECC /* HLJWebSocketAuthIntegrationTest.m */; };
 		7E59C2F31B6829D5003DAD15 /* HJMockAttachmentUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E6F87E51B5800EA0057B504 /* HJMockAttachmentUploader.m */; };
 		7E59C2FC1B6829DB003DAD15 /* HJMockSuccessAttachmentUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EB0EE4A1B593A0500F319CC /* HJMockSuccessAttachmentUploader.m */; };
 		7E59C2FD1B6829DB003DAD15 /* HJMockErrorAttachmentUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E15409B1B599F01007771A8 /* HJMockErrorAttachmentUploader.m */; };
-		7E8768991B598D660080835A /* HJIncomingXmppMessagesIntegrationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E8768981B598D660080835A /* HJIncomingXmppMessagesIntegrationTest.m */; };
 		7EB0EE061B58FDD200F319CC /* HJXmppAttachmentsParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EB0EE051B58FDD200F319CC /* HJXmppAttachmentsParser.m */; };
 		7EB0EE451B59097800F319CC /* HJXmppChatAttachmentPOD.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EB0EE441B59097800F319CC /* HJXmppChatAttachmentPOD.m */; };
-		7EB0EE471B59368E00F319CC /* monkey-selfie.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7EB0EE461B59368E00F319CC /* monkey-selfie.jpg */; };
 		7EB0EE4E1B5945B900F319CC /* HJUrlSessionImageUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EB0EE4D1B5945B900F319CC /* HJUrlSessionImageUploader.m */; };
 		7EB9C4131B559C5200F94871 /* HJXmppBindParserError.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EB9C4121B559C5200F94871 /* HJXmppBindParserError.m */; };
 		7EB9C41E1B559E8100F94871 /* HJSessionResponseParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EB9C41D1B559E8100F94871 /* HJSessionResponseParser.m */; };
@@ -58,69 +46,6 @@
 			remoteGlobalIDString = 7E00D36F1B4D68720031D045;
 			remoteInfo = HLJXmppWebSocket;
 		};
-		7E226F3E1B50057400E9B35C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7E26D5BE1B4EA1E10030F2DD /* XmppFrameworkParsers.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 7E7721001B4D84130082FA43;
-			remoteInfo = XmppFrameworkParsers;
-		};
-		7E226F401B50057400E9B35C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7E26D5BE1B4EA1E10030F2DD /* XmppFrameworkParsers.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 7E77210B1B4D84130082FA43;
-			remoteInfo = XmppFrameworkParsersTests;
-		};
-		7E226F4A1B5005FB00E9B35C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7E4F126B1B4FCB75001F1769 /* KissXML-iOS.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 7E7720B71B4D75740082FA43;
-			remoteInfo = "KissXML-iOS";
-		};
-		7E226F4C1B5005FB00E9B35C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7E26D5BE1B4EA1E10030F2DD /* XmppFrameworkParsers.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 7E7720FF1B4D84130082FA43;
-			remoteInfo = XmppFrameworkParsers;
-		};
-		7E226F5F1B500E5D00E9B35C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7E226F591B500E5D00E9B35C /* LinqToObjectiveC.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 7E8F43811A8B92D5000F5D01;
-			remoteInfo = LinqToObjectiveC;
-		};
-		7E226F611B500E5D00E9B35C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7E226F591B500E5D00E9B35C /* LinqToObjectiveC.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 7EEE35A81AB4711000668C3E;
-			remoteInfo = "LinqToObjectiveC-iOS-dynamic";
-		};
-		7E226F631B500E5D00E9B35C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7E226F591B500E5D00E9B35C /* LinqToObjectiveC.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 7EEE35CB1AB4718500668C3E;
-			remoteInfo = "LinqToObjectiveC-iOS-static";
-		};
-		7E226F651B500E6600E9B35C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7E226F591B500E5D00E9B35C /* LinqToObjectiveC.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 7E8F43801A8B92D5000F5D01;
-			remoteInfo = LinqToObjectiveC;
-		};
-		7E45D2651B500525001F9ECC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7E4F126B1B4FCB75001F1769 /* KissXML-iOS.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 7E7720B81B4D75740082FA43;
-			remoteInfo = "KissXML-iOS";
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -145,28 +70,17 @@
 		7DC5EF711D4F8EED00E6CFC9 /* HJLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HJLogger.h; path = Logger/HJLogger.h; sourceTree = "<group>"; };
 		7E00D3701B4D68720031D045 /* libHLJXmppWebSocket.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libHLJXmppWebSocket.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E00D37B1B4D68720031D045 /* HLJXmppWebSocketTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HLJXmppWebSocketTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		7E00D3811B4D68720031D045 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7E15409A1B599F01007771A8 /* HJMockErrorAttachmentUploader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJMockErrorAttachmentUploader.h; sourceTree = "<group>"; };
 		7E15409B1B599F01007771A8 /* HJMockErrorAttachmentUploader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJMockErrorAttachmentUploader.m; sourceTree = "<group>"; };
 		7E1962431B55995E00D4CD32 /* HJBindResponseParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJBindResponseParser.h; sourceTree = "<group>"; };
 		7E1962441B55995E00D4CD32 /* HJBindResponseParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJBindResponseParser.m; sourceTree = "<group>"; };
-		7E226F511B5008FB00E9B35C /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
-		7E226F531B50091100E9B35C /* libidn.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libidn.a; path = ../../libidn/libidn.a; sourceTree = "<group>"; };
-		7E226F571B50095100E9B35C /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
-		7E226F591B500E5D00E9B35C /* LinqToObjectiveC.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = LinqToObjectiveC.xcodeproj; path = ../../LinqToObjectiveC/LinqToObjectiveC/LinqToObjectiveC.xcodeproj; sourceTree = "<group>"; };
 		7E226F691B501BEF00E9B35C /* HLJWebSocketTransportForXmpp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HLJWebSocketTransportForXmpp.h; sourceTree = "<group>"; };
 		7E226F6A1B501BEF00E9B35C /* HLJWebSocketTransportForXmpp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HLJWebSocketTransportForXmpp.m; sourceTree = "<group>"; };
-		7E26D5BE1B4EA1E10030F2DD /* XmppFrameworkParsers.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = XmppFrameworkParsers.xcodeproj; path = ../../XmppFrameworkParsers/XmppFrameworkParsers.xcodeproj; sourceTree = "<group>"; };
 		7E26D5C71B4EA2260030F2DD /* HJTransportForXmpp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJTransportForXmpp.h; sourceTree = "<group>"; };
 		7E26D5CD1B4EA94D0030F2DD /* HJXmppClientImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJXmppClientImpl.h; sourceTree = "<group>"; };
 		7E26D5CE1B4EA94D0030F2DD /* HJXmppClientImpl.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = HJXmppClientImpl.mm; sourceTree = "<group>"; };
 		7E26D5DD1B4EC2390030F2DD /* HJAuthenticationStages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJAuthenticationStages.h; sourceTree = "<group>"; };
 		7E26D5DE1B4EC5780030F2DD /* HJTransportForXmppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJTransportForXmppDelegate.h; sourceTree = "<group>"; };
-		7E4398F41B5CF90B00FC6687 /* HJImageUploaderIntegrationTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJImageUploaderIntegrationTest.m; sourceTree = "<group>"; };
-		7E4596F91B54087A001AD170 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
-		7E4596FB1B54217F001AD170 /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
-		7E45D25D1B500388001F9ECC /* HLJWebSocketAuthIntegrationTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HLJWebSocketAuthIntegrationTest.m; sourceTree = "<group>"; };
-		7E4F126B1B4FCB75001F1769 /* KissXML-iOS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "KissXML-iOS.xcodeproj"; path = "../../KissXML/KissXML-iOS.xcodeproj"; sourceTree = "<group>"; };
 		7E56BF981B4D8A8700D27597 /* HJXmppClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJXmppClient.h; sourceTree = "<group>"; };
 		7E56BF991B4D8A9D00D27597 /* HJXmppClientDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJXmppClientDelegate.h; sourceTree = "<group>"; };
 		7E6F87DD1B57ED580057B504 /* HJXmppChatAttachment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJXmppChatAttachment.h; sourceTree = "<group>"; };
@@ -175,12 +89,10 @@
 		7E6F87E51B5800EA0057B504 /* HJMockAttachmentUploader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJMockAttachmentUploader.m; sourceTree = "<group>"; };
 		7E7720E71B4D78470082FA43 /* HLJXmppWebSocket.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLJXmppWebSocket.pch; sourceTree = "<group>"; };
 		7E7B9A9E1B4D727200FB15F1 /* HLJXmppWebSocket.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLJXmppWebSocket.h; sourceTree = "<group>"; };
-		7E8768981B598D660080835A /* HJIncomingXmppMessagesIntegrationTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJIncomingXmppMessagesIntegrationTest.m; sourceTree = "<group>"; };
 		7EB0EE041B58FDD200F319CC /* HJXmppAttachmentsParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJXmppAttachmentsParser.h; sourceTree = "<group>"; };
 		7EB0EE051B58FDD200F319CC /* HJXmppAttachmentsParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJXmppAttachmentsParser.m; sourceTree = "<group>"; };
 		7EB0EE431B59097800F319CC /* HJXmppChatAttachmentPOD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJXmppChatAttachmentPOD.h; sourceTree = "<group>"; };
 		7EB0EE441B59097800F319CC /* HJXmppChatAttachmentPOD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJXmppChatAttachmentPOD.m; sourceTree = "<group>"; };
-		7EB0EE461B59368E00F319CC /* monkey-selfie.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "monkey-selfie.jpg"; sourceTree = "<group>"; };
 		7EB0EE491B593A0500F319CC /* HJMockSuccessAttachmentUploader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJMockSuccessAttachmentUploader.h; sourceTree = "<group>"; };
 		7EB0EE4A1B593A0500F319CC /* HJMockSuccessAttachmentUploader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJMockSuccessAttachmentUploader.m; sourceTree = "<group>"; };
 		7EB0EE4C1B5945B900F319CC /* HJUrlSessionImageUploader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJUrlSessionImageUploader.h; sourceTree = "<group>"; };
@@ -237,14 +149,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7E4596FC1B54217F001AD170 /* libiconv.dylib in Frameworks */,
-				7E4596FA1B54087A001AD170 /* libc++.dylib in Frameworks */,
-				7E226F671B500E6C00E9B35C /* libLinqToObjectiveC.a in Frameworks */,
-				7E226F581B50095100E9B35C /* libicucore.dylib in Frameworks */,
-				7E226F521B5008FB00E9B35C /* libxml2.dylib in Frameworks */,
-				7E226F4E1B50060C00E9B35C /* libKissXML-iOS.a in Frameworks */,
-				7E226F541B50091100E9B35C /* libidn.a in Frameworks */,
-				7E226F501B50060C00E9B35C /* libXmppFrameworkParsers.a in Frameworks */,
 				7E00D37C1B4D68720031D045 /* libHLJXmppWebSocket.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -293,7 +197,6 @@
 			isa = PBXGroup;
 			children = (
 				7E7B9A9D1B4D726300FB15F1 /* Sources */,
-				7E00D37F1B4D68720031D045 /* HLJXmppWebSocketTests */,
 				7E00D3711B4D68720031D045 /* Products */,
 				26D2B64CDDBCC769733A88BF /* Pods */,
 				FE6A32A71B9D1C164E2DCD12 /* Frameworks */,
@@ -307,34 +210,6 @@
 				7E00D37B1B4D68720031D045 /* HLJXmppWebSocketTests.xctest */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		7E00D37F1B4D68720031D045 /* HLJXmppWebSocketTests */ = {
-			isa = PBXGroup;
-			children = (
-				7EB0EE461B59368E00F319CC /* monkey-selfie.jpg */,
-				7E4596FB1B54217F001AD170 /* libiconv.dylib */,
-				7E4596F91B54087A001AD170 /* libc++.dylib */,
-				7E226F571B50095100E9B35C /* libicucore.dylib */,
-				7E226F511B5008FB00E9B35C /* libxml2.dylib */,
-				7E226F531B50091100E9B35C /* libidn.a */,
-				7E226F591B500E5D00E9B35C /* LinqToObjectiveC.xcodeproj */,
-				7E4F126B1B4FCB75001F1769 /* KissXML-iOS.xcodeproj */,
-				7E26D5BE1B4EA1E10030F2DD /* XmppFrameworkParsers.xcodeproj */,
-				7E00D3801B4D68720031D045 /* Supporting Files */,
-				7E45D25D1B500388001F9ECC /* HLJWebSocketAuthIntegrationTest.m */,
-				7E8768981B598D660080835A /* HJIncomingXmppMessagesIntegrationTest.m */,
-				7E4398F41B5CF90B00FC6687 /* HJImageUploaderIntegrationTest.m */,
-			);
-			path = HLJXmppWebSocketTests;
-			sourceTree = "<group>";
-		};
-		7E00D3801B4D68720031D045 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				7E00D3811B4D68720031D045 /* Info.plist */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		7E19623A1B55993E00D4CD32 /* Parser */ = {
@@ -358,25 +233,6 @@
 			path = Parser;
 			sourceTree = "<group>";
 		};
-		7E226F331B50057400E9B35C /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				7E226F3F1B50057400E9B35C /* libXmppFrameworkParsers.a */,
-				7E226F411B50057400E9B35C /* XmppFrameworkParsersTests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		7E226F5A1B500E5D00E9B35C /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				7E226F601B500E5D00E9B35C /* libLinqToObjectiveC.a */,
-				7E226F621B500E5D00E9B35C /* LinqToObjectiveC.framework */,
-				7E226F641B500E5D00E9B35C /* LinqToObjectiveC.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		7E226F681B501BD800E9B35C /* WebSocket */ = {
 			isa = PBXGroup;
 			children = (
@@ -385,14 +241,6 @@
 				7E226F6A1B501BEF00E9B35C /* HLJWebSocketTransportForXmpp.m */,
 			);
 			path = WebSocket;
-			sourceTree = "<group>";
-		};
-		7E45D2621B500525001F9ECC /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				7E45D2661B500525001F9ECC /* libKissXML-iOS.a */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		7E56BF971B4D8A7400D27597 /* XmppClient */ = {
@@ -525,9 +373,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				7E226F661B500E6600E9B35C /* PBXTargetDependency */,
-				7E226F4B1B5005FB00E9B35C /* PBXTargetDependency */,
-				7E226F4D1B5005FB00E9B35C /* PBXTargetDependency */,
 				7E00D37E1B4D68720031D045 /* PBXTargetDependency */,
 			);
 			name = HLJXmppWebSocketTests;
@@ -562,20 +407,6 @@
 			mainGroup = 7E00D3671B4D68720031D045;
 			productRefGroup = 7E00D3711B4D68720031D045 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 7E45D2621B500525001F9ECC /* Products */;
-					ProjectRef = 7E4F126B1B4FCB75001F1769 /* KissXML-iOS.xcodeproj */;
-				},
-				{
-					ProductGroup = 7E226F5A1B500E5D00E9B35C /* Products */;
-					ProjectRef = 7E226F591B500E5D00E9B35C /* LinqToObjectiveC.xcodeproj */;
-				},
-				{
-					ProductGroup = 7E226F331B50057400E9B35C /* Products */;
-					ProjectRef = 7E26D5BE1B4EA1E10030F2DD /* XmppFrameworkParsers.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				7E00D36F1B4D68720031D045 /* HLJXmppWebSocket */,
@@ -584,57 +415,11 @@
 		};
 /* End PBXProject section */
 
-/* Begin PBXReferenceProxy section */
-		7E226F3F1B50057400E9B35C /* libXmppFrameworkParsers.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libXmppFrameworkParsers.a;
-			remoteRef = 7E226F3E1B50057400E9B35C /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7E226F411B50057400E9B35C /* XmppFrameworkParsersTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = XmppFrameworkParsersTests.xctest;
-			remoteRef = 7E226F401B50057400E9B35C /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7E226F601B500E5D00E9B35C /* libLinqToObjectiveC.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libLinqToObjectiveC.a;
-			remoteRef = 7E226F5F1B500E5D00E9B35C /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7E226F621B500E5D00E9B35C /* LinqToObjectiveC.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = LinqToObjectiveC.framework;
-			remoteRef = 7E226F611B500E5D00E9B35C /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7E226F641B500E5D00E9B35C /* LinqToObjectiveC.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = LinqToObjectiveC.framework;
-			remoteRef = 7E226F631B500E5D00E9B35C /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7E45D2661B500525001F9ECC /* libKissXML-iOS.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = "libKissXML-iOS.a";
-			remoteRef = 7E45D2651B500525001F9ECC /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
-
 /* Begin PBXResourcesBuildPhase section */
 		7E00D3791B4D68720031D045 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7EB0EE471B59368E00F319CC /* monkey-selfie.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -712,9 +497,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7E4398F51B5CF90B00FC6687 /* HJImageUploaderIntegrationTest.m in Sources */,
-				7E8768991B598D660080835A /* HJIncomingXmppMessagesIntegrationTest.m in Sources */,
-				7E45D25E1B500388001F9ECC /* HLJWebSocketAuthIntegrationTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -725,21 +507,6 @@
 			isa = PBXTargetDependency;
 			target = 7E00D36F1B4D68720031D045 /* HLJXmppWebSocket */;
 			targetProxy = 7E00D37D1B4D68720031D045 /* PBXContainerItemProxy */;
-		};
-		7E226F4B1B5005FB00E9B35C /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "KissXML-iOS";
-			targetProxy = 7E226F4A1B5005FB00E9B35C /* PBXContainerItemProxy */;
-		};
-		7E226F4D1B5005FB00E9B35C /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = XmppFrameworkParsers;
-			targetProxy = 7E226F4C1B5005FB00E9B35C /* PBXContainerItemProxy */;
-		};
-		7E226F661B500E6600E9B35C /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = LinqToObjectiveC;
-			targetProxy = 7E226F651B500E6600E9B35C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
